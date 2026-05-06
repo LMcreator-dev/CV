@@ -8,16 +8,29 @@ export interface Experience {
   company: string;
   position: string;
   period: string;
+  start: string;
+  end: string;
   description: string;
   highlights: string[];
+  subItems?: TimelineSubItem[];
 }
 
 export interface Education {
   institution: string;
   title: string;
   period: string;
+  start: string;
+  end: string;
   location?: string;
   details: string[];
+}
+
+export interface TimelineSubItem {
+  title: string;
+  period: string;
+  start: string;
+  end: string;
+  description: string;
 }
 
 export interface Certification {
@@ -95,6 +108,8 @@ export const experiences: Experience[] = [
     company: "WAKKEIT",
     position: "Consultor IT",
     period: "Junio 2022 - Noviembre 2025",
+    start: "2022-06",
+    end: "2025-11",
     description:
       "Consultoría IT en entornos enterprise para AENA, TMB, SEAT y SegurCaixa Adeslas.",
     highlights: [
@@ -103,11 +118,46 @@ export const experiences: Experience[] = [
       "SEAT, diciembre 2022 - noviembre 2025: desarrollo de flows OO, lectura de BBDD, envío de correos, reinicios, conectores API para Zabbix y mantenimiento de Grafana.",
       "SegurCaixa Adeslas, junio 2022 - diciembre 2022: despliegue SCCM e instalación en clínicas dentales.",
     ],
+    subItems: [
+      {
+        title: "SegurCaixa Adeslas",
+        period: "Junio 2022 - Diciembre 2022",
+        start: "2022-06",
+        end: "2022-12",
+        description: "Despliegue SCCM e instalación en clínicas dentales.",
+      },
+      {
+        title: "SEAT",
+        period: "Diciembre 2022 - Noviembre 2025",
+        start: "2022-12",
+        end: "2025-11",
+        description:
+          "Flows OO, lectura de BBDD, envío de correos, reinicios, conectores API para Zabbix y mantenimiento de Grafana.",
+      },
+      {
+        title: "TMB",
+        period: "Julio 2024 - Noviembre 2025",
+        start: "2024-07",
+        end: "2025-11",
+        description:
+          "Administración y desarrollo OO: navegaciones sintéticas, reinicios, reportes y remediaciones Windows/Linux.",
+      },
+      {
+        title: "AENA",
+        period: "Enero 2025 - Noviembre 2025",
+        start: "2025-01",
+        end: "2025-11",
+        description:
+          "Migración completa, administración, incidencias y mantenimiento de Zabbix 5.0 a 7.0.",
+      },
+    ],
   },
   {
     company: "Espacio Information Technology",
     position: "Especialista en Microinformática",
     period: "Abril 2022 - Junio 2022",
+    start: "2022-04",
+    end: "2022-06",
     description:
       "Soporte in situ en Torre Emperador para incidencias de usuario, hardware y oficina.",
     highlights: [
@@ -120,6 +170,8 @@ export const experiences: Experience[] = [
     company: "Landatel Comunicaciones",
     position: "Técnico Informático",
     period: "Junio 2021 - Agosto 2021",
+    start: "2021-06",
+    end: "2021-08",
     description:
       "Reparación y valoración de equipos informáticos, cámaras, hubs, switches y firmware.",
     highlights: [
@@ -132,6 +184,8 @@ export const experiences: Experience[] = [
     company: "SERTEC INGENIERÍA",
     position: "Oficial Electricista",
     period: "Marzo 2019 - Septiembre 2019",
+    start: "2019-03",
+    end: "2019-09",
     description:
       "Trabajo técnico en instalaciones eléctricas y comunicaciones en La Garena, Madrid.",
     highlights: [
@@ -144,6 +198,8 @@ export const experiences: Experience[] = [
     company: "VODAFONE / Icono",
     position: "Instalador",
     period: "Junio 2018 - Septiembre 2018",
+    start: "2018-06",
+    end: "2018-09",
     description:
       "Instalaciones y mantenimiento para servicios de telecomunicaciones en Humanes, Madrid.",
     highlights: [
@@ -156,6 +212,8 @@ export const experiences: Experience[] = [
     company: "Acecho Seguridad",
     position: "Técnico",
     period: "Abril 2018 - Junio 2018",
+    start: "2018-04",
+    end: "2018-06",
     description:
       "Instalaciones y mantenimiento de sistemas de seguridad en Madrid centro.",
     highlights: [
@@ -171,6 +229,8 @@ export const education: Education[] = [
     institution: "ANDEL",
     title: "Grado Superior en Informática - ASIR",
     period: "2020 - 2022",
+    start: "2020-09",
+    end: "2022-06",
     location: "Alcorcón, Madrid",
     details: [
       "Administración de sistemas informáticos en red.",
@@ -181,6 +241,8 @@ export const education: Education[] = [
     institution: "IES Luis de Lucena",
     title: "Grado Medio en Instalación y Mantenimiento de Telecomunicaciones",
     period: "2016 - 2018",
+    start: "2016-09",
+    end: "2018-06",
     location: "Guadalajara",
     details: [
       "Instalación y mantenimiento de telecomunicaciones.",
@@ -190,7 +252,9 @@ export const education: Education[] = [
   {
     institution: "PUNTO OMEGA",
     title: "Montaje y mantenimiento de instalaciones eléctricas de baja tensión",
-    period: "2019",
+    period: "2020",
+    start: "2020-01",
+    end: "2020-06",
     location: "Móstoles, Madrid",
     details: [
       "Formación técnica en instalaciones eléctricas de baja tensión.",
@@ -200,6 +264,8 @@ export const education: Education[] = [
     institution: "ENAE003PO",
     title: "Diseño y mantenimiento de instalaciones fotovoltaicas",
     period: "2019",
+    start: "2019-10",
+    end: "2019-12",
     details: [
       "Formación en diseño, mantenimiento e instalación fotovoltaica.",
     ],

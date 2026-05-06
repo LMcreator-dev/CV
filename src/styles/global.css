@@ -422,9 +422,10 @@ a {
 }
 
 .career-timeline {
+  --month-scale: 1.28rem;
   position: relative;
-  display: grid;
-  gap: 1.15rem;
+  height: calc(var(--timeline-months) * var(--month-scale));
+  min-height: 92rem;
   padding: 0.5rem 0 2.2rem;
 }
 
@@ -444,8 +445,26 @@ a {
   transform: translateX(-50%);
 }
 
+.career-year {
+  position: absolute;
+  top: calc(var(--year-start) * var(--month-scale));
+  left: 50%;
+  z-index: 3;
+  border-radius: 999px;
+  padding: 0.12rem 0.42rem;
+  background: rgba(245, 247, 251, 0.94);
+  border: 1px solid rgba(217, 224, 235, 0.9);
+  color: var(--color-ink-soft);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  transform: translateX(-50%);
+}
+
 .career-entry {
-  position: relative;
+  position: absolute;
+  top: calc(var(--start) * var(--month-scale));
+  left: 0;
+  right: 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   column-gap: clamp(2rem, 5vw, 4rem);
@@ -476,6 +495,7 @@ a {
 
 .career-card {
   position: relative;
+  min-height: calc(var(--visual-duration) * var(--month-scale));
   padding: 1.05rem 1.15rem;
 }
 
@@ -547,6 +567,52 @@ a {
 .career-card li {
   margin-bottom: 0.24rem;
   color: var(--color-ink-soft);
+}
+
+.workstream-list {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.workstream-item {
+  position: relative;
+  min-height: clamp(3.3rem, calc(var(--sub-duration) * 0.48rem), 11rem);
+  padding: 0.62rem 0.72rem 0.62rem 1rem;
+  border: 1px solid rgba(217, 224, 235, 0.72);
+  border-radius: var(--radius-md);
+  background: rgba(245, 247, 251, 0.78);
+}
+
+.workstream-item::before {
+  content: "";
+  position: absolute;
+  top: 0.7rem;
+  bottom: 0.7rem;
+  left: -0.18rem;
+  width: 0.24rem;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, var(--color-accent), var(--color-accent-2));
+}
+
+.workstream-item p {
+  margin: 0;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.74rem;
+  color: #0f7974;
+}
+
+.workstream-item h4 {
+  margin: 0.25rem 0 0;
+  font-family: "Sora", sans-serif;
+  font-size: 0.98rem;
+}
+
+.workstream-item span {
+  display: block;
+  margin-top: 0.28rem;
+  color: var(--color-ink-soft);
+  font-size: 0.92rem;
 }
 
 .cert-grid {
@@ -803,7 +869,16 @@ a {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .career-timeline {
+    --month-scale: 1.16rem;
+    min-height: 84rem;
+  }
+
   .career-timeline::before {
+    left: 0.7rem;
+  }
+
+  .career-year {
     left: 0.7rem;
   }
 

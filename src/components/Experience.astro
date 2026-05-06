@@ -5,16 +5,29 @@ interface ExperienceRow {
   company: string;
   position: string;
   period: string;
+  start: string;
+  end: string;
   description: string;
   highlights: string[];
+  subItems?: TimelineSubItem[];
 }
 
 interface EducationRow {
   institution: string;
   title: string;
   period: string;
+  start: string;
+  end: string;
   location?: string;
   details: string[];
+}
+
+interface TimelineSubItem {
+  title: string;
+  period: string;
+  start: string;
+  end: string;
+  description: string;
 }
 
 interface Props {
@@ -25,56 +38,80 @@ interface Props {
 
 const { title, experiences, education } = Astro.props;
 
-const months: Record<string, number> = {
-  enero: 1,
-  febrero: 2,
-  marzo: 3,
-  abril: 4,
-  mayo: 5,
-  junio: 6,
-  julio: 7,
-  agosto: 8,
-  septiembre: 9,
-  octubre: 10,
-  noviembre: 11,
-  diciembre: 12,
+const timelineStart = "2016-09";
+const timelineEnd = "2025-11";
+
+const toMonthIndex = (value: string) => {
+  const [year, month] = value.split("-").map(Number);
+
+  return year * 12 + month - 1;
 };
 
-const normalize = (value: string) =>
-  value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-
-const getSortValue = (period: string) => {
-  const parts = period.split("-").map((part) => part.trim());
-  const end = parts.at(-1) ?? period;
-  const years = end.match(/\d{4}/g) ?? period.match(/\d{4}/g) ?? [];
-  const year = Number(years.at(-1) ?? 0);
-  const normalizedEnd = normalize(end);
-  const month =
-    Object.entries(months).find(([name]) => normalizedEnd.includes(name))?.[1] ?? 12;
-
-  return year * 100 + month;
-};
+const monthDiff = (start: string, end: string) => toMonthIndex(end) - toMonthIndex(start);
+const durationInMonths = (start: string, end: string) => Math.max(1, monthDiff(start, end) + 1);
+const timelineMonths = durationInMonths(timelineStart, timelineEnd);
 
 const timelineItems = [
   ...experiences.map((item) => ({
     kind: "experience" as const,
     period: item.period,
+    start: item.start,
+    end: item.end,
     title: item.position,
     organization: item.company,
     description: item.description,
     details: item.highlights,
-    sortValue: getSortValue(item.period),
+    subItems: item.subItems ?? [],
   })),
   ...education.map((item) => ({
     kind: "education" as const,
     period: item.period,
+    start: item.start,
+    end: item.end,
     title: item.title,
     organization: item.institution,
     location: item.location,
     details: item.details,
-    sortValue: getSortValue(item.period),
+    subItems: [],
   })),
-].sort((a, b) => b.sortValue - a.sortValue);
+].sort((a, b) => toMonthIndex(a.start) - toMonthIndex(b.start));
+
+const branchCursor = {
+  education: -1.4,
+  experience: -1.4,
+};
+
+const positionedTimelineItems = timelineItems.map((item) => {
+  const rawStart = monthDiff(timelineStart, item.start);
+  const duration = durationInMonths(item.start, item.end);
+  const minimumDuration = item.subItems.length > 0 ? 36 : item.kind === "education" ? 4 : 7;
+  const visualDuration = Math.max(duration, minimumDuration);
+  const positionedStart = Math.max(rawStart, branchCursor[item.kind] + 1.4);
+
+  branchCursor[item.kind] = positionedStart + visualDuration;
+
+  return {
+    ...item,
+    duration,
+    positionedStart,
+    visualDuration,
+  };
+});
+
+const timelineLayoutMonths = Math.ceil(
+  Math.max(timelineMonths, branchCursor.education, branchCursor.experience) + 4,
+);
+
+const timelineYears = Array.from({ length: 9 }, (_, index) => 2017 + index).map((year) => ({
+  year,
+  offset: Math.max(0, monthDiff(timelineStart, `${year}-01`)),
+}));
+
+const getEntryStyle = (item: { positionedStart: number; duration: number; visualDuration: number }) =>
+  `--start: ${item.positionedStart}; --duration: ${item.duration}; --visual-duration: ${item.visualDuration};`;
+
+const getSubItemStyle = (parent: { start: string }, item: TimelineSubItem) =>
+  `--sub-start: ${Math.max(0, monthDiff(parent.start, item.start))}; --sub-duration: ${durationInMonths(item.start, item.end)};`;
 ---
 
 <section class="section" id="experience">
@@ -88,9 +125,14 @@ const timelineItems = [
       <span><i class="legend-dot legend-dot-study"></i>Estudios</span>
       <span><i class="legend-dot legend-dot-work"></i>Experiencia</span>
     </div>
-    <div class="career-timeline">
-      {timelineItems.map((item) => (
-        <article class={`career-entry career-entry-${item.kind}`}>
+    <div class="career-timeline" style={`--timeline-months: ${timelineLayoutMonths};`}>
+      {timelineYears.map((item) => (
+        <span class="career-year" style={`--year-start: ${item.offset};`}>
+          {item.year}
+        </span>
+      ))}
+      {positionedTimelineItems.map((item) => (
+        <article class={`career-entry career-entry-${item.kind}`} style={getEntryStyle(item)}>
           <div class={`career-marker career-marker-${item.kind}`} aria-hidden="true"></div>
           <div class="card career-card">
             <p class="timeline-period">{item.period}</p>
@@ -103,11 +145,23 @@ const timelineItems = [
               <p class="career-location">{item.location}</p>
             )}
             {"description" in item && item.description && <p>{item.description}</p>}
-            <ul>
-              {item.details.map((detail) => (
-                <li>{detail}</li>
-              ))}
-            </ul>
+            {item.subItems.length > 0 ? (
+              <div class="workstream-list" aria-label={`Trabajos dentro de ${item.organization}`}>
+                {item.subItems.map((subItem) => (
+                  <article class="workstream-item" style={getSubItemStyle(item, subItem)}>
+                    <p>{subItem.period}</p>
+                    <h4>{subItem.title}</h4>
+                    <span>{subItem.description}</span>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <ul>
+                {item.details.map((detail) => (
+                  <li>{detail}</li>
+                ))}
+              </ul>
+            )}
           </div>
         </article>
       ))}

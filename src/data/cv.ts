@@ -343,8 +343,8 @@ export const education: Education[] = [
   {
     institution: "PUNTO OMEGA",
     title: "Montaje y mantenimiento de instalaciones eléctricas de baja tensión",
-    period: "Enero 2020 - Junio 2020",
-    start: "2020-01",
+    period: "Octubre 2019 - Junio 2020",
+    start: "2019-10",
     end: "2020-06",
     location: "Móstoles, Madrid",
     details: [
@@ -381,5 +381,13 @@ export const projects: Project[] = [
     image: assetUrl("projects/carta-digital-lm-thumbnail.png"),
     technologies: ["BBDD", "Astro"],
     link: "https://lmcreator-dev.github.io/CartaDigitalLM/?cliente=demo",
+  },
+  {
+    title: "Chatbot RAG",
+    description:
+      "Desarrollo de un chatbot basado en Retrieval-Augmented Generation (RAG) para mejorar la interacción con los usuarios.",
+    image: assetUrl("projects/chatbot-rag-thumbnail.png"),
+    technologies: ["n8n", "APIs", "RAG", "LLMs", "BBDD vectoriales"],
+    link: "",
   },
 ];

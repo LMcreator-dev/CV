@@ -10,21 +10,21 @@ const levelLabels = {
   1: "Bajo",
   2: "Medio",
   3: "Alto",
-  4: "Top",
+  4: "Muy Alto",
 } as const;
 ---
 
 <article class="card card-skill">
-  <div class="knowledge-level" aria-label={`Nivel ${levelLabels[level]}`}>
+  <div class:list={["knowledge-level", `knowledge-level-${level}`]} aria-label={`Nivel ${levelLabels[level]}`}>
     <span class:list={["knowledge-bar", "knowledge-bar-green", level === 1 && "is-active"]}></span>
     <span class:list={["knowledge-bar", "knowledge-bar-yellow", level === 2 && "is-active"]}></span>
     <span class:list={["knowledge-bar", "knowledge-bar-red", level === 3 && "is-active"]}></span>
     <span class:list={["knowledge-bar", "knowledge-bar-black", level === 4 && "is-active"]}></span>
+    <span class:list={["knowledge-hover-tag", `knowledge-hover-tag-${level}`]}>{levelLabels[level]}</span>
   </div>
   <div class="knowledge-body">
     <div class="knowledge-heading">
       <h3>{name}</h3>
-      <span class="knowledge-tag">{levelLabels[level]}</span>
     </div>
     <p>{description}</p>
   </div>

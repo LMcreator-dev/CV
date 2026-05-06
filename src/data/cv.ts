@@ -1,6 +1,12 @@
 export interface Knowledge {
   name: string;
   level: 1 | 2 | 3 | 4;
+  group:
+    | "Automatización y Desarrollo"
+    | "Observabilidad y Operación"
+    | "Infraestructura y Seguridad"
+    | "Gestión y Comunicación"
+    | "Capacidades Profesionales";
   description: string;
 }
 
@@ -74,97 +80,116 @@ export const knowledge: Knowledge[] = [
   {
     name: "Zabbix",
     level: 2,
+    group: "Observabilidad y Operación",
     description: "Migraciones completas 5.x a 7.x, plantillas y estandarización de monitoreo.",
   },
   {
     name: "Operation Orchestration",
     level: 4,
+    group: "Observabilidad y Operación",
     description: "Diseño de flows para remediaciones, navegaciones sintéticas y tareas repetitivas.",
   },
   {
     name: "Grafana",
     level: 2,
+    group: "Observabilidad y Operación",
     description: "Dashboards operativos con KPIs para equipos de sistemas y soporte.",
   },
   {
     name: "SCCM",
     level: 2,
+    group: "Observabilidad y Operación",
     description: "Despliegue y operación de herramientas de gestión de endpoints.",
   },
   {
     name: "Redes e IP",
     level: 2,
+    group: "Infraestructura y Seguridad",
     description: "Cableado estructurado, switches, cámaras IP y troubleshooting de campo.",
   },
   {
     name: "Seguridad técnica",
     level: 2,
+    group: "Infraestructura y Seguridad",
     description: "Integración de sistemas de detección, alarmas y buenas prácticas base.",
   },
   {
     name: "Powershell",
     level: 4,
+    group: "Automatización y Desarrollo",
     description: "Dominancia del lenguaje de programación.",
   },
   {
     name: "APIs",
     level: 2,
+    group: "Automatización y Desarrollo",
     description: "Conectores de APIs.",
   },
   {
     name: "PHP",
     level: 3,
+    group: "Automatización y Desarrollo",
     description: "Dominancia del lenguaje de programación.",
   },
   {
     name: "JIRA",
     level: 1,
+    group: "Gestión y Comunicación",
     description: "Dominancia de producto.",
   },
   {
     name: "Inglés",
     level: 2,
+    group: "Gestión y Comunicación",
     description: "Hablado y escrito.",
   },
   {
     name: "Python",
     level: 2,
+    group: "Automatización y Desarrollo",
     description: "Dominancia del lenguaje de programación.",
   },
   {
     name: "JavaScript",
     level: 2,
+    group: "Automatización y Desarrollo",
     description: "Dominancia del lenguaje de programación.",
   },
   {
     name: "Groovy",
     level: 2,
+    group: "Automatización y Desarrollo",
     description: "Dominancia del lenguaje de programación.",
   },
   {
     name: "Aprendizaje",
     level: 4,
+    group: "Capacidades Profesionales",
     description: "Capacidad de aprender nuevos conocimientos rápidamente.",
   },
   {
     name: "Innovación",
     level: 4,
+    group: "Capacidades Profesionales",
     description: "Capacidad de desarrollar, mejorar o arreglar algo.",
   },
   {
     name: "Trato con el cliente",
     level: 3,
+    group: "Gestión y Comunicación",
     description:
       "Capacidad de comunicarse directamente con este, cumpliendo objetivos y fechas, así como observación de mejora del trabajo.",
   },
   {
     name: "Proactividad",
     level: 4,
+    group: "Capacidades Profesionales",
     description: "Capacidad de detectar, dirigir o solventar algo.",
   },
   {
     name: "Análisis",
     level: 4,
+    group: "Capacidades Profesionales",
     description: "Capacidad de detectar o entender algo.",
   },
 ];
@@ -294,7 +319,7 @@ export const education: Education[] = [
   {
     institution: "ANDEL",
     title: "Grado Superior en Informática - ASIR",
-    period: "2020-09 - 2022-06",
+    period: "Septiembre 2020 - Junio 2022",
     start: "2020-09",
     end: "2022-06",
     location: "Alcorcón, Madrid",
@@ -306,7 +331,7 @@ export const education: Education[] = [
   {
     institution: "IES Luis de Lucena",
     title: "Grado Medio en Instalación y Mantenimiento de Telecomunicaciones",
-    period: "2016-09 - 2018",
+    period: "Septiembre 2016 - Junio 2018",
     start: "2016-09",
     end: "2018-06",
     location: "Guadalajara",
@@ -318,7 +343,7 @@ export const education: Education[] = [
   {
     institution: "PUNTO OMEGA",
     title: "Montaje y mantenimiento de instalaciones eléctricas de baja tensión",
-    period: "2020-01 - 2020-06",
+    period: "Enero 2020 - Junio 2020",
     start: "2020-01",
     end: "2020-06",
     location: "Móstoles, Madrid",
@@ -329,7 +354,7 @@ export const education: Education[] = [
   {
     institution: "ENAE003PO",
     title: "Diseño y mantenimiento de instalaciones fotovoltaicas",
-    period: "2019-01 - 2019-12",
+    period: "Enero 2019 - Diciembre 2019",
     start: "2019-01",
     end: "2019-12",
     details: [

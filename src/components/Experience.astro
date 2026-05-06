@@ -31,6 +31,8 @@ interface TimelineSubItem {
 }
 
 interface TimelineSubSegment extends TimelineSubItem {
+  color: string;
+  glow: string;
   lane: number;
   startPct: number;
   spanPct: number;
@@ -75,16 +77,23 @@ const toMonthIndex = (value: string) => {
 };
 
 const durationInMonths = (start: string, end: string) => Math.max(1, toMonthIndex(end) - toMonthIndex(start) + 1);
+const subSegmentPalette = [
+  { color: "#ff7a18", glow: "rgba(255, 122, 24, 0.32)" },
+  { color: "#11a7a2", glow: "rgba(17, 167, 162, 0.28)" },
+  { color: "#1f6feb", glow: "rgba(31, 111, 235, 0.26)" },
+  { color: "#7c3aed", glow: "rgba(124, 58, 237, 0.24)" },
+] as const;
 
 const buildSubSegments = (start: string, end: string, subItems: TimelineSubItem[]) => {
   const totalMonths = durationInMonths(start, end);
   const laneEnds: number[] = [];
 
-  return subItems.map((item) => {
+  return subItems.map((item, index) => {
     const startOffset = Math.max(0, toMonthIndex(item.start) - toMonthIndex(start));
     const span = durationInMonths(item.start, item.end);
     const endOffset = startOffset + span - 1;
     let lane = laneEnds.findIndex((laneEnd) => startOffset > laneEnd);
+    const palette = subSegmentPalette[index % subSegmentPalette.length];
 
     if (lane === -1) {
       lane = laneEnds.length;
@@ -95,6 +104,8 @@ const buildSubSegments = (start: string, end: string, subItems: TimelineSubItem[
 
     return {
       ...item,
+      color: palette.color,
+      glow: palette.glow,
       lane,
       startPct: (startOffset / totalMonths) * 100,
       spanPct: (span / totalMonths) * 100,
@@ -156,7 +167,9 @@ for (const item of timelineItems) {
 
 const getEntryStyle = (item: TimelineItem) => `--duration-months: ${durationInMonths(item.start, item.end)};`;
 const getSubSegmentStyle = (segment: TimelineSubSegment) =>
-  `--sub-start: ${segment.startPct}%; --sub-span: ${segment.spanPct}%; --sub-lane: ${segment.lane};`;
+  `--sub-start: ${segment.startPct}%; --sub-span: ${segment.spanPct}%; --sub-lane: ${segment.lane}; --sub-color: ${segment.color}; --sub-glow: ${segment.glow};`;
+const getWorkstreamStyle = (segment: TimelineSubSegment) =>
+  `--segment-color: ${segment.color}; --segment-glow: ${segment.glow};`;
 ---
 
 <section class="section" id="experience">
@@ -204,10 +217,15 @@ const getSubSegmentStyle = (segment: TimelineSubSegment) =>
               <>
                 <div class="career-empty"></div>
                 <div class="career-rail" aria-hidden="true">
-                  <div class="career-rail-track">
-                    <div class={`career-duration career-duration-${row.item.kind}`}></div>
+                    <div class="career-rail-track">
+                      <div class={`career-duration career-duration-${row.item.kind}`}></div>
                     {row.item.subSegments.map((segment) => (
-                      <div class="career-subduration" style={getSubSegmentStyle(segment)}></div>
+                      <div
+                        class="career-subduration"
+                        style={getSubSegmentStyle(segment)}
+                        data-label={`${segment.title} · ${segment.period}`}
+                        title={`${segment.title} · ${segment.period}`}
+                      ></div>
                     ))}
                   </div>
                   <div class="career-marker career-marker-experience"></div>
@@ -220,11 +238,11 @@ const getSubSegmentStyle = (segment: TimelineSubSegment) =>
                   {row.item.description && <p>{row.item.description}</p>}
                   {row.item.subItems.length > 0 ? (
                     <div class="workstream-list" aria-label={`Trabajos dentro de ${row.item.organization}`}>
-                      {row.item.subItems.map((subItem) => (
-                        <article class="workstream-item">
-                          <p>{subItem.period}</p>
-                          <h4>{subItem.title}</h4>
-                          <span>{subItem.description}</span>
+                      {row.item.subSegments.map((segment) => (
+                        <article class="workstream-item" style={getWorkstreamStyle(segment)}>
+                          <p>{segment.period}</p>
+                          <h4>{segment.title}</h4>
+                          <span>{segment.description}</span>
                         </article>
                       ))}
                     </div>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio IT - Luis María Galindo García</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            scroll-snap-type: x mandatory;
+            height: 100vh;
+        }
+        .container {
+            display: inline-block;
+            width: 100vw;
+            height: 100vh;
+            scroll-snap-align: start;
+            vertical-align: top;
+        }
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            color: #ffd700;
+            padding: 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background 0.3s ease;
+        }
+        header.scrolled {
+            background: rgba(0, 0, 0, 1);
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav h1 {
+            font-size: 2rem;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        nav ul li {
+            margin-left: 2rem;
+        }
+        nav ul li a {
+            color: #ffd700;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #fff;
+        }
+        section {
+            padding: 5rem 2rem 2rem;
+            background: #fff;
+            border-radius: 20px;
+            margin: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            min-height: calc(100vh - 4rem);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .hero {
+            background: url('https://source.unsplash.com/random/1200x800/?technology') no-repeat center center/cover;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #ffd700;
+            color: #000;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: #e6c200;
+        }
+        .section-title {
+            color: #000;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: #ffd700;
+            margin: 1rem auto;
+        }
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .about-image img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid #ffd700;
+            margin-bottom: 1rem;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            width: 100%;
+            max-width: 800px;
+        }
+        .skill-card {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .skill-card:hover {
+            transform: scale(1.05);
+        }
+        .skill-card i {
+            font-size: 2rem;
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+        .experience-timeline {
+            width: 100%;
+            max-width: 600px;
+        }
+        .experience-item {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        .cert-card {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .cert-card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 0.5rem;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .project-card {
+            background: #f4f4f4;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover {
+            transform: scale(1.05);
+        }
+        .project-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .project-card-content {
+            padding: 0.5rem;
+        }
+        .contact-form {
+            width: 100%;
+            max-width: 400px;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        footer {
+            background: #000;
+            color: #ffd700;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 768px) {
+            .container {
+                width: 90vw;
+            }
+            section {
+                margin: 1rem;
+                padding: 3rem 1rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav class="container">
+            <h1>Luis Galindo</h1>
+            <ul>
+                <li><a href="#about">Sobre mí</a></li>
+                <li><a href="#skills">Habilidades</a></li>
+                <li><a href="#experience">Experiencia</a></li>
+                <li><a href="#certifications">Certificaciones</a></li>
+                <li><a href="#projects">Proyectos</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="hero" id="hero">
+            <div class="hero-content">
+                <h1>Luis María Galindo García</h1>
+                <p>Consultor IT | Desarrollador | Especialista en Sistemas</p>
+                <a href="#about" class="btn">Explorar</a>
+            </div>
+        </section>
+    </div>
+
+    <div class="container">
+        <section id="about">
+            <h2 class="section-title">Sobre mí</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://via.placeholder.com/200x200/ffd700/000?text=LG" alt="Luis Galindo">
+                </div>
+                <div class="about-text">
+                    <p>Consultor IT apasionado por la tecnología. Me considero una persona ambiciosa pero realista, destaco por mi rapidez a la hora de actuar, el enfoque y por mi "brainstorming", como mi pasión por continuar aprendiendo.</p>
+                    <p>Especializado en migraciones ZABBIX, desarrollo en Operation Orchestration y administración de sistemas.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="container">
+        <section id="skills">
+            <h2 class="section-title">Habilidades Técnicas</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fas fa-server"></i>
+                    <h3>ZABBIX</h3>
+                    <p>Migraciones y configuraciones</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-code"></i>
+                    <h3>Operation Orchestration</h3>
+                    <p>Desarrollo de flows</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>GRAFANA</h3>
+                    <p>Desarrollo y mantenimiento</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-network-wired"></i>
+                    <h3>Redes</h3>
+                    <p>Cableado y switches</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Seguridad</h3>
+                    <p>Sistemas de detección</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-solar-panel"></i>
+                    <h3>Instalaciones</h3>
+                    <p>Fotovoltaicas</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="container">
+        <section id="experience">
+            <h2 class="section-title">Experiencia Profesional</h2>
+            <div class="experience-timeline">
+                <div class="experience-item">
+                    <h3>Consultor IT - WAKKEIT</h3>
+                    <p>2022 - 2025</p>
+                    <ul>
+                        <li>Migración completa ZABBIX en AENA</li>
+                        <li>Desarrollo OO en TMB y SEAT</li>
+                        <li>Despliegue SCCM en Segurcaixa</li>
+                    </ul>
+                </div>
+                <div class="experience-item">
+                    <h3>Especialista en microinformática</h3>
+                    <p>2022</p>
+                    <p>Reparación y mantenimiento de equipos</p>
+                </div>
+                <div class="experience-item">
+                    <h3>Técnico informático - Landatel</h3>
+                    <p>2021</p>
+                    <p>Cableado y cámaras IP</p>
+                </div>
+                <div class="experience-item">
+                    <h3>Oficial electricista - SERTEC</h3>
+                    <p>2019</p>
+                    <p>Instalaciones y mantenimiento</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="container">
+        <section id="certifications">
+            <h2 class="section-title">Certificaciones</h2>
+            <div class="certifications-grid">
+                <div class="cert-card">
+                    <img src="https://images.credly.com/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/I2CS__1_.png" alt="Introduction to Cybersecurity">
+                    <h4>Introduction to Cybersecurity</h4>
+                    <p>Cisco - Apr 2026</p>
+                </div>
+                <!-- Add more badges -->
+            </div>
+        </section>
+    </div>
+
+    <div class="container">
+        <section id="projects">
+            <h2 class="section-title">Proyectos</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/300x200/ffd700/000?text=ZABBIX+Migration" alt="ZABBIX Migration">
+                    <div class="project-card-content">
+                        <h3>Migración ZABBIX</h3>
+                        <p>Migración completa de ZABBIX 5.0 a 7.0 en AENA</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/300x200/ffd700/000?text=OO+Flows" alt="OO Flows">
+                    <div class="project-card-content">
+                        <h3>Flows Operation Orchestration</h3>
+                        <p>Desarrollo de automatizaciones en Microfocus</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/300x200/ffd700/000?text=GRAFANA+Dashboard" alt="GRAFANA Dashboard">
+                    <div class="project-card-content">
+                        <h3>Dashboard GRAFANA</h3>
+                        <p>Creación y mantenimiento de dashboards</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="container">
+        <section id="contact">
+            <h2 class="section-title">Contacto</h2>
+            <div class="contact-form">
+                <input type="text" placeholder="Nombre">
+                <input type="email" placeholder="Email">
+                <textarea placeholder="Mensaje"></textarea>
+                <button class="btn">Enviar</button>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Luis María Galindo García | <a href="mailto:luisgg099@gmail.com">luisgg099@gmail.com</a> | 624010211 | <a href="https://www.linkedin.com/in/luis-galindo-487b7a217/" target="_blank">LinkedIn</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth horizontal scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        inline: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
-export interface Skill {
+export interface Knowledge {
   name: string;
+  level: 1 | 2 | 3 | 4;
   description: string;
-  icon: string;
 }
 
 export interface Experience {
@@ -70,36 +70,102 @@ export const profile = {
   location: "Madridejos, Toledo",
 };
 
-export const skills: Skill[] = [
+export const knowledge: Knowledge[] = [
   {
     name: "Zabbix",
+    level: 2,
     description: "Migraciones completas 5.x a 7.x, plantillas y estandarización de monitoreo.",
-    icon: "ZT",
   },
   {
     name: "Operation Orchestration",
+    level: 4,
     description: "Diseño de flows para remediaciones, navegaciones sintéticas y tareas repetitivas.",
-    icon: "OO",
   },
   {
     name: "Grafana",
+    level: 2,
     description: "Dashboards operativos con KPIs para equipos de sistemas y soporte.",
-    icon: "GF",
   },
   {
     name: "SCCM",
+    level: 2,
     description: "Despliegue y operación de herramientas de gestión de endpoints.",
-    icon: "SC",
   },
   {
     name: "Redes e IP",
+    level: 2,
     description: "Cableado estructurado, switches, cámaras IP y troubleshooting de campo.",
-    icon: "NW",
   },
   {
     name: "Seguridad técnica",
+    level: 2,
     description: "Integración de sistemas de detección, alarmas y buenas prácticas base.",
-    icon: "SG",
+  },
+  {
+    name: "Powershell",
+    level: 4,
+    description: "Dominancia del lenguaje de programación.",
+  },
+  {
+    name: "APIs",
+    level: 2,
+    description: "Conectores de APIs.",
+  },
+  {
+    name: "PHP",
+    level: 3,
+    description: "Dominancia del lenguaje de programación.",
+  },
+  {
+    name: "JIRA",
+    level: 1,
+    description: "Dominancia de producto.",
+  },
+  {
+    name: "Inglés",
+    level: 2,
+    description: "Hablado y escrito.",
+  },
+  {
+    name: "Python",
+    level: 2,
+    description: "Dominancia del lenguaje de programación.",
+  },
+  {
+    name: "JavaScript",
+    level: 2,
+    description: "Dominancia del lenguaje de programación.",
+  },
+  {
+    name: "Groovy",
+    level: 2,
+    description: "Dominancia del lenguaje de programación.",
+  },
+  {
+    name: "Aprendizaje",
+    level: 4,
+    description: "Capacidad de aprender nuevos conocimientos rápidamente.",
+  },
+  {
+    name: "Innovación",
+    level: 4,
+    description: "Capacidad de desarrollar, mejorar o arreglar algo.",
+  },
+  {
+    name: "Trato con el cliente",
+    level: 3,
+    description:
+      "Capacidad de comunicarse directamente con este, cumpliendo objetivos y fechas, así como observación de mejora del trabajo.",
+  },
+  {
+    name: "Proactividad",
+    level: 4,
+    description: "Capacidad de detectar, dirigir o solventar algo.",
+  },
+  {
+    name: "Análisis",
+    level: 4,
+    description: "Capacidad de detectar o entender algo.",
   },
 ];
 

@@ -8,12 +8,12 @@ import Experience from '../components/Experience.astro';
 import Certifications from '../components/Certifications.astro';
 import Projects from '../components/Projects.astro';
 import Contact from '../components/Contact.astro';
-import { certifications, education, experiences, profile, projects, skills } from '../data/cv';
+import { certifications, education, experiences, knowledge, profile, projects } from '../data/cv';
 
 const navItems = [
   { href: "#inicio", label: "Inicio" },
   { href: "#about", label: "Sobre mí" },
-  { href: "#skills", label: "Habilidades" },
+  { href: "#skills", label: "Conocimientos" },
   { href: "#experience", label: "Trayectoria" },
   { href: "#certifications", label: "Certificaciones" },
   { href: "#projects", label: "Proyectos" },
@@ -38,7 +38,7 @@ const aboutStats = [
       location={profile.location}
     />
     <About title="Sobre mí" description={profile.summary} stats={aboutStats} />
-    <Skills title="Habilidades Técnicas" skills={skills} />
+    <Skills title="Conocimientos" knowledge={knowledge} />
     <Experience
       title="Trayectoria Profesional y Estudios"
       experiences={experiences}

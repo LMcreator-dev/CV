@@ -1,15 +1,31 @@
 ---
 interface Props {
   name: string;
+  level: 1 | 2 | 3 | 4;
   description: string;
-  icon: string;
 }
 
-const { name, description, icon } = Astro.props;
+const { name, level, description } = Astro.props;
+const levelLabels = {
+  1: "Bajo",
+  2: "Medio",
+  3: "Alto",
+  4: "Top",
+} as const;
 ---
 
 <article class="card card-skill">
-  <span class="skill-chip" aria-hidden="true">{icon}</span>
-  <h3>{name}</h3>
-  <p>{description}</p>
+  <div class="knowledge-level" aria-label={`Nivel ${levelLabels[level]}`}>
+    <span class:list={["knowledge-bar", "knowledge-bar-green", level === 1 && "is-active"]}></span>
+    <span class:list={["knowledge-bar", "knowledge-bar-yellow", level === 2 && "is-active"]}></span>
+    <span class:list={["knowledge-bar", "knowledge-bar-red", level === 3 && "is-active"]}></span>
+    <span class:list={["knowledge-bar", "knowledge-bar-black", level === 4 && "is-active"]}></span>
+  </div>
+  <div class="knowledge-body">
+    <div class="knowledge-heading">
+      <h3>{name}</h3>
+      <span class="knowledge-tag">{levelLabels[level]}</span>
+    </div>
+    <p>{description}</p>
+  </div>
 </article>

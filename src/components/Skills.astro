@@ -2,31 +2,32 @@
 import SectionHeading from "./ui/SectionHeading.astro";
 import SkillCard from "./ui/SkillCard.astro";
 
-interface Skill {
+interface Knowledge {
   name: string;
+  level: 1 | 2 | 3 | 4;
   description: string;
-  icon: string;
 }
 
 interface Props {
   title: string;
-  skills: Skill[];
+  knowledge: Knowledge[];
 }
 
-const { title, skills } = Astro.props;
+const { title, knowledge } = Astro.props;
+const sortedKnowledge = [...knowledge].sort((a, b) => a.name.localeCompare(b.name, "es"));
 ---
 
 <section class="section section-alt" id="skills">
   <div class="container">
     <SectionHeading
       title={title}
-      intro="Stack principal y ámbitos de especialización."
+      intro="Conocimientos técnicos y operativos ordenados alfabéticamente, con nivel visual por barras."
       align="center"
-      eyebrow="Stack"
+      eyebrow="Conocimientos"
     />
     <div class="grid skills-grid">
-      {skills.map((skill) => (
-        <SkillCard {...skill} />
+      {sortedKnowledge.map((item) => (
+        <SkillCard {...item} />
       ))}
     </div>
   </div>

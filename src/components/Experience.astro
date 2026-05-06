@@ -30,6 +30,12 @@ interface TimelineSubItem {
   description: string;
 }
 
+interface TimelineSubSegment extends TimelineSubItem {
+  lane: number;
+  startPct: number;
+  spanPct: number;
+}
+
 interface Props {
   title: string;
   experiences: ExperienceRow[];
@@ -47,6 +53,7 @@ type TimelineItem = {
   location?: string;
   details: string[];
   subItems: TimelineSubItem[];
+  subSegments: TimelineSubSegment[];
 };
 
 type TimelineRow =
@@ -69,18 +76,49 @@ const toMonthIndex = (value: string) => {
 
 const durationInMonths = (start: string, end: string) => Math.max(1, toMonthIndex(end) - toMonthIndex(start) + 1);
 
+const buildSubSegments = (start: string, end: string, subItems: TimelineSubItem[]) => {
+  const totalMonths = durationInMonths(start, end);
+  const laneEnds: number[] = [];
+
+  return subItems.map((item) => {
+    const startOffset = Math.max(0, toMonthIndex(item.start) - toMonthIndex(start));
+    const span = durationInMonths(item.start, item.end);
+    const endOffset = startOffset + span - 1;
+    let lane = laneEnds.findIndex((laneEnd) => startOffset > laneEnd);
+
+    if (lane === -1) {
+      lane = laneEnds.length;
+      laneEnds.push(endOffset);
+    } else {
+      laneEnds[lane] = endOffset;
+    }
+
+    return {
+      ...item,
+      lane,
+      startPct: (startOffset / totalMonths) * 100,
+      spanPct: (span / totalMonths) * 100,
+    };
+  });
+};
+
 const timelineItems: TimelineItem[] = [
-  ...experiences.map((item) => ({
-    kind: "experience" as const,
-    period: item.period,
-    start: item.start,
-    end: item.end,
-    title: item.position,
-    organization: item.company,
-    description: item.description,
-    details: item.highlights,
-    subItems: [...(item.subItems ?? [])].sort((a, b) => toMonthIndex(a.start) - toMonthIndex(b.start)),
-  })),
+  ...experiences.map((item) => {
+    const subItems = [...(item.subItems ?? [])].sort((a, b) => toMonthIndex(a.start) - toMonthIndex(b.start));
+
+    return {
+      kind: "experience" as const,
+      period: item.period,
+      start: item.start,
+      end: item.end,
+      title: item.position,
+      organization: item.company,
+      description: item.description,
+      details: item.highlights,
+      subItems,
+      subSegments: buildSubSegments(item.start, item.end, subItems),
+    };
+  }),
   ...education.map((item) => ({
     kind: "education" as const,
     period: item.period,
@@ -91,6 +129,7 @@ const timelineItems: TimelineItem[] = [
     location: item.location,
     details: item.details,
     subItems: [],
+    subSegments: [],
   })),
 ].sort((a, b) => toMonthIndex(a.start) - toMonthIndex(b.start));
 
@@ -116,6 +155,8 @@ for (const item of timelineItems) {
 }
 
 const getEntryStyle = (item: TimelineItem) => `--duration-months: ${durationInMonths(item.start, item.end)};`;
+const getSubSegmentStyle = (segment: TimelineSubSegment) =>
+  `--sub-start: ${segment.startPct}%; --sub-span: ${segment.spanPct}%; --sub-lane: ${segment.lane};`;
 ---
 
 <section class="section" id="experience">
@@ -152,7 +193,9 @@ const getEntryStyle = (item: TimelineItem) => `--duration-months: ${durationInMo
                   </ul>
                 </div>
                 <div class="career-rail" aria-hidden="true">
-                  <div class={`career-duration career-duration-${row.item.kind}`}></div>
+                  <div class="career-rail-track">
+                    <div class={`career-duration career-duration-${row.item.kind}`}></div>
+                  </div>
                   <div class="career-marker career-marker-education"></div>
                 </div>
                 <div class="career-empty"></div>
@@ -161,7 +204,12 @@ const getEntryStyle = (item: TimelineItem) => `--duration-months: ${durationInMo
               <>
                 <div class="career-empty"></div>
                 <div class="career-rail" aria-hidden="true">
-                  <div class={`career-duration career-duration-${row.item.kind}`}></div>
+                  <div class="career-rail-track">
+                    <div class={`career-duration career-duration-${row.item.kind}`}></div>
+                    {row.item.subSegments.map((segment) => (
+                      <div class="career-subduration" style={getSubSegmentStyle(segment)}></div>
+                    ))}
+                  </div>
                   <div class="career-marker career-marker-experience"></div>
                 </div>
                 <div class="card career-card career-card-experience">

@@ -1,6 +1,5 @@
 ---
 import SectionHeading from "./ui/SectionHeading.astro";
-import ExperienceItem from "./ui/ExperienceItem.astro";
 
 interface ExperienceRow {
   company: string;
@@ -10,24 +9,107 @@ interface ExperienceRow {
   highlights: string[];
 }
 
+interface EducationRow {
+  institution: string;
+  title: string;
+  period: string;
+  location?: string;
+  details: string[];
+}
+
 interface Props {
   title: string;
   experiences: ExperienceRow[];
+  education: EducationRow[];
 }
 
-const { title, experiences } = Astro.props;
+const { title, experiences, education } = Astro.props;
+
+const months: Record<string, number> = {
+  enero: 1,
+  febrero: 2,
+  marzo: 3,
+  abril: 4,
+  mayo: 5,
+  junio: 6,
+  julio: 7,
+  agosto: 8,
+  septiembre: 9,
+  octubre: 10,
+  noviembre: 11,
+  diciembre: 12,
+};
+
+const normalize = (value: string) =>
+  value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+const getSortValue = (period: string) => {
+  const parts = period.split("-").map((part) => part.trim());
+  const end = parts.at(-1) ?? period;
+  const years = end.match(/\d{4}/g) ?? period.match(/\d{4}/g) ?? [];
+  const year = Number(years.at(-1) ?? 0);
+  const normalizedEnd = normalize(end);
+  const month =
+    Object.entries(months).find(([name]) => normalizedEnd.includes(name))?.[1] ?? 12;
+
+  return year * 100 + month;
+};
+
+const timelineItems = [
+  ...experiences.map((item) => ({
+    kind: "experience" as const,
+    period: item.period,
+    title: item.position,
+    organization: item.company,
+    description: item.description,
+    details: item.highlights,
+    sortValue: getSortValue(item.period),
+  })),
+  ...education.map((item) => ({
+    kind: "education" as const,
+    period: item.period,
+    title: item.title,
+    organization: item.institution,
+    location: item.location,
+    details: item.details,
+    sortValue: getSortValue(item.period),
+  })),
+].sort((a, b) => b.sortValue - a.sortValue);
 ---
 
 <section class="section" id="experience">
   <div class="container">
     <SectionHeading
       title={title}
-      intro="Experiencia en entornos de operación con foco en impacto real."
+      intro="Vista cronológica combinando formación técnica y experiencia profesional."
       eyebrow="Trayectoria"
     />
-    <div class="timeline">
-      {experiences.map((exp) => (
-        <ExperienceItem {...exp} />
+    <div class="career-legend" aria-label="Leyenda de trayectoria">
+      <span><i class="legend-dot legend-dot-study"></i>Estudios</span>
+      <span><i class="legend-dot legend-dot-work"></i>Experiencia</span>
+    </div>
+    <div class="career-timeline">
+      {timelineItems.map((item) => (
+        <article class={`career-entry career-entry-${item.kind}`}>
+          <div class={`career-marker career-marker-${item.kind}`} aria-hidden="true"></div>
+          <div class="card career-card">
+            <p class="timeline-period">{item.period}</p>
+            <p class={`career-type career-type-${item.kind}`}>
+              {item.kind === "education" ? "Estudios" : "Experiencia"}
+            </p>
+            <h3>{item.title}</h3>
+            <p class="timeline-company">{item.organization}</p>
+            {"location" in item && item.location && (
+              <p class="career-location">{item.location}</p>
+            )}
+            {"description" in item && item.description && <p>{item.description}</p>}
+            <ul>
+              {item.details.map((detail) => (
+                <li>{detail}</li>
+              ))}
+            </ul>
+          </div>
+        </article>
       ))}
     </div>
   </div>

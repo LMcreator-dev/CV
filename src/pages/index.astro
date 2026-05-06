@@ -3,7 +3,6 @@ import MainLayout from '../layouts/MainLayout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import About from '../components/About.astro';
-import Education from '../components/Education.astro';
 import Skills from '../components/Skills.astro';
 import Experience from '../components/Experience.astro';
 import Certifications from '../components/Certifications.astro';
@@ -15,9 +14,8 @@ import { certifications, education, experiences, profile, projects, skills } fro
 const navItems = [
   { href: "#inicio", label: "Inicio" },
   { href: "#about", label: "Sobre mí" },
-  { href: "#education", label: "Estudios" },
   { href: "#skills", label: "Habilidades" },
-  { href: "#experience", label: "Experiencia" },
+  { href: "#experience", label: "Trayectoria" },
   { href: "#certifications", label: "Certificaciones" },
   { href: "#projects", label: "Proyectos" },
   { href: "#contact", label: "Contacto" },
@@ -41,9 +39,12 @@ const aboutStats = [
       location={profile.location}
     />
     <About title="Sobre mí" description={profile.summary} stats={aboutStats} />
-    <Education title="Estudios y Formación" education={education} />
     <Skills title="Habilidades Técnicas" skills={skills} />
-    <Experience title="Experiencia Profesional" experiences={experiences} />
+    <Experience
+      title="Trayectoria Profesional y Estudios"
+      experiences={experiences}
+      education={education}
+    />
     <Certifications title="Certificaciones" certifications={certifications} />
     <Projects title="Proyectos Destacados" projects={projects} />
     <Contact

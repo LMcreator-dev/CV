@@ -345,49 +345,6 @@ a {
   font-size: 0.92rem;
 }
 
-.education-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.education-card {
-  padding: 1.25rem;
-}
-
-.education-period {
-  margin: 0;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.82rem;
-  color: #0f7470;
-}
-
-.education-card h3 {
-  margin: 0.55rem 0 0.2rem;
-  font-family: "Sora", sans-serif;
-  font-size: 1.1rem;
-}
-
-.education-institution {
-  margin: 0;
-  color: var(--color-accent);
-  font-weight: 700;
-}
-
-.education-location {
-  margin: 0.15rem 0 0;
-  color: var(--color-ink-soft);
-  font-size: 0.92rem;
-}
-
-.education-card ul {
-  margin: 0.85rem 0 0;
-  padding-left: 1.05rem;
-  color: var(--color-ink-soft);
-}
-
-.education-card li {
-  margin-bottom: 0.25rem;
-}
-
 .skills-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -417,53 +374,11 @@ a {
   color: var(--color-ink-soft);
 }
 
-.timeline {
-  position: relative;
-  display: grid;
-  gap: 1rem;
-}
-
-.timeline::before {
-  content: "";
-  position: absolute;
-  left: 0.68rem;
-  top: 0.3rem;
-  bottom: 0.3rem;
-  width: 2px;
-  background: linear-gradient(to bottom, var(--color-accent), rgba(17, 167, 162, 0.5));
-}
-
-.timeline-entry {
-  position: relative;
-  padding-left: 2.4rem;
-}
-
-.timeline-marker {
-  position: absolute;
-  left: 0.14rem;
-  top: 0.65rem;
-  width: 1.08rem;
-  height: 1.08rem;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  background: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(255, 122, 24, 0.26);
-}
-
-.timeline-card {
-  padding: 1.2rem 1.3rem;
-}
-
 .timeline-period {
   margin: 0;
   font-family: "JetBrains Mono", monospace;
   font-size: 0.82rem;
   color: #0f7974;
-}
-
-.timeline-card h3 {
-  margin: 0.5rem 0 0;
-  font-family: "Sora", sans-serif;
 }
 
 .timeline-company {
@@ -472,13 +387,165 @@ a {
   font-weight: 700;
 }
 
-.timeline-card ul {
+.career-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin: -0.6rem 0 1.4rem;
+}
+
+.career-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  padding: 0.38rem 0.72rem;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(217, 224, 235, 0.9);
+  color: var(--color-ink-soft);
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.legend-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+}
+
+.legend-dot-study {
+  background: var(--color-accent-2);
+}
+
+.legend-dot-work {
+  background: var(--color-accent);
+}
+
+.career-timeline {
+  position: relative;
+  display: grid;
+  gap: 1.15rem;
+  padding: 0.5rem 0 2.2rem;
+}
+
+.career-timeline::before {
+  content: "";
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0.2rem;
+  left: 50%;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--color-accent),
+    rgba(17, 167, 162, 0.72),
+    rgba(255, 122, 24, 0.72)
+  );
+  transform: translateX(-50%);
+}
+
+.career-entry {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.career-marker {
+  position: absolute;
+  top: 1.15rem;
+  left: 50%;
+  z-index: 2;
+  width: 1.12rem;
+  height: 1.12rem;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+.career-marker-experience {
+  background: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(255, 122, 24, 0.24);
+}
+
+.career-marker-education {
+  background: var(--color-accent-2);
+  box-shadow: 0 0 0 3px rgba(17, 167, 162, 0.22);
+}
+
+.career-card {
+  position: relative;
+  padding: 1.05rem 1.15rem;
+}
+
+.career-card::before {
+  content: "";
+  position: absolute;
+  top: 1.18rem;
+  width: 0;
+  height: 0;
+  border-block: 0.55rem solid transparent;
+}
+
+.career-entry-experience .career-card {
+  grid-column: 2;
+}
+
+.career-entry-experience .career-card::before {
+  left: -0.55rem;
+  border-right: 0.55rem solid var(--color-surface);
+}
+
+.career-entry-education .career-card {
+  grid-column: 1;
+}
+
+.career-entry-education .career-card::before {
+  right: -0.55rem;
+  border-left: 0.55rem solid var(--color-surface);
+}
+
+.career-type {
+  display: inline-flex;
+  margin: 0.55rem 0 0;
+  border-radius: 999px;
+  padding: 0.18rem 0.58rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.career-type-experience {
+  background: rgba(255, 122, 24, 0.13);
+  color: #bf5408;
+}
+
+.career-type-education {
+  background: rgba(17, 167, 162, 0.13);
+  color: #0f7470;
+}
+
+.career-card h3 {
+  margin: 0.55rem 0 0;
+  font-family: "Sora", sans-serif;
+  font-size: 1.08rem;
+}
+
+.career-location {
+  margin: -0.45rem 0 0.75rem;
+  color: var(--color-ink-soft);
+  font-size: 0.9rem;
+}
+
+.career-card ul {
   margin: 0.75rem 0 0;
   padding-left: 1.05rem;
 }
 
-.timeline-card li {
-  margin-bottom: 0.25rem;
+.career-card li {
+  margin-bottom: 0.24rem;
   color: var(--color-ink-soft);
 }
 
@@ -736,8 +803,21 @@ a {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .education-grid {
-    grid-template-columns: 1fr;
+  .career-timeline::before {
+    left: 0.7rem;
+  }
+
+  .career-entry {
+    display: block;
+    padding-left: 2.35rem;
+  }
+
+  .career-marker {
+    left: 0.7rem;
+  }
+
+  .career-card::before {
+    display: none;
   }
 
   .contact-list {

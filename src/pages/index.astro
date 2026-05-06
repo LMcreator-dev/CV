@@ -12,6 +12,7 @@ import Footer from '../components/Footer.astro';
 import { certifications, experiences, profile, projects, skills } from '../data/cv';
 
 const navItems = [
+  { href: "#inicio", label: "Inicio" },
   { href: "#about", label: "Sobre mi" },
   { href: "#skills", label: "Skills" },
   { href: "#experience", label: "Experiencia" },
@@ -30,7 +31,7 @@ const aboutStats = [
 
 <MainLayout title="Portfolio | Luis María Galindo García">
   <Header name={profile.name} navItems={navItems} />
-  <main>
+  <main class="portfolio-track" data-horizontal-track>
     <Hero
       title={profile.name}
       role={profile.role}
@@ -49,5 +50,53 @@ const aboutStats = [
       linkedin={profile.linkedin}
     />
   </main>
+  <div class="panel-controls" aria-label="Navegacion horizontal">
+    <button class="panel-arrow" type="button" data-panel-prev aria-label="Seccion anterior">
+      <span aria-hidden="true">‹</span>
+    </button>
+    <nav class="panel-dots" aria-label="Secciones">
+      {navItems.map((item) => (
+        <a href={item.href} aria-label={item.label} data-dot-link></a>
+      ))}
+    </nav>
+    <button class="panel-arrow" type="button" data-panel-next aria-label="Seccion siguiente">
+      <span aria-hidden="true">›</span>
+    </button>
+  </div>
   <Footer name={profile.name} />
+
+  <script>
+    const track = document.querySelector("[data-horizontal-track]");
+    const panels = Array.from(document.querySelectorAll("[data-horizontal-track] > section"));
+    const links = Array.from(document.querySelectorAll("[data-section-link], [data-dot-link]"));
+    const prevButton = document.querySelector("[data-panel-prev]");
+    const nextButton = document.querySelector("[data-panel-next]");
+
+    const getActiveIndex = () => {
+      if (!track || panels.length === 0) return 0;
+      return Math.round(track.scrollLeft / track.clientWidth);
+    };
+
+    const setActive = () => {
+      const activePanel = panels[getActiveIndex()];
+      const activeId = activePanel?.id;
+
+      links.forEach((link) => {
+        const isActive = link.getAttribute("href") === `#${activeId}`;
+        link.toggleAttribute("aria-current", isActive);
+      });
+    };
+
+    const goToPanel = (offset) => {
+      if (!track) return;
+      const nextIndex = Math.max(0, Math.min(panels.length - 1, getActiveIndex() + offset));
+      panels[nextIndex]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    };
+
+    prevButton?.addEventListener("click", () => goToPanel(-1));
+    nextButton?.addEventListener("click", () => goToPanel(1));
+    track?.addEventListener("scroll", () => window.requestAnimationFrame(setActive), { passive: true });
+    window.addEventListener("resize", setActive);
+    setActive();
+  </script>
 </MainLayout>

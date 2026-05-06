@@ -74,6 +74,7 @@ const aboutStats = [
     const links = Array.from(document.querySelectorAll("[data-section-link], [data-dot-link]"));
     const prevButton = document.querySelector("[data-panel-prev]");
     const nextButton = document.querySelector("[data-panel-next]");
+    let wheelLock = false;
 
     const getActiveIndex = () => {
       if (!track || panels.length === 0) return 0;
@@ -96,8 +97,38 @@ const aboutStats = [
       panels[nextIndex]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
     };
 
+    const canScrollPanel = (panel, direction) => {
+      if (!panel) return false;
+      if (direction > 0) {
+        return panel.scrollTop + panel.clientHeight < panel.scrollHeight - 2;
+      }
+
+      return panel.scrollTop > 2;
+    };
+
+    const handleWheelNavigation = (event) => {
+      if (!track || panels.length === 0 || wheelLock) return;
+
+      const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+
+      if (Math.abs(delta) < 18) return;
+
+      const direction = delta > 0 ? 1 : -1;
+      const activePanel = panels[getActiveIndex()];
+
+      if (canScrollPanel(activePanel, direction)) return;
+
+      event.preventDefault();
+      wheelLock = true;
+      goToPanel(direction);
+      window.setTimeout(() => {
+        wheelLock = false;
+      }, 650);
+    };
+
     prevButton?.addEventListener("click", () => goToPanel(-1));
     nextButton?.addEventListener("click", () => goToPanel(1));
+    track?.addEventListener("wheel", handleWheelNavigation, { passive: false });
     track?.addEventListener("scroll", () => window.requestAnimationFrame(setActive), { passive: true });
     window.addEventListener("resize", setActive);
     setActive();

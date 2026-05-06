@@ -72,9 +72,14 @@ const aboutStats = [
     const track = document.querySelector("[data-horizontal-track]");
     const panels = Array.from(document.querySelectorAll("[data-horizontal-track] > section"));
     const links = Array.from(document.querySelectorAll("[data-section-link], [data-dot-link]"));
+    const hashLinks = Array.from(document.querySelectorAll('a[href^="#"]'));
     const prevButton = document.querySelector("[data-panel-prev]");
     const nextButton = document.querySelector("[data-panel-next]");
     let wheelLock = false;
+
+    const panelIndexByHash = new Map(
+      panels.map((panel, index) => [`#${panel.id}`, index]),
+    );
 
     const getActiveIndex = () => {
       if (!track || panels.length === 0) return 0;
@@ -84,17 +89,42 @@ const aboutStats = [
     const setActive = () => {
       const activePanel = panels[getActiveIndex()];
       const activeId = activePanel?.id;
+      let activeTopLink = null;
 
       links.forEach((link) => {
         const isActive = link.getAttribute("href") === `#${activeId}`;
         link.toggleAttribute("aria-current", isActive);
+        if (isActive && link.hasAttribute("data-section-link")) {
+          activeTopLink = link;
+        }
       });
+
+      activeTopLink?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+
+      if (activeId && window.location.hash !== `#${activeId}`) {
+        window.history.replaceState(null, "", `#${activeId}`);
+      }
     };
 
     const goToPanel = (offset) => {
       if (!track) return;
       const nextIndex = Math.max(0, Math.min(panels.length - 1, getActiveIndex() + offset));
-      panels[nextIndex]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+      const nextPanel = panels[nextIndex];
+      nextPanel?.scrollTo({ top: 0, behavior: "auto" });
+      track.scrollTo({ left: nextIndex * track.clientWidth, behavior: "smooth" });
+    };
+
+    const goToPanelHash = (hash, behavior = "smooth") => {
+      if (!track || !panelIndexByHash.has(hash)) return false;
+      const nextIndex = panelIndexByHash.get(hash);
+      const nextPanel = panels[nextIndex];
+      nextPanel?.scrollTo({ top: 0, behavior: "auto" });
+      track.scrollTo({ left: nextIndex * track.clientWidth, behavior });
+      return true;
     };
 
     const canScrollPanel = (panel, direction) => {
@@ -128,9 +158,26 @@ const aboutStats = [
 
     prevButton?.addEventListener("click", () => goToPanel(-1));
     nextButton?.addEventListener("click", () => goToPanel(1));
+    hashLinks.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const hash = link.getAttribute("href");
+        if (!hash || !goToPanelHash(hash)) return;
+        event.preventDefault();
+        if (window.location.hash !== hash) {
+          window.history.pushState(null, "", hash);
+        }
+        setActive();
+      });
+    });
     track?.addEventListener("wheel", handleWheelNavigation, { passive: false });
     track?.addEventListener("scroll", () => window.requestAnimationFrame(setActive), { passive: true });
     window.addEventListener("resize", setActive);
-    setActive();
+    window.addEventListener("hashchange", () => {
+      goToPanelHash(window.location.hash, "smooth");
+    });
+
+    if (!goToPanelHash(window.location.hash, "auto")) {
+      setActive();
+    }
   </script>
 </MainLayout>

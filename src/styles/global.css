@@ -1149,7 +1149,7 @@ a {
 
 @media (max-width: 720px) {
   :root {
-    --nav-height: 6.8rem;
+    --nav-height: 8rem;
     --footer-height: 4.4rem;
   }
 
@@ -1160,7 +1160,31 @@ a {
   .navbar .container {
     flex-direction: column;
     align-items: flex-start;
-    padding: 0.65rem 0;
+    gap: 0.45rem;
+    padding: 0.65rem 0 0.55rem;
+  }
+
+  .brand {
+    font-size: 1rem;
+  }
+
+  .nav-links {
+    width: 100%;
+    gap: 0.25rem;
+    padding: 0 0 0.18rem;
+    scroll-padding-inline: 0.5rem;
+  }
+
+  .nav-links li {
+    flex: 0 0 auto;
+  }
+
+  .nav-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.2rem;
+    padding: 0.34rem 0.62rem;
+    font-size: 0.82rem;
   }
 
   .card-skill {
@@ -1185,42 +1209,145 @@ a {
   }
 
   .hero h1 {
-    font-size: 2.25rem;
+    font-size: 1.95rem;
+    line-height: 1.02;
   }
 
   .hero-role {
     font-size: 0.85rem;
+    margin-top: 0.75rem;
+  }
+
+  .hero-subtitle {
+    margin: 0.65rem 0 1.2rem;
+    font-size: 1.02rem;
+  }
+
+  .hero-actions {
+    gap: 0.6rem;
+  }
+
+  .hero-actions .button {
+    width: 100%;
+  }
+
+  .hero-grid {
+    gap: 1.1rem;
+  }
+
+  .hero-highlight {
+    padding: 1rem;
+  }
+
+  .hero-highlight strong {
+    font-size: 1.45rem;
+    line-height: 1.05;
+  }
+
+  .section-heading {
+    margin-bottom: 1.35rem;
+  }
+
+  .section-heading h2 {
+    font-size: 1.72rem;
   }
 
   .section {
-    padding: 2rem 0 6rem;
+    padding: 2.9rem 0 5rem;
   }
 
   .hero {
-    padding: 2rem 0 6rem;
+    padding: 2.1rem 0 5rem;
+  }
+
+  .career-legend {
+    margin-bottom: 1rem;
+  }
+
+  .career-legend span {
+    font-size: 0.82rem;
+    padding: 0.32rem 0.58rem;
+  }
+
+  .career-card {
+    padding: 0.9rem 0.95rem;
+  }
+
+  .career-card h3 {
+    font-size: 0.98rem;
+  }
+
+  .career-card ul {
+    margin-top: 0.62rem;
+  }
+
+  .career-card li {
+    margin-bottom: 0.16rem;
+  }
+
+  .workstream-list {
+    gap: 0.55rem;
+    margin-top: 0.8rem;
+  }
+
+  .workstream-item {
+    padding: 0.54rem 0.62rem 0.54rem 0.84rem;
+  }
+
+  .workstream-item h4 {
+    font-size: 0.9rem;
+  }
+
+  .workstream-item span {
+    font-size: 0.85rem;
+  }
+
+  .project-card img {
+    aspect-ratio: 4 / 3;
+    object-position: center top;
+  }
+
+  .project-body {
+    padding: 1rem;
+  }
+
+  .cert-card {
+    padding: 1.15rem;
+  }
+
+  .cert-card img {
+    width: 104px;
   }
 
   .panel-controls {
-    inset: var(--nav-height) 0 var(--footer-height);
+    inset: auto 0 calc(var(--footer-height) - 0.1rem) 0;
+    height: 0;
   }
 
   .panel-arrow {
+    top: auto;
+    bottom: 0.72rem;
     width: 2.05rem;
     height: 2.05rem;
+    transform: none;
+  }
+
+  .panel-arrow:hover {
+    transform: scale(1.04);
   }
 
   .panel-arrow[data-panel-prev] {
-    left: 0.75rem;
+    left: calc(50% - 5.1rem);
   }
 
   .panel-arrow[data-panel-next] {
-    right: 0.75rem;
+    right: calc(50% - 5.1rem);
   }
 
   .panel-dots {
     left: 50%;
     right: auto;
-    bottom: 0.8rem;
+    bottom: 0.72rem;
     gap: 0.35rem;
     padding: 0.34rem 0.48rem;
     transform: translateX(-50%);

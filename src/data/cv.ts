@@ -287,7 +287,7 @@ export const projects: Project[] = [
     title: "Carta Digital LM",
     description:
       "CartaDigitalLM convierte tu carta en una experiencia visual moderna. Tus clientes escanean, ven todo al instante y tú puedes actualizar precios, platos, fotos o promociones sin imprimir nada.",
-    image: assetUrl("projects/zabbix.svg"),
+    image: assetUrl("projects/carta-digital-lm.svg"),
     technologies: ["BBDD", "Astro"],
   },
 ];

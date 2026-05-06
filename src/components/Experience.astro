@@ -36,10 +36,29 @@ interface Props {
   education: EducationRow[];
 }
 
-const { title, experiences, education } = Astro.props;
+type TimelineItem = {
+  kind: "experience" | "education";
+  period: string;
+  start: string;
+  title: string;
+  organization: string;
+  description?: string;
+  location?: string;
+  details: string[];
+  subItems: TimelineSubItem[];
+};
 
-const timelineStart = "2016-09";
-const timelineEnd = "2026-06";
+type TimelineRow =
+  | {
+      type: "year";
+      year: string;
+    }
+  | {
+      type: "entry";
+      item: TimelineItem;
+    };
+
+const { title, experiences, education } = Astro.props;
 
 const toMonthIndex = (value: string) => {
   const [year, month] = value.split("-").map(Number);
@@ -47,27 +66,21 @@ const toMonthIndex = (value: string) => {
   return year * 12 + month - 1;
 };
 
-const monthDiff = (start: string, end: string) => toMonthIndex(end) - toMonthIndex(start);
-const durationInMonths = (start: string, end: string) => Math.max(1, monthDiff(start, end) + 1);
-const timelineMonths = durationInMonths(timelineStart, timelineEnd);
-
-const timelineItems = [
+const timelineItems: TimelineItem[] = [
   ...experiences.map((item) => ({
     kind: "experience" as const,
     period: item.period,
     start: item.start,
-    end: item.end,
     title: item.position,
     organization: item.company,
     description: item.description,
     details: item.highlights,
-    subItems: item.subItems ?? [],
+    subItems: [...(item.subItems ?? [])].sort((a, b) => toMonthIndex(a.start) - toMonthIndex(b.start)),
   })),
   ...education.map((item) => ({
     kind: "education" as const,
     period: item.period,
     start: item.start,
-    end: item.end,
     title: item.title,
     organization: item.institution,
     location: item.location,
@@ -76,42 +89,26 @@ const timelineItems = [
   })),
 ].sort((a, b) => toMonthIndex(a.start) - toMonthIndex(b.start));
 
-const branchCursor = {
-  education: -1.4,
-  experience: -1.4,
-};
+const timelineRows: TimelineRow[] = [];
+let currentYear = "";
 
-const positionedTimelineItems = timelineItems.map((item) => {
-  const rawStart = monthDiff(timelineStart, item.start);
-  const duration = durationInMonths(item.start, item.end);
-  const minimumDuration = item.subItems.length > 0 ? 36 : item.kind === "education" ? 4 : 7;
-  const visualDuration = Math.max(duration, minimumDuration);
-  const positionedStart = Math.max(rawStart, branchCursor[item.kind] + 1.4);
+for (const item of timelineItems) {
+  const itemYear = item.start.slice(0, 4);
 
-  branchCursor[item.kind] = positionedStart + visualDuration;
+  if (itemYear !== currentYear) {
+    timelineRows.push({
+      type: "year",
+      year: itemYear,
+    });
 
-  return {
-    ...item,
-    duration,
-    positionedStart,
-    visualDuration,
-  };
-});
+    currentYear = itemYear;
+  }
 
-const timelineLayoutMonths = Math.ceil(
-  Math.max(timelineMonths, branchCursor.education, branchCursor.experience) + 4,
-);
-
-const timelineYears = Array.from({ length: 9 }, (_, index) => 2017 + index).map((year) => ({
-  year,
-  offset: Math.max(0, monthDiff(timelineStart, `${year}-01`)),
-}));
-
-const getEntryStyle = (item: { positionedStart: number; duration: number; visualDuration: number }) =>
-  `--start: ${item.positionedStart}; --duration: ${item.duration}; --visual-duration: ${item.visualDuration};`;
-
-const getSubItemStyle = (parent: { start: string }, item: TimelineSubItem) =>
-  `--sub-start: ${Math.max(0, monthDiff(parent.start, item.start))}; --sub-duration: ${durationInMonths(item.start, item.end)};`;
+  timelineRows.push({
+    type: "entry",
+    item,
+  });
+}
 ---
 
 <section class="section" id="experience">
@@ -125,46 +122,68 @@ const getSubItemStyle = (parent: { start: string }, item: TimelineSubItem) =>
       <span><i class="legend-dot legend-dot-study"></i>Estudios</span>
       <span><i class="legend-dot legend-dot-work"></i>Experiencia</span>
     </div>
-    <div class="career-timeline" style={`--timeline-months: ${timelineLayoutMonths};`}>
-      {timelineYears.map((item) => (
-        <span class="career-year" style={`--year-start: ${item.offset};`}>
-          {item.year}
-        </span>
-      ))}
-      {positionedTimelineItems.map((item) => (
-        <article class={`career-entry career-entry-${item.kind}`} style={getEntryStyle(item)}>
-          <div class={`career-marker career-marker-${item.kind}`} aria-hidden="true"></div>
-          <div class="card career-card">
-            <p class="timeline-period">{item.period}</p>
-            <p class={`career-type career-type-${item.kind}`}>
-              {item.kind === "education" ? "Estudios" : "Experiencia"}
-            </p>
-            <h3>{item.title}</h3>
-            <p class="timeline-company">{item.organization}</p>
-            {"location" in item && item.location && (
-              <p class="career-location">{item.location}</p>
-            )}
-            {"description" in item && item.description && <p>{item.description}</p>}
-            {item.subItems.length > 0 ? (
-              <div class="workstream-list" aria-label={`Trabajos dentro de ${item.organization}`}>
-                {item.subItems.map((subItem) => (
-                  <article class="workstream-item" style={getSubItemStyle(item, subItem)}>
-                    <p>{subItem.period}</p>
-                    <h4>{subItem.title}</h4>
-                    <span>{subItem.description}</span>
-                  </article>
-                ))}
-              </div>
-            ) : (
-              <ul>
-                {item.details.map((detail) => (
-                  <li>{detail}</li>
-                ))}
-              </ul>
-            )}
+    <div class="career-timeline">
+      {timelineRows.map((row) =>
+        row.type === "year" ? (
+          <div class="career-year-row">
+            <span class="career-year">{row.year}</span>
           </div>
-        </article>
-      ))}
+        ) : (
+          <article class={`career-entry career-entry-${row.item.kind}`}>
+            {row.item.kind === "education" ? (
+              <>
+                <div class="card career-card career-card-education">
+                  <p class="timeline-period">{row.item.period}</p>
+                  <p class="career-type career-type-education">Estudios</p>
+                  <h3>{row.item.title}</h3>
+                  <p class="timeline-company">{row.item.organization}</p>
+                  {row.item.location && <p class="career-location">{row.item.location}</p>}
+                  <ul>
+                    {row.item.details.map((detail) => (
+                      <li>{detail}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="career-rail" aria-hidden="true">
+                  <div class="career-marker career-marker-education"></div>
+                </div>
+                <div class="career-empty"></div>
+              </>
+            ) : (
+              <>
+                <div class="career-empty"></div>
+                <div class="career-rail" aria-hidden="true">
+                  <div class="career-marker career-marker-experience"></div>
+                </div>
+                <div class="card career-card career-card-experience">
+                  <p class="timeline-period">{row.item.period}</p>
+                  <p class="career-type career-type-experience">Experiencia</p>
+                  <h3>{row.item.title}</h3>
+                  <p class="timeline-company">{row.item.organization}</p>
+                  {row.item.description && <p>{row.item.description}</p>}
+                  {row.item.subItems.length > 0 ? (
+                    <div class="workstream-list" aria-label={`Trabajos dentro de ${row.item.organization}`}>
+                      {row.item.subItems.map((subItem) => (
+                        <article class="workstream-item">
+                          <p>{subItem.period}</p>
+                          <h4>{subItem.title}</h4>
+                          <span>{subItem.description}</span>
+                        </article>
+                      ))}
+                    </div>
+                  ) : (
+                    <ul>
+                      {row.item.details.map((detail) => (
+                        <li>{detail}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </>
+            )}
+          </article>
+        ),
+      )}
     </div>
   </div>
 </section>

@@ -228,7 +228,7 @@ export const education: Education[] = [
   {
     institution: "ANDEL",
     title: "Grado Superior en Informática - ASIR",
-    period: "2020 - 2022",
+    period: "2020-09 - 2022-06",
     start: "2020-09",
     end: "2022-06",
     location: "Alcorcón, Madrid",
@@ -240,7 +240,7 @@ export const education: Education[] = [
   {
     institution: "IES Luis de Lucena",
     title: "Grado Medio en Instalación y Mantenimiento de Telecomunicaciones",
-    period: "2016 - 2018",
+    period: "2016-09 - 2018",
     start: "2016-09",
     end: "2018-06",
     location: "Guadalajara",
@@ -252,7 +252,7 @@ export const education: Education[] = [
   {
     institution: "PUNTO OMEGA",
     title: "Montaje y mantenimiento de instalaciones eléctricas de baja tensión",
-    period: "2020",
+    period: "2020-01 - 2020-06",
     start: "2020-01",
     end: "2020-06",
     location: "Móstoles, Madrid",
@@ -263,7 +263,7 @@ export const education: Education[] = [
   {
     institution: "ENAE003PO",
     title: "Diseño y mantenimiento de instalaciones fotovoltaicas",
-    period: "2019",
+    period: "2019-01 - 2019-12",
     start: "2019-01",
     end: "2019-12",
     details: [
@@ -278,7 +278,7 @@ export const certifications: Certification[] = [
     issuer: "Cisco",
     date: "Abril 2026",
     image: "https://images.credly.com/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/I2CS__1_.png",
-    credentialUrl: "https://www.credly.com/users/lmcreator-dev/badges",
+    credentialUrl: "https://www.credly.com/badges/c775a0d0-1bcb-4516-a889-a23da7d49a04/public_url",
   },
 ];
 

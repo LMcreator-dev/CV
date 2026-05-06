@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" role="img" aria-labelledby="title desc">
+  <title id="title">Automatizaciones OO</title>
+  <desc id="desc">Diagrama visual de bloques conectados para flujos de automatizacion.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#102639" />
+      <stop offset="100%" stop-color="#0f1c2e" />
+    </linearGradient>
+    <linearGradient id="node" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#11a7a2" />
+      <stop offset="100%" stop-color="#0d7a77" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)" />
+  <rect x="84" y="72" width="632" height="306" rx="28" fill="#f7fbff" fill-opacity="0.94" />
+  <g stroke="#1c3048" stroke-width="3" fill="none">
+    <path d="M176 170 L324 170" />
+    <path d="M412 170 L560 170" />
+    <path d="M560 170 L560 250 L648 250" />
+    <path d="M324 170 L324 250 L236 250" />
+    <path d="M324 250 L472 250" />
+  </g>
+  <g fill="url(#node)">
+    <rect x="130" y="136" width="92" height="68" rx="12" />
+    <rect x="278" y="136" width="92" height="68" rx="12" />
+    <rect x="426" y="136" width="92" height="68" rx="12" />
+    <rect x="574" y="136" width="92" height="68" rx="12" />
+  </g>
+  <g fill="#ff7a18">
+    <rect x="190" y="216" width="92" height="68" rx="12" />
+    <rect x="338" y="216" width="92" height="68" rx="12" />
+    <rect x="486" y="216" width="92" height="68" rx="12" />
+    <rect x="634" y="216" width="52" height="68" rx="12" />
+  </g>
+  <text x="120" y="344" font-family="Sora, Arial, sans-serif" font-size="26" fill="#1a2740">OPERATION ORCHESTRATION FLOWS</text>
+</svg>

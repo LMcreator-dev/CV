@@ -109,7 +109,7 @@ export const knowledge: Knowledge[] = [
   },
   {
     name: "Seguridad técnica",
-    level: 2,
+    level: 3,
     group: "Infraestructura y Seguridad",
     description: "Integración de sistemas de detección, alarmas y buenas prácticas base.",
   },

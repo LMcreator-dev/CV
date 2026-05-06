@@ -40,6 +40,7 @@ type TimelineItem = {
   kind: "experience" | "education";
   period: string;
   start: string;
+  end: string;
   title: string;
   organization: string;
   description?: string;
@@ -66,11 +67,14 @@ const toMonthIndex = (value: string) => {
   return year * 12 + month - 1;
 };
 
+const durationInMonths = (start: string, end: string) => Math.max(1, toMonthIndex(end) - toMonthIndex(start) + 1);
+
 const timelineItems: TimelineItem[] = [
   ...experiences.map((item) => ({
     kind: "experience" as const,
     period: item.period,
     start: item.start,
+    end: item.end,
     title: item.position,
     organization: item.company,
     description: item.description,
@@ -81,6 +85,7 @@ const timelineItems: TimelineItem[] = [
     kind: "education" as const,
     period: item.period,
     start: item.start,
+    end: item.end,
     title: item.title,
     organization: item.institution,
     location: item.location,
@@ -109,6 +114,8 @@ for (const item of timelineItems) {
     item,
   });
 }
+
+const getEntryStyle = (item: TimelineItem) => `--duration-months: ${durationInMonths(item.start, item.end)};`;
 ---
 
 <section class="section" id="experience">
@@ -129,7 +136,7 @@ for (const item of timelineItems) {
             <span class="career-year">{row.year}</span>
           </div>
         ) : (
-          <article class={`career-entry career-entry-${row.item.kind}`}>
+          <article class={`career-entry career-entry-${row.item.kind}`} style={getEntryStyle(row.item)}>
             {row.item.kind === "education" ? (
               <>
                 <div class="card career-card career-card-education">
@@ -145,6 +152,7 @@ for (const item of timelineItems) {
                   </ul>
                 </div>
                 <div class="career-rail" aria-hidden="true">
+                  <div class={`career-duration career-duration-${row.item.kind}`}></div>
                   <div class="career-marker career-marker-education"></div>
                 </div>
                 <div class="career-empty"></div>
@@ -153,6 +161,7 @@ for (const item of timelineItems) {
               <>
                 <div class="career-empty"></div>
                 <div class="career-rail" aria-hidden="true">
+                  <div class={`career-duration career-duration-${row.item.kind}`}></div>
                   <div class="career-marker career-marker-experience"></div>
                 </div>
                 <div class="card career-card career-card-experience">

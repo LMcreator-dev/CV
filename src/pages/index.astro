@@ -8,7 +8,6 @@ import Experience from '../components/Experience.astro';
 import Certifications from '../components/Certifications.astro';
 import Projects from '../components/Projects.astro';
 import Contact from '../components/Contact.astro';
-import Footer from '../components/Footer.astro';
 import { certifications, education, experiences, profile, projects, skills } from '../data/cv';
 
 const navItems = [
@@ -67,7 +66,7 @@ const aboutStats = [
       <span aria-hidden="true">›</span>
     </button>
   </div>
-  <Footer name={profile.name} />
+
 
   <script>
     const track = document.querySelector("[data-horizontal-track]");

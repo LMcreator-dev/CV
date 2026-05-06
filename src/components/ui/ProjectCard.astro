@@ -11,9 +11,23 @@ const { title, description, image, technologies, link } = Astro.props;
 ---
 
 <article class="card project-card">
-  <img src={image} alt={title} loading="lazy" />
+  {link ? (
+    <a href={link} target="_blank" rel="noopener noreferrer" aria-label={`Abrir ${title}`}>
+      <img src={image} alt={title} loading="lazy" />
+    </a>
+  ) : (
+    <img src={image} alt={title} loading="lazy" />
+  )}
   <div class="project-body">
-    <h3>{title}</h3>
+    <h3>
+      {link ? (
+        <a href={link} target="_blank" rel="noopener noreferrer">
+          {title}
+        </a>
+      ) : (
+        title
+      )}
+    </h3>
     <p>{description}</p>
     <ul class="tag-list" aria-label={`Tecnologías de ${title}`}>
       {technologies.map((tech) => (
@@ -22,7 +36,7 @@ const { title, description, image, technologies, link } = Astro.props;
     </ul>
     {link && (
       <a href={link} target="_blank" rel="noopener noreferrer" class="button button-link">
-        Ver proyecto
+        Ver demo
       </a>
     )}
   </div>

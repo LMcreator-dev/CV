@@ -650,6 +650,10 @@ a {
   overflow: hidden;
 }
 
+.project-card > a {
+  display: block;
+}
+
 .project-card img {
   display: block;
   width: 100%;
@@ -664,6 +668,15 @@ a {
 .project-body h3 {
   margin: 0;
   font-family: "Sora", sans-serif;
+}
+
+.project-body h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.project-body h3 a:hover {
+  color: var(--color-accent);
 }
 
 .project-body p {

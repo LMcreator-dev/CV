@@ -287,7 +287,8 @@ export const projects: Project[] = [
     title: "Carta Digital LM",
     description:
       "CartaDigitalLM convierte tu carta en una experiencia visual moderna. Tus clientes escanean, ven todo al instante y tú puedes actualizar precios, platos, fotos o promociones sin imprimir nada.",
-    image: assetUrl("projects/carta-digital-lm.svg"),
+    image: assetUrl("projects/carta-digital-lm-thumbnail.png"),
     technologies: ["BBDD", "Astro"],
+    link: "https://lmcreator-dev.github.io/CartaDigitalLM/?cliente=demo",
   },
 ];

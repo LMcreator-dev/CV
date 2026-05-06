@@ -16,13 +16,13 @@ const { title, email, phone, linkedin } = Astro.props;
   <div class="container">
     <SectionHeading
       title={title}
-      intro="Disponible para nuevos retos en consultoria IT, monitorizacion y automatizacion."
+      intro="Disponible para nuevos retos en consultoría IT, monitorización y automatización."
       align="center"
       eyebrow="Hablemos"
     />
     <div class="contact-list">
       <ContactItem href={`mailto:${email}`} label="Email" value={email} />
-      <ContactItem href={`tel:${phone.replaceAll(" ", "")}`} label="Telefono" value={phone} />
+      <ContactItem href={`tel:${phone.replaceAll(" ", "")}`} label="Teléfono" value={phone} />
       <ContactItem href={linkedin} label="LinkedIn" value="Ver perfil profesional" />
     </div>
     <div class="hero-actions contact-actions">

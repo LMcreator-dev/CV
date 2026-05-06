@@ -3,18 +3,20 @@ import MainLayout from '../layouts/MainLayout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import About from '../components/About.astro';
+import Education from '../components/Education.astro';
 import Skills from '../components/Skills.astro';
 import Experience from '../components/Experience.astro';
 import Certifications from '../components/Certifications.astro';
 import Projects from '../components/Projects.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
-import { certifications, experiences, profile, projects, skills } from '../data/cv';
+import { certifications, education, experiences, profile, projects, skills } from '../data/cv';
 
 const navItems = [
   { href: "#inicio", label: "Inicio" },
-  { href: "#about", label: "Sobre mi" },
-  { href: "#skills", label: "Skills" },
+  { href: "#about", label: "Sobre mí" },
+  { href: "#education", label: "Estudios" },
+  { href: "#skills", label: "Habilidades" },
   { href: "#experience", label: "Experiencia" },
   { href: "#certifications", label: "Certificaciones" },
   { href: "#projects", label: "Proyectos" },
@@ -22,10 +24,10 @@ const navItems = [
 ];
 
 const aboutStats = [
-  { value: "+4", label: "Anos en IT tecnico" },
-  { value: "3", label: "Bloques de especializacion" },
-  { value: "Enterprise", label: "Contexto de proyectos" },
-  { value: "24/7", label: "Mentalidad operativa" },
+  { value: "+7", label: "Años en entorno técnico" },
+  { value: "ASIR", label: "Formación principal" },
+  { value: "B", label: "Carné y vehículo propio" },
+  { value: "IT", label: "Sistemas, redes y automatización" },
 ];
 ---
 
@@ -38,11 +40,12 @@ const aboutStats = [
       subtitle={profile.headline}
       location={profile.location}
     />
-    <About title="Sobre mi" description={profile.summary} stats={aboutStats} />
-    <Skills title="Habilidades Tecnicas" skills={skills} />
+    <About title="Sobre mí" description={profile.summary} stats={aboutStats} />
+    <Education title="Estudios y Formación" education={education} />
+    <Skills title="Habilidades Técnicas" skills={skills} />
     <Experience title="Experiencia Profesional" experiences={experiences} />
-  <Certifications title="Certificaciones" certifications={certifications} />
-  <Projects title="Proyectos Destacados" projects={projects} />
+    <Certifications title="Certificaciones" certifications={certifications} />
+    <Projects title="Proyectos Destacados" projects={projects} />
     <Contact
       title="Contacto"
       email={profile.email}
@@ -50,8 +53,8 @@ const aboutStats = [
       linkedin={profile.linkedin}
     />
   </main>
-  <div class="panel-controls" aria-label="Navegacion horizontal">
-    <button class="panel-arrow" type="button" data-panel-prev aria-label="Seccion anterior">
+  <div class="panel-controls" aria-label="Navegación horizontal">
+    <button class="panel-arrow" type="button" data-panel-prev aria-label="Sección anterior">
       <span aria-hidden="true">‹</span>
     </button>
     <nav class="panel-dots" aria-label="Secciones">
@@ -59,7 +62,7 @@ const aboutStats = [
         <a href={item.href} aria-label={item.label} data-dot-link></a>
       ))}
     </nav>
-    <button class="panel-arrow" type="button" data-panel-next aria-label="Seccion siguiente">
+    <button class="panel-arrow" type="button" data-panel-next aria-label="Sección siguiente">
       <span aria-hidden="true">›</span>
     </button>
   </div>

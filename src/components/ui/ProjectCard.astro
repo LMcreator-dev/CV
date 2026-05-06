@@ -15,7 +15,7 @@ const { title, description, image, technologies, link } = Astro.props;
   <div class="project-body">
     <h3>{title}</h3>
     <p>{description}</p>
-    <ul class="tag-list" aria-label={`Tecnologias de ${title}`}>
+    <ul class="tag-list" aria-label={`Tecnologías de ${title}`}>
       {technologies.map((tech) => (
         <li>{tech}</li>
       ))}

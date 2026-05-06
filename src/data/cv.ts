@@ -12,6 +12,14 @@ export interface Experience {
   highlights: string[];
 }
 
+export interface Education {
+  institution: string;
+  title: string;
+  period: string;
+  location?: string;
+  details: string[];
+}
+
 export interface Certification {
   name: string;
   issuer: string;
@@ -40,24 +48,24 @@ export const profile = {
   name: "Luis María Galindo García",
   role: "Consultor IT | Desarrollador | Especialista en Sistemas",
   headline:
-    "Especialista en migraciones Zabbix, automatizacion en Operation Orchestration y administracion de plataformas criticas.",
+    "Especialista en migraciones Zabbix, automatización en Operation Orchestration y administración de plataformas críticas.",
   summary:
-    "Consultor IT orientado a resultados, con experiencia en observabilidad, automatizacion y soporte de infraestructura. Trabajo con foco en ejecucion rapida, criterio tecnico y mejora continua.",
+    "Me considero una persona ambiciosa pero realista. Destaco por mi rapidez a la hora de actuar, el enfoque, el brainstorming y la pasión por continuar aprendiendo.",
   email: "luisgg099@gmail.com",
   phone: "+34 624010211",
   linkedin: "https://www.linkedin.com/in/luis-galindo-487b7a217/",
-  location: "Barcelona, Espana",
+  location: "Madridejos, Toledo",
 };
 
 export const skills: Skill[] = [
   {
     name: "Zabbix",
-    description: "Migraciones completas 5.x a 7.x, plantillas y estandarizacion de monitoreo.",
+    description: "Migraciones completas 5.x a 7.x, plantillas y estandarización de monitoreo.",
     icon: "ZT",
   },
   {
     name: "Operation Orchestration",
-    description: "Diseno de flows para remediaciones, navegaciones sinteticas y tareas repetitivas.",
+    description: "Diseño de flows para remediaciones, navegaciones sintéticas y tareas repetitivas.",
     icon: "OO",
   },
   {
@@ -67,17 +75,17 @@ export const skills: Skill[] = [
   },
   {
     name: "SCCM",
-    description: "Despliegue y operacion de herramientas de gestion de endpoints.",
+    description: "Despliegue y operación de herramientas de gestión de endpoints.",
     icon: "SC",
   },
   {
     name: "Redes e IP",
-    description: "Cableado estructurado, switches, camaras IP y troubleshooting de campo.",
+    description: "Cableado estructurado, switches, cámaras IP y troubleshooting de campo.",
     icon: "NW",
   },
   {
-    name: "Seguridad tecnica",
-    description: "Integracion de sistemas de deteccion, alarmas y buenas practicas base.",
+    name: "Seguridad técnica",
+    description: "Integración de sistemas de detección, alarmas y buenas prácticas base.",
     icon: "SG",
   },
 ];
@@ -86,38 +94,114 @@ export const experiences: Experience[] = [
   {
     company: "WAKKEIT",
     position: "Consultor IT",
-    period: "2022 - 2025",
+    period: "Junio 2022 - Noviembre 2025",
     description:
-      "Participacion en proyectos para entornos enterprise con foco en observabilidad y automatizacion.",
+      "Consultoría IT en entornos enterprise para AENA, TMB, SEAT y SegurCaixa Adeslas.",
     highlights: [
-      "Migracion completa de Zabbix 5.0 a 7.0 en AENA.",
-      "Desarrollo y mantenimiento en Operation Orchestration para TMB y SEAT.",
-      "Diseno de paneles en Grafana para operacion y soporte.",
-      "Despliegue SCCM en SegurCaixa Adeslas.",
+      "AENA, enero 2025 - noviembre 2025: migración completa, administración, incidencias y mantenimiento de Zabbix 5.0 a 7.0.",
+      "TMB, julio 2024 - noviembre 2025: instalación, administración y desarrollo en Operation Orchestration, incluyendo navegaciones sintéticas, reinicios, reportes y remediaciones Windows/Linux.",
+      "SEAT, diciembre 2022 - noviembre 2025: desarrollo de flows OO, lectura de BBDD, envío de correos, reinicios, conectores API para Zabbix y mantenimiento de Grafana.",
+      "SegurCaixa Adeslas, junio 2022 - diciembre 2022: despliegue SCCM e instalación en clínicas dentales.",
     ],
   },
   {
     company: "Espacio Information Technology",
-    position: "Especialista en Microinformatica",
-    period: "2022",
+    position: "Especialista en Microinformática",
+    period: "Abril 2022 - Junio 2022",
     description:
-      "Mantenimiento de parque informatico y soporte tecnico para incidencias de hardware y software.",
+      "Soporte in situ en Torre Emperador para incidencias de usuario, hardware y oficina.",
     highlights: [
-      "Actualizacion de BIOS y firmware en equipos corporativos.",
-      "Mantenimiento preventivo y mejora de vida util.",
-      "Soporte tecnico a usuarios y resolucion de incidencias.",
+      "Actualización de BIOS y firmware en equipos corporativos.",
+      "Mantenimiento preventivo y mejora de vida útil.",
+      "Soporte técnico a usuarios y resolución de incidencias.",
     ],
   },
   {
     company: "Landatel Comunicaciones",
-    position: "Tecnico Informatico",
-    period: "2021",
+    position: "Técnico Informático",
+    period: "Junio 2021 - Agosto 2021",
     description:
-      "Trabajo tecnico en infraestructura, electricidad y despliegues de red en campo.",
+      "Reparación y valoración de equipos informáticos, cámaras, hubs, switches y firmware.",
     highlights: [
-      "Instalacion de cableado de datos y lineas electricas.",
-      "Montaje y configuracion de camaras IP.",
-      "Mantenimiento de derivaciones de alta tension.",
+      "Actualización de BIOS, software y firmware.",
+      "Valoración y reparación de equipos informáticos.",
+      "Trabajo con cámaras, hubs y switches.",
+    ],
+  },
+  {
+    company: "SERTEC INGENIERÍA",
+    position: "Oficial Electricista",
+    period: "Marzo 2019 - Septiembre 2019",
+    description:
+      "Trabajo técnico en instalaciones eléctricas y comunicaciones en La Garena, Madrid.",
+    highlights: [
+      "Derivaciones de alta tensión.",
+      "Cableado de datos y eléctrico.",
+      "Instalación de cámaras IP.",
+    ],
+  },
+  {
+    company: "VODAFONE / Icono",
+    position: "Instalador",
+    period: "Junio 2018 - Septiembre 2018",
+    description:
+      "Instalaciones y mantenimiento para servicios de telecomunicaciones en Humanes, Madrid.",
+    highlights: [
+      "Instalación y mantenimiento de servicios.",
+      "Resolución de incidencias de campo.",
+      "Trabajo técnico orientado a cliente.",
+    ],
+  },
+  {
+    company: "Acecho Seguridad",
+    position: "Técnico",
+    period: "Abril 2018 - Junio 2018",
+    description:
+      "Instalaciones y mantenimiento de sistemas de seguridad en Madrid centro.",
+    highlights: [
+      "Instalación de detectores magnéticos, volumétricos y de humo.",
+      "Montaje de cámaras y centralitas antirrobo.",
+      "Mantenimiento de sistemas antiincendios.",
+    ],
+  },
+];
+
+export const education: Education[] = [
+  {
+    institution: "ANDEL",
+    title: "Grado Superior en Informática - ASIR",
+    period: "2020 - 2022",
+    location: "Alcorcón, Madrid",
+    details: [
+      "Administración de sistemas informáticos en red.",
+      "Base formativa para sistemas, redes y soporte.",
+    ],
+  },
+  {
+    institution: "IES Luis de Lucena",
+    title: "Grado Medio en Instalación y Mantenimiento de Telecomunicaciones",
+    period: "2016 - 2018",
+    location: "Guadalajara",
+    details: [
+      "Instalación y mantenimiento de telecomunicaciones.",
+      "Trabajo técnico de campo, cableado e infraestructura.",
+    ],
+  },
+  {
+    institution: "PUNTO OMEGA",
+    title: "Montaje y mantenimiento de instalaciones eléctricas de baja tensión",
+    period: "2019",
+    location: "Móstoles, Madrid",
+    details: [
+      "Formación técnica en instalaciones eléctricas de baja tensión.",
+    ],
+  },
+  {
+    institution: "ENAE003PO",
+    title: "Diseño y mantenimiento de instalaciones fotovoltaicas",
+    period: "2019",
+    details: [
+      "Formación en diseño, mantenimiento e instalación fotovoltaica.",
     ],
   },
 ];
@@ -134,23 +218,23 @@ export const certifications: Certification[] = [
 
 export const projects: Project[] = [
   {
-    title: "Migracion Zabbix",
+    title: "Migración Zabbix",
     description:
-      "Ejecucion de migracion de plataforma de monitoreo con minimo impacto operativo y mejora de visibilidad.",
+      "Ejecución de migración de plataforma de monitoreo con mínimo impacto operativo y mejora de visibilidad.",
     image: assetUrl("projects/zabbix.svg"),
     technologies: ["Zabbix", "Linux", "Windows", "Monitoreo"],
   },
   {
     title: "Automatizaciones OO",
     description:
-      "Implementacion de flows de operacion para tareas de remediacion, chequeos y reinicios controlados.",
+      "Implementación de flows de operación para tareas de remediación, chequeos y reinicios controlados.",
     image: assetUrl("projects/oo.svg"),
-    technologies: ["Operation Orchestration", "Automatizacion", "Scripting"],
+    technologies: ["Operation Orchestration", "Automatización", "Scripting"],
   },
   {
     title: "Dashboards Grafana",
     description:
-      "Creacion de cuadros de mando para seguimiento tecnico de disponibilidad y rendimiento.",
+      "Creación de cuadros de mando para seguimiento técnico de disponibilidad y rendimiento.",
     image: assetUrl("projects/grafana.svg"),
     technologies: ["Grafana", "Observabilidad", "KPI"],
   },

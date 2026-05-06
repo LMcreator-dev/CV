@@ -58,8 +58,8 @@ const assetUrl = (path: string) => {
 };
 
 export const profile = {
-  name: "Luis María Galindo García",
-  role: "Consultor IT | Desarrollador | Especialista en Sistemas",
+  name: "Luis Galindo",
+  role: "IT Automation Engineer | Devops | AI agents | Full Stack Developer | Consultor IT",
   headline:
     "Especialista en migraciones Zabbix, automatización en Operation Orchestration y administración de plataformas críticas.",
   summary:
@@ -264,7 +264,7 @@ export const education: Education[] = [
     institution: "ENAE003PO",
     title: "Diseño y mantenimiento de instalaciones fotovoltaicas",
     period: "2019",
-    start: "2019-10",
+    start: "2019-01",
     end: "2019-12",
     details: [
       "Formación en diseño, mantenimiento e instalación fotovoltaica.",
@@ -284,24 +284,10 @@ export const certifications: Certification[] = [
 
 export const projects: Project[] = [
   {
-    title: "Migración Zabbix",
+    title: "Carta Digital LM",
     description:
-      "Ejecución de migración de plataforma de monitoreo con mínimo impacto operativo y mejora de visibilidad.",
+      "CartaDigitalLM convierte tu carta en una experiencia visual moderna. Tus clientes escanean, ven todo al instante y tú puedes actualizar precios, platos, fotos o promociones sin imprimir nada.",
     image: assetUrl("projects/zabbix.svg"),
-    technologies: ["Zabbix", "Linux", "Windows", "Monitoreo"],
-  },
-  {
-    title: "Automatizaciones OO",
-    description:
-      "Implementación de flows de operación para tareas de remediación, chequeos y reinicios controlados.",
-    image: assetUrl("projects/oo.svg"),
-    technologies: ["Operation Orchestration", "Automatización", "Scripting"],
-  },
-  {
-    title: "Dashboards Grafana",
-    description:
-      "Creación de cuadros de mando para seguimiento técnico de disponibilidad y rendimiento.",
-    image: assetUrl("projects/grafana.svg"),
-    technologies: ["Grafana", "Observabilidad", "KPI"],
+    technologies: ["BBDD", "Astro"],
   },
 ];

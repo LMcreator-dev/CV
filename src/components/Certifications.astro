@@ -1,0 +1,35 @@
+---
+import SectionHeading from "./ui/SectionHeading.astro";
+import CertificationCard from "./ui/CertificationCard.astro";
+
+interface Cert {
+  name: string;
+  issuer: string;
+  date: string;
+  image: string;
+  credentialUrl: string;
+}
+
+interface Props {
+  title: string;
+  certifications: Cert[];
+}
+
+const { title, certifications } = Astro.props;
+---
+
+<section class="section section-alt" id="certifications">
+  <div class="container">
+    <SectionHeading
+      title={title}
+      intro="Formacion continua orientada a seguridad y excelencia operativa."
+      align="center"
+      eyebrow="Aprendizaje"
+    />
+    <div class="grid cert-grid">
+      {certifications.map((cert) => (
+        <CertificationCard {...cert} />
+      ))}
+    </div>
+  </div>
+</section>

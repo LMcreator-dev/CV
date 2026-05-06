@@ -1,0 +1,52 @@
+---
+import SectionHeading from "./ui/SectionHeading.astro";
+import ContactItem from "./ui/ContactItem.astro";
+
+interface Props {
+  title: string;
+  email: string;
+  phone: string;
+  linkedin: string;
+}
+
+const { title, email, phone, linkedin } = Astro.props;
+---
+
+<section class="section contact" id="contact">
+  <div class="container">
+    <SectionHeading
+      title={title}
+      intro="Disponible para nuevos retos en consultoria IT, monitorizacion y automatizacion."
+      align="center"
+      eyebrow="Hablemos"
+    />
+    <div class="contact-list">
+      <ContactItem href={`mailto:${email}`} label="Email" value={email} />
+      <ContactItem href={`tel:${phone.replaceAll(" ", "")}`} label="Telefono" value={phone} />
+      <ContactItem href={linkedin} label="LinkedIn" value="Ver perfil profesional" />
+    </div>
+    <div class="hero-actions contact-actions">
+      <a class="button button-primary" href={`mailto:${email}`}>
+        Enviar mensaje
+      </a>
+      <a class="button button-secondary" href={`tel:${phone.replaceAll(" ", "")}`}>
+        Llamar
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-actions {
+    justify-content: center;
+    margin-top: 1.2rem;
+  }
+
+  .contact-actions .button-secondary {
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  .contact-actions .button-secondary:hover {
+    background: rgba(255, 255, 255, 0.26);
+  }
+</style>

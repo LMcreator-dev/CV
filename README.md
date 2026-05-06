@@ -1,30 +1,38 @@
-# Portfolio IT - Luis María Galindo García
+# Portfolio CV - Luis María Galindo García
 
-Este es mi portfolio personal como Consultor IT, creado con HTML, CSS y JavaScript.
+Portfolio profesional construido con Astro y desplegado en GitHub Pages:
 
-## Características
-- Diseño moderno y responsive
-- Secciones interactivas: Sobre mí, Habilidades, Experiencia, Certificaciones, Proyectos, Contacto
-- Animaciones y efectos hover
-- Optimizado para GitHub Pages
+https://lmcreator-dev.github.io/CV/
 
-## Cómo usar
-1. Clona este repositorio
-2. Abre `index.html` en tu navegador
-3. Para desplegar en GitHub Pages:
-   - Ve a Settings > Pages
-   - Selecciona branch main y carpeta root
-   - El sitio estará disponible en https://tuusuario.github.io/nombre-repo
+## Desarrollo local
 
-## Tecnologías
-- HTML5
-- CSS3 (Flexbox, Grid, Animations)
-- JavaScript (Scroll effects, Smooth scrolling)
-- Font Awesome icons
+```sh
+npm ci
+npm run dev
+```
 
-## Contacto
-- Email: luisgg099@gmail.com
-- Tel: 624010211
-- LinkedIn: [Tu LinkedIn]
+## Build de producción
 
-© 2026 Luis María Galindo García
+```sh
+npm run build
+```
+
+El sitio se genera en `dist/`.
+
+## Despliegue
+
+El despliegue se ejecuta automáticamente con GitHub Actions al hacer push a `main`.
+
+Para que GitHub Pages use el workflow:
+
+1. Ve a `Settings > Pages`.
+2. En `Build and deployment`, selecciona `GitHub Actions`.
+3. Haz push a `main`.
+
+## Estructura
+
+- `src/data/cv.ts`: contenido editable del CV.
+- `src/components/`: secciones del portfolio.
+- `src/components/ui/`: componentes reutilizables.
+- `src/styles/global.css`: estilos globales y responsive.
+- `public/projects/`: assets visuales de proyectos.

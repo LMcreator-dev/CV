@@ -1,0 +1,29 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image: string;
+  technologies: string[];
+  link?: string;
+}
+
+const { title, description, image, technologies, link } = Astro.props;
+---
+
+<article class="card project-card">
+  <img src={image} alt={title} loading="lazy" />
+  <div class="project-body">
+    <h3>{title}</h3>
+    <p>{description}</p>
+    <ul class="tag-list" aria-label={`Tecnologias de ${title}`}>
+      {technologies.map((tech) => (
+        <li>{tech}</li>
+      ))}
+    </ul>
+    {link && (
+      <a href={link} target="_blank" rel="noopener noreferrer" class="button button-link">
+        Ver proyecto
+      </a>
+    )}
+  </div>
+</article>

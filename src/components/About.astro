@@ -1,0 +1,38 @@
+---
+import SectionHeading from "./ui/SectionHeading.astro";
+
+interface Stat {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  stats: Stat[];
+}
+
+const { title, description, stats } = Astro.props;
+---
+
+<section class="section" id="about">
+  <div class="container">
+    <SectionHeading title={title} intro="Vision de trabajo" eyebrow="Resumen" />
+    <div class="about-layout">
+      <article class="card about-card">
+        <p>{description}</p>
+        <p>
+          Perfil orientado a proyectos con responsabilidad directa sobre disponibilidad, rendimiento y calidad de operacion.
+        </p>
+      </article>
+      <div class="about-stats">
+        {stats.map((stat) => (
+          <article class="stat-item">
+            <strong>{stat.value}</strong>
+            <span>{stat.label}</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

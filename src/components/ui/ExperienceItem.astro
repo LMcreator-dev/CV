@@ -1,0 +1,26 @@
+---
+interface Props {
+  company: string;
+  position: string;
+  period: string;
+  description: string;
+  highlights: string[];
+}
+
+const { company, position, period, description, highlights } = Astro.props;
+---
+
+<article class="timeline-entry">
+  <div class="timeline-marker" aria-hidden="true"></div>
+  <div class="card timeline-card">
+    <p class="timeline-period">{period}</p>
+    <h3>{position}</h3>
+    <p class="timeline-company">{company}</p>
+    <p>{description}</p>
+    <ul>
+      {highlights.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </div>
+</article>

@@ -1,0 +1,33 @@
+---
+import SectionHeading from "./ui/SectionHeading.astro";
+import SkillCard from "./ui/SkillCard.astro";
+
+interface Skill {
+  name: string;
+  description: string;
+  icon: string;
+}
+
+interface Props {
+  title: string;
+  skills: Skill[];
+}
+
+const { title, skills } = Astro.props;
+---
+
+<section class="section section-alt" id="skills">
+  <div class="container">
+    <SectionHeading
+      title={title}
+      intro="Stack principal y ambitos de especializacion."
+      align="center"
+      eyebrow="Stack"
+    />
+    <div class="grid skills-grid">
+      {skills.map((skill) => (
+        <SkillCard {...skill} />
+      ))}
+    </div>
+  </div>
+</section>

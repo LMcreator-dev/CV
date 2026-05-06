@@ -1,0 +1,21 @@
+---
+interface Props {
+  name: string;
+  issuer: string;
+  date: string;
+  image: string;
+  credentialUrl: string;
+}
+
+const { name, issuer, date, image, credentialUrl } = Astro.props;
+---
+
+<article class="card cert-card">
+  <img src={image} alt={name} loading="lazy" width="120" height="120" />
+  <h3>{name}</h3>
+  <p>{issuer}</p>
+  <p class="cert-date">{date}</p>
+  <a href={credentialUrl} target="_blank" rel="noopener noreferrer" class="button button-link">
+    Ver credencial
+  </a>
+</article>

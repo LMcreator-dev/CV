@@ -1,0 +1,40 @@
+---
+interface Props {
+  title: string;
+  role: string;
+  subtitle: string;
+  ctaPrimary?: string;
+  ctaSecondary?: string;
+  location: string;
+}
+
+const {
+  title,
+  role,
+  subtitle,
+  ctaPrimary = "Ver experiencia",
+  ctaSecondary = "Ir a contacto",
+  location,
+} = Astro.props;
+---
+
+<section class="hero" id="inicio">
+  <div class="container hero-grid">
+    <div>
+      <h1>{title}</h1>
+      <p class="hero-role">{role}</p>
+      <p class="hero-subtitle">{subtitle}</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#experience">{ctaPrimary}</a>
+        <a class="button button-secondary" href="#contact">{ctaSecondary}</a>
+      </div>
+    </div>
+    <aside class="hero-highlight" aria-label="Ubicacion y foco profesional">
+      <strong>+4 anos</strong>
+      <p>Experiencia tecnica en sistemas, monitorizacion y operaciones.</p>
+      <p>
+        <strong>{location}</strong>
+      </p>
+    </aside>
+  </div>
+</section>

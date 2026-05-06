@@ -1,0 +1,24 @@
+---
+interface NavItem {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  name: string;
+  navItems: NavItem[];
+}
+
+const { name, navItems } = Astro.props;
+---
+
+<header class="navbar">
+  <nav class="container" aria-label="Principal">
+    <p class="brand">{name}</p>
+    <ul class="nav-links">
+      {navItems.map((item) => (
+        <li><a href={item.href}>{item.label}</a></li>
+      ))}
+    </ul>
+  </nav>
+</header>

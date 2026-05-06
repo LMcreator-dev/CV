@@ -1,0 +1,34 @@
+---
+import SectionHeading from "./ui/SectionHeading.astro";
+import ProjectCard from "./ui/ProjectCard.astro";
+
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  technologies: string[];
+  link?: string;
+}
+
+interface Props {
+  title: string;
+  projects: Project[];
+}
+
+const { title, projects } = Astro.props;
+---
+
+<section class="section" id="projects">
+  <div class="container">
+    <SectionHeading
+      title={title}
+      intro="Proyectos tecnicos centrados en monitoreo, automatizacion y visibilidad."
+      eyebrow="Casos"
+    />
+    <div class="grid projects-grid">
+      {projects.map((project) => (
+        <ProjectCard {...project} />
+      ))}
+    </div>
+  </div>
+</section>

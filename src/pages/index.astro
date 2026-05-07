@@ -77,7 +77,6 @@ const aboutStats = [
     const nextButton = document.querySelector("[data-panel-next]");
     const root = document.documentElement;
     const navbar = document.querySelector(".navbar");
-    const footer = document.querySelector(".footer");
     const panelModeBreakpoint = window.matchMedia("(max-width: 860px)");
     const reducedMotionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
     let wheelLock = false;
@@ -91,23 +90,32 @@ const aboutStats = [
     const getMotionBehavior = () => (reducedMotionPreference.matches ? "auto" : "smooth");
     const syncLayoutMetrics = () => {
       const navHeight = Math.ceil(navbar?.getBoundingClientRect().height ?? 0);
-      const footerHeight = Math.ceil(footer?.getBoundingClientRect().height ?? 0);
 
       if (navHeight > 0) {
         root.style.setProperty("--nav-height", `${navHeight}px`);
-      }
-
-      if (footerHeight > 0) {
-        root.style.setProperty("--footer-height", `${footerHeight}px`);
       }
     };
 
     const getActiveIndex = () => {
       if (!track || panels.length === 0) return 0;
-      const trackOffset = isVerticalPanels() ? track.scrollTop : track.scrollLeft;
-      const panelSize = isVerticalPanels() ? track.clientHeight : track.clientWidth;
-      if (panelSize <= 0) return 0;
-      return Math.round(trackOffset / panelSize);
+
+      if (!isVerticalPanels()) {
+        return Math.round(track.scrollLeft / track.clientWidth);
+      }
+
+      const navHeight = navbar?.getBoundingClientRect().height ?? 0;
+      let activeIndex = 0;
+      let closestDistance = Number.POSITIVE_INFINITY;
+
+      panels.forEach((panel, index) => {
+        const distance = Math.abs(panel.getBoundingClientRect().top - navHeight - 12);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          activeIndex = index;
+        }
+      });
+
+      return activeIndex;
     };
 
     const setActive = () => {
@@ -143,13 +151,12 @@ const aboutStats = [
       const nextPanel = panels[clampedIndex];
       if (!nextPanel) return;
 
-      nextPanel.scrollTo({ top: 0, behavior: "auto" });
-
       if (isVerticalPanels()) {
-        track.scrollTo({ top: clampedIndex * track.clientHeight, behavior });
+        nextPanel.scrollIntoView({ behavior, block: "start" });
         return;
       }
 
+      nextPanel.scrollTo({ top: 0, behavior: "auto" });
       track.scrollTo({ left: clampedIndex * track.clientWidth, behavior });
     };
 
@@ -177,12 +184,8 @@ const aboutStats = [
     };
 
     const handleWheelNavigation = (event) => {
-      if (!track || panels.length === 0 || wheelLock) return;
-      const delta = isVerticalPanels()
-        ? event.deltaY
-        : Math.abs(event.deltaY) >= Math.abs(event.deltaX)
-          ? event.deltaY
-          : event.deltaX;
+      if (!track || panels.length === 0 || wheelLock || isVerticalPanels()) return;
+      const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
 
       if (Math.abs(delta) < 18) return;
 
@@ -203,6 +206,7 @@ const aboutStats = [
     nextButton?.addEventListener("click", () => goToPanel(1));
     hashLinks.forEach((link) => {
       link.addEventListener("click", (event) => {
+        if (isVerticalPanels()) return;
         const hash = link.getAttribute("href");
         if (!hash || !goToPanelHash(hash)) return;
         event.preventDefault();
@@ -213,13 +217,24 @@ const aboutStats = [
       });
     });
     track?.addEventListener("wheel", handleWheelNavigation, { passive: false });
-    track?.addEventListener("scroll", () => window.requestAnimationFrame(setActive), { passive: true });
+    track?.addEventListener("scroll", () => {
+      if (isVerticalPanels()) return;
+      window.requestAnimationFrame(setActive);
+    }, { passive: true });
+    window.addEventListener("scroll", () => {
+      if (!isVerticalPanels()) return;
+      window.requestAnimationFrame(setActive);
+    }, { passive: true });
     window.addEventListener("resize", () => {
       syncLayoutMetrics();
-      goToPanelHash(window.location.hash, "auto");
+      lastActiveId = "";
+      if (!isVerticalPanels()) {
+        goToPanelHash(window.location.hash, "auto");
+      }
       window.requestAnimationFrame(setActive);
     });
     window.addEventListener("hashchange", () => {
+      if (isVerticalPanels()) return;
       goToPanelHash(window.location.hash, "smooth");
     });
     if (typeof ResizeObserver !== "undefined") {
@@ -230,15 +245,13 @@ const aboutStats = [
       if (navbar) {
         layoutObserver.observe(navbar);
       }
-
-      if (footer) {
-        layoutObserver.observe(footer);
-      }
     }
 
     syncLayoutMetrics();
 
-    if (!goToPanelHash(window.location.hash, "auto")) {
+    if (isVerticalPanels()) {
+      setActive();
+    } else if (!goToPanelHash(window.location.hash, "auto")) {
       setActive();
     } else {
       window.requestAnimationFrame(setActive);

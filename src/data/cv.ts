@@ -367,7 +367,7 @@ export const certifications: Certification[] = [
   {
     name: "Networking Basics",
     issuer: "Cisco",
-    date: "2026",
+    date: "Mayo 2026",
     image: "https://images.credly.com/images/5bdd6a39-3e03-4444-9510-ecff80c9ce79/twitter_thumb_201604_image.png",
     credentialUrl: "https://www.credly.com/badges/5111aef1-03bb-4014-9b26-4a71d9809e26/public_url",
   },
@@ -377,6 +377,20 @@ export const certifications: Certification[] = [
     date: "Abril 2026",
     image: "https://images.credly.com/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/I2CS__1_.png",
     credentialUrl: "https://www.credly.com/badges/c775a0d0-1bcb-4516-a889-a23da7d49a04/public_url",
+  },
+  {
+    name: "Docker Foundations Professional Certificate",
+    issuer: "Docker",
+    date: "Abril 2026",
+    image: "https://media.licdn.com/dms/image/v2/D4E22AQGWYIFHx1hORw/feedshare-shrink_1280/B4EZ1y2AwlIMAM-/0/1775748255035?e=1778185944&v=beta&t=XR70Hi91RuBzUrX6GYs3LkY8uGWKq0k0ttdBFG5xux0",
+    credentialUrl: "https://media.licdn.com/dms/image/v2/D4E22AQHKv2tw7Y8Ngg/feedshare-shrink_1280/B4EZ1yDDhgJIAM-/0/1775734897033?e=1778186063&v=beta&t=Hv5rOuPDsSGwBbvWwno3LlNTllPXIvzYFv_s26fHtwQ",
+  },
+  {
+    name: "Python para principiantes",
+    issuer: "Microsoft",
+    date: "Enero 2024",
+    image: "https://learn.microsoft.com/training/achievements/beginner-python.svg",
+    credentialUrl: "https://media.licdn.com/dms/image/v2/D4E22AQHKv2tw7Y8Ngg/feedshare-shrink_1280/B4EZ1yDDhgJIAM-/0/1775734897033?e=1778186063&v=beta&t=Hv5rOuPDsSGwBbvWwno3LlNTllPXIvzYFv_s26fHtwQ",
   },
 ];
 

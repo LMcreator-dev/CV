@@ -622,6 +622,8 @@ a {
   position: relative;
   display: flex;
   justify-content: center;
+  align-self: stretch;
+  height: 100%;
   min-height: 100%;
 }
 
@@ -632,6 +634,10 @@ a {
   left: 50%;
   width: 2.2rem;
   transform: translateX(-50%);
+}
+
+.career-entry .career-card {
+  align-self: start;
 }
 
 .career-duration {

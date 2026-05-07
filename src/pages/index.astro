@@ -75,6 +75,9 @@ const aboutStats = [
     const hashLinks = Array.from(document.querySelectorAll('a[href^="#"]'));
     const prevButton = document.querySelector("[data-panel-prev]");
     const nextButton = document.querySelector("[data-panel-next]");
+    const root = document.documentElement;
+    const navbar = document.querySelector(".navbar");
+    const footer = document.querySelector(".footer");
     const panelModeBreakpoint = window.matchMedia("(max-width: 860px)");
     const reducedMotionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
     let wheelLock = false;
@@ -86,6 +89,18 @@ const aboutStats = [
 
     const isVerticalPanels = () => panelModeBreakpoint.matches;
     const getMotionBehavior = () => (reducedMotionPreference.matches ? "auto" : "smooth");
+    const syncLayoutMetrics = () => {
+      const navHeight = Math.ceil(navbar?.getBoundingClientRect().height ?? 0);
+      const footerHeight = Math.ceil(footer?.getBoundingClientRect().height ?? 0);
+
+      if (navHeight > 0) {
+        root.style.setProperty("--nav-height", `${navHeight}px`);
+      }
+
+      if (footerHeight > 0) {
+        root.style.setProperty("--footer-height", `${footerHeight}px`);
+      }
+    };
 
     const getActiveIndex = () => {
       if (!track || panels.length === 0) return 0;
@@ -200,12 +215,28 @@ const aboutStats = [
     track?.addEventListener("wheel", handleWheelNavigation, { passive: false });
     track?.addEventListener("scroll", () => window.requestAnimationFrame(setActive), { passive: true });
     window.addEventListener("resize", () => {
+      syncLayoutMetrics();
       goToPanelHash(window.location.hash, "auto");
       window.requestAnimationFrame(setActive);
     });
     window.addEventListener("hashchange", () => {
       goToPanelHash(window.location.hash, "smooth");
     });
+    if (typeof ResizeObserver !== "undefined") {
+      const layoutObserver = new ResizeObserver(() => {
+        syncLayoutMetrics();
+      });
+
+      if (navbar) {
+        layoutObserver.observe(navbar);
+      }
+
+      if (footer) {
+        layoutObserver.observe(footer);
+      }
+    }
+
+    syncLayoutMetrics();
 
     if (!goToPanelHash(window.location.hash, "auto")) {
       setActive();

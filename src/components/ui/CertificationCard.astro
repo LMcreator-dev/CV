@@ -12,7 +12,15 @@ const { name, issuer, date, image, credentialUrl } = Astro.props;
 
 <article class="card cert-card">
   <div class="cert-badge">
-    <img src={image} alt={name} loading="lazy" width="120" height="120" />
+    <img
+      src={image}
+      alt={name}
+      loading="eager"
+      decoding="async"
+      width="120"
+      height="120"
+      onerror="this.onerror=null;this.src='/certifications/cert-fallback.svg';"
+    />
   </div>
   <h3>{name}</h3>
   <p>{issuer}</p>

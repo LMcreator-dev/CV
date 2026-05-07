@@ -865,6 +865,7 @@ a {
 }
 
 .cert-card img {
+  display: block;
   width: 120px;
   height: 120px;
   object-fit: contain;

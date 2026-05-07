@@ -382,15 +382,15 @@ export const certifications: Certification[] = [
     name: "Docker Foundations Professional Certificate",
     issuer: "Docker",
     date: "Abril 2026",
-    image: "https://media.licdn.com/dms/image/v2/D4E22AQGWYIFHx1hORw/feedshare-shrink_1280/B4EZ1y2AwlIMAM-/0/1775748255035?e=1778185944&v=beta&t=XR70Hi91RuBzUrX6GYs3LkY8uGWKq0k0ttdBFG5xux0",
-    credentialUrl: "https://media.licdn.com/dms/image/v2/D4E22AQHKv2tw7Y8Ngg/feedshare-shrink_1280/B4EZ1yDDhgJIAM-/0/1775734897033?e=1778186063&v=beta&t=Hv5rOuPDsSGwBbvWwno3LlNTllPXIvzYFv_s26fHtwQ",
+    image: assetUrl("certifications/docker-foundations.svg"),
+    credentialUrl: "https://www.linkedin.com/in/luis-galindo-487b7a217/details/certifications/",
   },
   {
     name: "Python para principiantes",
     issuer: "Microsoft",
     date: "Enero 2024",
-    image: "https://learn.microsoft.com/training/achievements/beginner-python.svg",
-    credentialUrl: "https://media.licdn.com/dms/image/v2/D4E22AQHKv2tw7Y8Ngg/feedshare-shrink_1280/B4EZ1yDDhgJIAM-/0/1775734897033?e=1778186063&v=beta&t=Hv5rOuPDsSGwBbvWwno3LlNTllPXIvzYFv_s26fHtwQ",
+    image: assetUrl("certifications/python-principiantes.svg"),
+    credentialUrl: "https://www.linkedin.com/in/luis-galindo-487b7a217/details/certifications/",
   },
 ];
 

@@ -368,7 +368,7 @@ export const certifications: Certification[] = [
     name: "Networking Basics",
     issuer: "Cisco",
     date: "2026",
-    image: "https://images.credly.com/images/5bdd6a39-3e03-4444-9510-ecff80c9ce79/linkedin_thumb_image.png",
+    image: "https://images.credly.com/images/5bdd6a39-3e03-4444-9510-ecff80c9ce79/twitter_thumb_201604_image.png",
     credentialUrl: "https://www.credly.com/badges/5111aef1-03bb-4014-9b26-4a71d9809e26/public_url",
   },
   {

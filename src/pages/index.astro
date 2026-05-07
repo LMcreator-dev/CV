@@ -75,8 +75,7 @@ const aboutStats = [
     const hashLinks = Array.from(document.querySelectorAll('a[href^="#"]'));
     const prevButton = document.querySelector("[data-panel-prev]");
     const nextButton = document.querySelector("[data-panel-next]");
-    const navbar = document.querySelector(".navbar");
-    const layoutBreakpoint = window.matchMedia("(max-width: 860px)");
+    const panelModeBreakpoint = window.matchMedia("(max-width: 860px)");
     const reducedMotionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
     let wheelLock = false;
     let lastActiveId = "";
@@ -85,29 +84,15 @@ const aboutStats = [
       panels.map((panel, index) => [`#${panel.id}`, index]),
     );
 
-    const isLinearLayout = () => layoutBreakpoint.matches;
+    const isVerticalPanels = () => panelModeBreakpoint.matches;
     const getMotionBehavior = () => (reducedMotionPreference.matches ? "auto" : "smooth");
 
     const getActiveIndex = () => {
       if (!track || panels.length === 0) return 0;
-
-      if (!isLinearLayout()) {
-        return Math.round(track.scrollLeft / track.clientWidth);
-      }
-
-      const navHeight = navbar?.getBoundingClientRect().height ?? 0;
-      let activeIndex = 0;
-      let closestDistance = Number.POSITIVE_INFINITY;
-
-      panels.forEach((panel, index) => {
-        const distance = Math.abs(panel.getBoundingClientRect().top - navHeight - 12);
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          activeIndex = index;
-        }
-      });
-
-      return activeIndex;
+      const trackOffset = isVerticalPanels() ? track.scrollTop : track.scrollLeft;
+      const panelSize = isVerticalPanels() ? track.clientHeight : track.clientWidth;
+      if (panelSize <= 0) return 0;
+      return Math.round(trackOffset / panelSize);
     };
 
     const setActive = () => {
@@ -132,46 +117,38 @@ const aboutStats = [
         inline: "center",
       });
 
-      if (!isLinearLayout() && activeId && window.location.hash !== `#${activeId}`) {
+      if (activeId && window.location.hash !== `#${activeId}`) {
         window.history.replaceState(null, "", `#${activeId}`);
       }
     };
 
-    const goToPanel = (offset) => {
-      if (panels.length === 0) return;
-      const nextIndex = Math.max(0, Math.min(panels.length - 1, getActiveIndex() + offset));
-      const nextPanel = panels[nextIndex];
-
+    const scrollToPanelIndex = (index, behavior = "smooth") => {
+      if (!track || panels.length === 0) return;
+      const clampedIndex = Math.max(0, Math.min(panels.length - 1, index));
+      const nextPanel = panels[clampedIndex];
       if (!nextPanel) return;
 
-      if (isLinearLayout()) {
-        nextPanel.scrollIntoView({ behavior: getMotionBehavior(), block: "start" });
-        window.requestAnimationFrame(setActive);
+      nextPanel.scrollTo({ top: 0, behavior: "auto" });
+
+      if (isVerticalPanels()) {
+        track.scrollTo({ top: clampedIndex * track.clientHeight, behavior });
         return;
       }
 
-      if (!track) return;
-      nextPanel?.scrollTo({ top: 0, behavior: "auto" });
-      track.scrollTo({ left: nextIndex * track.clientWidth, behavior: getMotionBehavior() });
+      track.scrollTo({ left: clampedIndex * track.clientWidth, behavior });
+    };
+
+    const goToPanel = (offset) => {
+      if (panels.length === 0) return;
+      scrollToPanelIndex(getActiveIndex() + offset, getMotionBehavior());
     };
 
     const goToPanelHash = (hash, behavior = "smooth") => {
       if (!panelIndexByHash.has(hash)) return false;
 
       const nextIndex = panelIndexByHash.get(hash);
-      const nextPanel = panels[nextIndex];
-
-      if (!nextPanel) return false;
-
-      if (isLinearLayout()) {
-        const resolvedBehavior = behavior === "smooth" ? getMotionBehavior() : behavior;
-        nextPanel.scrollIntoView({ behavior: resolvedBehavior, block: "start" });
-        return true;
-      }
-
-      if (!track) return false;
-      nextPanel?.scrollTo({ top: 0, behavior: "auto" });
-      track.scrollTo({ left: nextIndex * track.clientWidth, behavior });
+      const resolvedBehavior = behavior === "smooth" ? getMotionBehavior() : behavior;
+      scrollToPanelIndex(nextIndex, resolvedBehavior);
       return true;
     };
 
@@ -185,9 +162,12 @@ const aboutStats = [
     };
 
     const handleWheelNavigation = (event) => {
-      if (!track || panels.length === 0 || wheelLock || isLinearLayout()) return;
-
-      const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+      if (!track || panels.length === 0 || wheelLock) return;
+      const delta = isVerticalPanels()
+        ? event.deltaY
+        : Math.abs(event.deltaY) >= Math.abs(event.deltaX)
+          ? event.deltaY
+          : event.deltaX;
 
       if (Math.abs(delta) < 18) return;
 
@@ -208,7 +188,6 @@ const aboutStats = [
     nextButton?.addEventListener("click", () => goToPanel(1));
     hashLinks.forEach((link) => {
       link.addEventListener("click", (event) => {
-        if (isLinearLayout()) return;
         const hash = link.getAttribute("href");
         if (!hash || !goToPanelHash(hash)) return;
         event.preventDefault();
@@ -219,24 +198,19 @@ const aboutStats = [
       });
     });
     track?.addEventListener("wheel", handleWheelNavigation, { passive: false });
-    track?.addEventListener("scroll", () => {
-      if (isLinearLayout()) return;
+    track?.addEventListener("scroll", () => window.requestAnimationFrame(setActive), { passive: true });
+    window.addEventListener("resize", () => {
+      goToPanelHash(window.location.hash, "auto");
       window.requestAnimationFrame(setActive);
-    }, { passive: true });
-    window.addEventListener("scroll", () => {
-      if (!isLinearLayout()) return;
-      window.requestAnimationFrame(setActive);
-    }, { passive: true });
-    window.addEventListener("resize", () => window.requestAnimationFrame(setActive));
+    });
     window.addEventListener("hashchange", () => {
-      if (isLinearLayout()) return;
       goToPanelHash(window.location.hash, "smooth");
     });
 
-    if (isLinearLayout()) {
+    if (!goToPanelHash(window.location.hash, "auto")) {
       setActive();
-    } else if (!goToPanelHash(window.location.hash, "auto")) {
-      setActive();
+    } else {
+      window.requestAnimationFrame(setActive);
     }
   </script>
 </MainLayout>

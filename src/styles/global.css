@@ -530,6 +530,10 @@ a {
   font-weight: 700;
 }
 
+.career-card-education .timeline-company {
+  color: #0f7470;
+}
+
 .career-legend {
   display: flex;
   flex-wrap: wrap;
@@ -839,9 +843,19 @@ a {
   padding: 1.4rem;
 }
 
+.cert-badge {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 0.9rem;
+  display: grid;
+  place-items: center;
+}
+
 .cert-card img {
   width: 120px;
-  margin-bottom: 0.9rem;
+  height: 120px;
+  object-fit: contain;
+  object-position: center;
 }
 
 .cert-card h3 {
@@ -1150,29 +1164,28 @@ a {
 
 @media (max-width: 860px) {
   body {
-    height: auto;
-    min-height: 100svh;
-    overflow-x: hidden;
-    overflow-y: auto;
+    height: 100svh;
+    overflow: hidden;
   }
 
   .portfolio-track {
     display: block;
-    height: auto;
+    height: calc(100svh - var(--nav-height) - var(--footer-height));
     margin-top: var(--nav-height);
-    overflow: visible;
-    scroll-snap-type: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    overscroll-behavior-y: contain;
   }
 
   .portfolio-track > section {
-    flex: none;
     width: 100%;
-    height: auto;
-    min-height: auto;
-    overflow: visible;
-    scroll-snap-align: none;
-    scroll-snap-stop: normal;
-    scroll-margin-top: calc(var(--nav-height) + 0.8rem);
+    height: 100%;
+    min-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   .panel-controls {
@@ -1185,11 +1198,6 @@ a {
 
   .hero {
     padding: 2.4rem 0 2.2rem;
-  }
-
-  .footer {
-    position: static;
-    margin-top: 0;
   }
 }
 
@@ -1361,8 +1369,14 @@ a {
     padding: 1.15rem;
   }
 
+  .cert-badge {
+    width: 104px;
+    height: 104px;
+  }
+
   .cert-card img {
     width: 104px;
+    height: 104px;
   }
 
   .panel-controls {

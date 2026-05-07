@@ -273,6 +273,7 @@ a {
   font-family: "JetBrains Mono", monospace;
   letter-spacing: 0;
   font-size: 0.95rem;
+  overflow-wrap: anywhere;
 }
 
 .hero-subtitle {
@@ -1147,6 +1148,51 @@ a {
   }
 }
 
+@media (max-width: 860px) {
+  body {
+    height: auto;
+    min-height: 100svh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .portfolio-track {
+    display: block;
+    height: auto;
+    margin-top: var(--nav-height);
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .portfolio-track > section {
+    flex: none;
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    overflow: visible;
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+    scroll-margin-top: calc(var(--nav-height) + 0.8rem);
+  }
+
+  .panel-controls {
+    display: none;
+  }
+
+  .section {
+    padding: 2.7rem 0 2.4rem;
+  }
+
+  .hero {
+    padding: 2.4rem 0 2.2rem;
+  }
+
+  .footer {
+    position: static;
+    margin-top: 0;
+  }
+}
+
 @media (max-width: 720px) {
   :root {
     --nav-height: 8rem;
@@ -1253,11 +1299,11 @@ a {
   }
 
   .section {
-    padding: 2.9rem 0 5rem;
+    padding: 2.9rem 0 2.6rem;
   }
 
   .hero {
-    padding: 2.1rem 0 5rem;
+    padding: 2.1rem 0 2.4rem;
   }
 
   .career-legend {

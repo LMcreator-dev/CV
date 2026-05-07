@@ -75,20 +75,47 @@ const aboutStats = [
     const hashLinks = Array.from(document.querySelectorAll('a[href^="#"]'));
     const prevButton = document.querySelector("[data-panel-prev]");
     const nextButton = document.querySelector("[data-panel-next]");
+    const navbar = document.querySelector(".navbar");
+    const layoutBreakpoint = window.matchMedia("(max-width: 860px)");
+    const reducedMotionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
     let wheelLock = false;
+    let lastActiveId = "";
 
     const panelIndexByHash = new Map(
       panels.map((panel, index) => [`#${panel.id}`, index]),
     );
 
+    const isLinearLayout = () => layoutBreakpoint.matches;
+    const getMotionBehavior = () => (reducedMotionPreference.matches ? "auto" : "smooth");
+
     const getActiveIndex = () => {
       if (!track || panels.length === 0) return 0;
-      return Math.round(track.scrollLeft / track.clientWidth);
+
+      if (!isLinearLayout()) {
+        return Math.round(track.scrollLeft / track.clientWidth);
+      }
+
+      const navHeight = navbar?.getBoundingClientRect().height ?? 0;
+      let activeIndex = 0;
+      let closestDistance = Number.POSITIVE_INFINITY;
+
+      panels.forEach((panel, index) => {
+        const distance = Math.abs(panel.getBoundingClientRect().top - navHeight - 12);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          activeIndex = index;
+        }
+      });
+
+      return activeIndex;
     };
 
     const setActive = () => {
       const activePanel = panels[getActiveIndex()];
       const activeId = activePanel?.id;
+      if (!activeId || activeId === lastActiveId) return;
+
+      lastActiveId = activeId;
       let activeTopLink = null;
 
       links.forEach((link) => {
@@ -100,28 +127,49 @@ const aboutStats = [
       });
 
       activeTopLink?.scrollIntoView({
-        behavior: "smooth",
+        behavior: getMotionBehavior(),
         block: "nearest",
         inline: "center",
       });
 
-      if (activeId && window.location.hash !== `#${activeId}`) {
+      if (!isLinearLayout() && activeId && window.location.hash !== `#${activeId}`) {
         window.history.replaceState(null, "", `#${activeId}`);
       }
     };
 
     const goToPanel = (offset) => {
-      if (!track) return;
+      if (panels.length === 0) return;
       const nextIndex = Math.max(0, Math.min(panels.length - 1, getActiveIndex() + offset));
       const nextPanel = panels[nextIndex];
+
+      if (!nextPanel) return;
+
+      if (isLinearLayout()) {
+        nextPanel.scrollIntoView({ behavior: getMotionBehavior(), block: "start" });
+        window.requestAnimationFrame(setActive);
+        return;
+      }
+
+      if (!track) return;
       nextPanel?.scrollTo({ top: 0, behavior: "auto" });
-      track.scrollTo({ left: nextIndex * track.clientWidth, behavior: "smooth" });
+      track.scrollTo({ left: nextIndex * track.clientWidth, behavior: getMotionBehavior() });
     };
 
     const goToPanelHash = (hash, behavior = "smooth") => {
-      if (!track || !panelIndexByHash.has(hash)) return false;
+      if (!panelIndexByHash.has(hash)) return false;
+
       const nextIndex = panelIndexByHash.get(hash);
       const nextPanel = panels[nextIndex];
+
+      if (!nextPanel) return false;
+
+      if (isLinearLayout()) {
+        const resolvedBehavior = behavior === "smooth" ? getMotionBehavior() : behavior;
+        nextPanel.scrollIntoView({ behavior: resolvedBehavior, block: "start" });
+        return true;
+      }
+
+      if (!track) return false;
       nextPanel?.scrollTo({ top: 0, behavior: "auto" });
       track.scrollTo({ left: nextIndex * track.clientWidth, behavior });
       return true;
@@ -137,7 +185,7 @@ const aboutStats = [
     };
 
     const handleWheelNavigation = (event) => {
-      if (!track || panels.length === 0 || wheelLock) return;
+      if (!track || panels.length === 0 || wheelLock || isLinearLayout()) return;
 
       const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
 
@@ -160,6 +208,7 @@ const aboutStats = [
     nextButton?.addEventListener("click", () => goToPanel(1));
     hashLinks.forEach((link) => {
       link.addEventListener("click", (event) => {
+        if (isLinearLayout()) return;
         const hash = link.getAttribute("href");
         if (!hash || !goToPanelHash(hash)) return;
         event.preventDefault();
@@ -170,13 +219,23 @@ const aboutStats = [
       });
     });
     track?.addEventListener("wheel", handleWheelNavigation, { passive: false });
-    track?.addEventListener("scroll", () => window.requestAnimationFrame(setActive), { passive: true });
-    window.addEventListener("resize", setActive);
+    track?.addEventListener("scroll", () => {
+      if (isLinearLayout()) return;
+      window.requestAnimationFrame(setActive);
+    }, { passive: true });
+    window.addEventListener("scroll", () => {
+      if (!isLinearLayout()) return;
+      window.requestAnimationFrame(setActive);
+    }, { passive: true });
+    window.addEventListener("resize", () => window.requestAnimationFrame(setActive));
     window.addEventListener("hashchange", () => {
+      if (isLinearLayout()) return;
       goToPanelHash(window.location.hash, "smooth");
     });
 
-    if (!goToPanelHash(window.location.hash, "auto")) {
+    if (isLinearLayout()) {
+      setActive();
+    } else if (!goToPanelHash(window.location.hash, "auto")) {
       setActive();
     }
   </script>

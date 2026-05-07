@@ -389,7 +389,7 @@ export const certifications: Certification[] = [
     name: "Python para principiantes",
     issuer: "Microsoft",
     date: "Enero 2024",
-    image: assetUrl("certifications/beginner-python.png"),
+    image: assetUrl("certifications/beginner-python.svg"),
     credentialUrl: "https://learn.microsoft.com/es-es/users/lmggmenendez/achievements/k5yxhhgb",
   },
 ];

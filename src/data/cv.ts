@@ -382,15 +382,15 @@ export const certifications: Certification[] = [
     name: "Docker Foundations Professional Certificate",
     issuer: "Docker",
     date: "Abril 2026",
-    image: assetUrl("certifications/docker-foundations.svg"),
+    image: assetUrl("certifications/docker_logo.png"),
     credentialUrl: "https://www.linkedin.com/in/luis-galindo-487b7a217/details/certifications/",
   },
   {
     name: "Python para principiantes",
     issuer: "Microsoft",
     date: "Enero 2024",
-    image: assetUrl("certifications/python-principiantes.svg"),
-    credentialUrl: "https://www.linkedin.com/in/luis-galindo-487b7a217/details/certifications/",
+    image: assetUrl("certifications/beginner-python.png"),
+    credentialUrl: "https://learn.microsoft.com/es-es/users/lmggmenendez/achievements/k5yxhhgb",
   },
 ];
 

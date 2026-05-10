@@ -392,6 +392,48 @@ export const certifications: Certification[] = [
     image: assetUrl("certifications/beginner-python.svg"),
     credentialUrl: "https://learn.microsoft.com/es-es/users/lmggmenendez/achievements/k5yxhhgb",
   },
+  {
+    name: "Python para principiantes",
+    issuer: "Microsoft",
+    date: "Enero 2024",
+    image: assetUrl("certifications/beginner-python.svg"),
+    credentialUrl: "https://learn.microsoft.com/es-es/users/lmggmenendez/achievements/k5yxhhgb",
+  },
+  {
+    name: "Administración de sistemas informáticos en Red",
+    issuer: "Andel",
+    date: "Enero 2022",
+    image: assetUrl("certifications/asir_cv.png"),
+    credentialUrl: "",
+  },
+  {
+    name: "Tecnico en Instalaciones de telecomunicaciones",
+    issuer: "Luis de Lucena",
+    date: "Enero 2018",
+    image: assetUrl("certifications/itec_cv.png"),
+    credentialUrl: "",
+  },
+  {
+    name: "Montaje y mantenimiento de instalaciones eléctricas de baja tensión",
+    issuer: "Punto Omega",
+    date: "Noviembre 2020",
+    image: assetUrl("certifications/elec_cv.png"),
+    credentialUrl: "",
+  },
+  {
+    name: "Diseño y mantenimiento de instalaciones fotovoltaicas",
+    issuer: "Femxa",
+    date: "Agosto 2019",
+    image: assetUrl("certifications/fotovoltaica_cv.png"),
+    credentialUrl: "",
+  },
+  {
+    name: "PRL instalaciones eléctricas",
+    issuer: "TERRASA",
+    date: "Marzo 2019",
+    image: assetUrl("certifications/prl_cv.png"),
+    credentialUrl: "",
+  },
 ];
 
 export const projects: Project[] = [

@@ -14,16 +14,24 @@ const showFullImage = !hasCredentialUrl;
 
 <article class:list={["card cert-card", { "cert-card--full-image": showFullImage }]}>
   <div class="cert-badge">
-    <img
-      class="cert-image"
-      src={image}
-      alt={name}
-      loading="eager"
-      decoding="async"
-      width="120"
-      height="120"
-      onerror="this.onerror=null;this.src='/certifications/cert-fallback.svg';"
-    />
+    <a
+      class="cert-image-link"
+      href={image}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Abrir imagen completa de la certificación ${name}`}
+    >
+      <img
+        class="cert-image"
+        src={image}
+        alt={name}
+        loading="eager"
+        decoding="async"
+        width="120"
+        height="120"
+        onerror="this.onerror=null;this.src='/certifications/cert-fallback.svg';"
+      />
+    </a>
   </div>
   <h3>{name}</h3>
   <p>{issuer}</p>

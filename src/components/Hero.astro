@@ -41,12 +41,20 @@ const profileInitials = title
     <aside class="hero-highlight" aria-label="Ubicación y foco profesional">
       <div class="hero-profile">
         {profileImage ? (
-          <img
-            src={profileImage}
-            alt={`Foto de perfil de ${title}`}
-            loading="eager"
-            decoding="async"
-          />
+          <a
+            class="hero-profile-link"
+            href={profileImage}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Abrir foto de perfil de ${title} en tamaño completo`}
+          >
+            <img
+              src={profileImage}
+              alt={`Foto de perfil de ${title}`}
+              loading="eager"
+              decoding="async"
+            />
+          </a>
         ) : (
           <span class="hero-profile-fallback" aria-hidden="true">{profileInitials}</span>
         )}

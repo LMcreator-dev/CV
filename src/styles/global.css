@@ -298,13 +298,20 @@ a {
 }
 
 .hero-profile {
-  width: 118px;
+  width: 176px;
   aspect-ratio: 1 / 1;
   margin: 0 auto 0.95rem;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid rgba(255, 255, 255, 0.42);
   box-shadow: 0 10px 22px rgba(8, 15, 24, 0.4);
+}
+
+.hero-profile-link {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: zoom-in;
 }
 
 .hero-profile img {
@@ -902,6 +909,12 @@ a {
   object-position: center;
 }
 
+.cert-image-link {
+  display: inline-block;
+  line-height: 0;
+  cursor: zoom-in;
+}
+
 .cert-card--full-image .cert-badge {
   width: min(100%, 320px);
   min-height: auto;
@@ -914,7 +927,12 @@ a {
 .cert-card--full-image .cert-image {
   width: 100%;
   height: auto;
-  max-height: 220px;
+  max-height: 260px;
+}
+
+.cert-card--full-image .cert-image-link {
+  display: block;
+  width: 100%;
 }
 
 .cert-card h3 {
@@ -1359,7 +1377,7 @@ a {
   }
 
   .hero-profile {
-    width: 96px;
+    width: 128px;
     margin-bottom: 0.8rem;
   }
 
@@ -1457,7 +1475,7 @@ a {
   .cert-card--full-image .cert-image {
     width: 100%;
     height: auto;
-    max-height: 180px;
+    max-height: 220px;
   }
 
   .panel-controls {

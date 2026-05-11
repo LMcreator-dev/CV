@@ -86,7 +86,7 @@ export const profile: Profile = {
   phone: "+34 624010211",
   linkedin: "https://www.linkedin.com/in/luis-galindo-487b7a217/",
   location: "Madridejos, Toledo",
-  profileImage: "public/profile.jpeg",
+  profileImage: "public/profile/fotocv.jpg",
 };
 
 export const knowledge: Knowledge[] = [

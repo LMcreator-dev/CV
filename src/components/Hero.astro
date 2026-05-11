@@ -6,6 +6,7 @@ interface Props {
   ctaPrimary?: string;
   ctaSecondary?: string;
   location: string;
+  profileImage?: string;
 }
 
 const {
@@ -15,7 +16,15 @@ const {
   ctaPrimary = "Ver experiencia",
   ctaSecondary = "Ir a contacto",
   location,
+  profileImage,
 } = Astro.props;
+
+const profileInitials = title
+  .split(" ")
+  .filter(Boolean)
+  .slice(0, 2)
+  .map((part) => part[0]?.toUpperCase() ?? "")
+  .join("");
 ---
 
 <section class="hero" id="inicio">
@@ -30,6 +39,18 @@ const {
       </div>
     </div>
     <aside class="hero-highlight" aria-label="Ubicación y foco profesional">
+      <div class="hero-profile">
+        {profileImage ? (
+          <img
+            src={profileImage}
+            alt={`Foto de perfil de ${title}`}
+            loading="eager"
+            decoding="async"
+          />
+        ) : (
+          <span class="hero-profile-fallback" aria-hidden="true">{profileInitials}</span>
+        )}
+      </div>
       <strong>+4 años</strong>
       <p>Experiencia técnica en sistemas, monitorización y operaciones.</p>
       <p>

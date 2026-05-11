@@ -44,7 +44,7 @@ export interface Certification {
   issuer: string;
   date: string;
   image: string;
-  credentialUrl: string;
+  credentialUrl?: string;
 }
 
 export interface Project {
@@ -55,6 +55,18 @@ export interface Project {
   link?: string;
 }
 
+export interface Profile {
+  name: string;
+  role: string;
+  headline: string;
+  summary: string;
+  email: string;
+  phone: string;
+  linkedin: string;
+  location: string;
+  profileImage?: string;
+}
+
 const assetUrl = (path: string) => {
   const baseUrl = import.meta.env.BASE_URL.endsWith("/")
     ? import.meta.env.BASE_URL
@@ -63,7 +75,7 @@ const assetUrl = (path: string) => {
   return `${baseUrl}${path.replace(/^\/+/, "")}`;
 };
 
-export const profile = {
+export const profile: Profile = {
   name: "Luis Galindo",
   role: "IT Automation Engineer | Devops | AI agents | Full Stack Developer | Consultor IT",
   headline:
@@ -74,6 +86,7 @@ export const profile = {
   phone: "+34 624010211",
   linkedin: "https://www.linkedin.com/in/luis-galindo-487b7a217/",
   location: "Madridejos, Toledo",
+  profileImage: "public/profile.jpeg",
 };
 
 export const knowledge: Knowledge[] = [
@@ -404,35 +417,30 @@ export const certifications: Certification[] = [
     issuer: "Andel",
     date: "Enero 2022",
     image: assetUrl("certifications/asir_cv.png"),
-    credentialUrl: "",
   },
   {
     name: "Tecnico en Instalaciones de telecomunicaciones",
     issuer: "Luis de Lucena",
     date: "Enero 2018",
     image: assetUrl("certifications/itel_cv.png"),
-    credentialUrl: "",
   },
   {
     name: "Montaje y mantenimiento de instalaciones eléctricas de baja tensión",
     issuer: "Punto Omega",
     date: "Noviembre 2020",
     image: assetUrl("certifications/elect_cv.png"),
-    credentialUrl: "",
   },
   {
     name: "Diseño y mantenimiento de instalaciones fotovoltaicas",
     issuer: "Femxa",
     date: "Agosto 2019",
     image: assetUrl("certifications/fotovol_cv.png"),
-    credentialUrl: "",
   },
   {
     name: "PRL instalaciones eléctricas",
     issuer: "TERRASA",
     date: "Marzo 2019",
     image: assetUrl("certifications/prl_cv.png"),
-    credentialUrl: "",
   },
 ];
 

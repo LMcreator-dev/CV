@@ -4,15 +4,18 @@ interface Props {
   issuer: string;
   date: string;
   image: string;
-  credentialUrl: string;
+  credentialUrl?: string;
 }
 
 const { name, issuer, date, image, credentialUrl } = Astro.props;
+const hasCredentialUrl = Boolean(credentialUrl?.trim());
+const showFullImage = !hasCredentialUrl;
 ---
 
-<article class="card cert-card">
+<article class:list={["card cert-card", { "cert-card--full-image": showFullImage }]}>
   <div class="cert-badge">
     <img
+      class="cert-image"
       src={image}
       alt={name}
       loading="eager"
@@ -25,7 +28,9 @@ const { name, issuer, date, image, credentialUrl } = Astro.props;
   <h3>{name}</h3>
   <p>{issuer}</p>
   <p class="cert-date">{date}</p>
-  <a href={credentialUrl} target="_blank" rel="noopener noreferrer" class="button button-link">
-    Ver credencial
-  </a>
+  {hasCredentialUrl && (
+    <a href={credentialUrl} target="_blank" rel="noopener noreferrer" class="button button-link">
+      Ver credencial
+    </a>
+  )}
 </article>

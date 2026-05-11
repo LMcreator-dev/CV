@@ -338,8 +338,15 @@ export const education: Education[] = [
     end: "2022-06",
     location: "Alcorcón, Madrid",
     details: [
-      "Administración de sistemas informáticos en red.",
-      "Base formativa para sistemas, redes y soporte.",
+      "Administración de sistemas gestores de bases de datos",
+      "Administración de sistemas operativos",
+      "Empresa e iniciativa emprendedora",
+      "Formación en Centros de Trabajo",
+      "Implantación de aplicaciones web",
+      "Inglés técnico para grado superior",
+      "Proyecto de administración de sistemas informáticos en red",
+      "Seguridad y alta disponibilidad",
+      "Servicios de red e internet ",
     ],
   },
   {
@@ -352,6 +359,19 @@ export const education: Education[] = [
     details: [
       "Instalación y mantenimiento de telecomunicaciones.",
       "Trabajo técnico de campo, cableado e infraestructura.",
+      "Infraestructuras comunes de telecomunicación en viviendas y edificios.",
+      "Electrónica aplicada ",
+      "Equipos microinformáticos ",
+      "Instalaciones eléctricas básicas",
+      "Instalaciones de radiocomunicaciones ",
+      "Inglés técnico para CFGM de la familia profesional de electricidad y electrónica",
+      "Formación y orientación laboral",
+      "Instalaciones domóticas",
+      "Infraestructuras de redes de datos y sistemas de telefonía",
+      "Instalaciones de megafonía y sonorización",
+      "Circuito cerrado de televisión y seguridad electrónica",
+      "Empresa e iniciativa emprendedora",
+      "Formación en centros de trabajo"
     ],
   },
   {
@@ -362,7 +382,11 @@ export const education: Education[] = [
     end: "2020-06",
     location: "Móstoles, Madrid",
     details: [
-      "Formación técnica en instalaciones eléctricas de baja tensión.",
+      "Instalaciones eléctricas en edificios de viviendas",
+      "Instalaciones eléctricas en edificios de oficinas, comercios e industrias",
+      "Montaje y mantenimiento de redes eléctricas aéreas de baja tensión",
+      "Montaje y mantenimiento de redes eléctricas subterráneas de baja tensión",
+      "Montaje y mantenimiento de máquinas eléctricas"
     ],
   },
   {
@@ -372,7 +396,13 @@ export const education: Education[] = [
     start: "2019-01",
     end: "2019-12",
     details: [
-      "Formación en diseño, mantenimiento e instalación fotovoltaica.",
+      "RADIACIÓN SOLAR",
+      "MÓDULO FOTOVOLTAICO – GENERADOR FOTOVOLTAICO.",
+      "INSTALACIÓN",
+      "PUESTA EN MARCHA DE UN SISTEMA FOTOVOLTAICO. MEDIDAS EN GENERADORES",
+      "SISTEMAS FOTOVOLTAICOS CONECTADOS A RED",
+      "DISEÑO DE SISTEMAS FOTOVOLTAICOS CONECTADOS A RED.",
+      "MANTENIMIENTO. PLAN DE VIGILANCIA."
     ],
   },
 ];

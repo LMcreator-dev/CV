@@ -437,13 +437,6 @@ export const certifications: Certification[] = [
     credentialUrl: "https://learn.microsoft.com/es-es/users/lmggmenendez/achievements/k5yxhhgb",
   },
   {
-    name: "Python para principiantes",
-    issuer: "Microsoft",
-    date: "Enero 2024",
-    image: assetUrl("certifications/beginner-python.svg"),
-    credentialUrl: "https://learn.microsoft.com/es-es/users/lmggmenendez/achievements/k5yxhhgb",
-  },
-  {
     name: "Administración de sistemas informáticos en Red",
     issuer: "Andel",
     date: "Enero 2022",

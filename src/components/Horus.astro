@@ -1,1213 +1,3509 @@
 ---
-interface Topic {
-  name: string;
-  items: string[];
-}
+/*
+ * PROJECT HORUS
+ * AI MASTERY & RESEARCH TRACK
+ *
+ * Este archivo es el índice maestro público de estudio.
+ *
+ * Convención:
+ * G = Grado / fundamentos
+ * M = Máster / IA avanzada
+ * S = Especialización / sistemas e investigación avanzada
+ * R = Research / investigación
+ *
+ * Cada último elemento del temario está pensado para poder buscarse
+ * literalmente como concepto de estudio.
+ */
 
-interface Track {
-  id: string;
+type Resource = {
+  name: string;
+  url: string;
+  type: string;
+};
+
+type Topic = {
+  code: string;
+  title: string;
+  items: string[];
+};
+
+type Subject = {
+  code: string;
+  title: string;
+  description: string;
+  topics: Topic[];
+  resources: Resource[];
+  project?: string;
+};
+
+type Stage = {
   code: string;
   title: string;
   subtitle: string;
   description: string;
-  topics: Topic[];
-  resources: string[];
-  project: string;
-}
+  subjects: Subject[];
+};
 
-const tracks: Track[] = [
+const resources = {
+  python: "https://docs.python.org/3/",
+  numpy: "https://numpy.org/doc/stable/",
+  scipy: "https://docs.scipy.org/doc/scipy/",
+  pandas: "https://pandas.pydata.org/docs/",
+  git: "https://git-scm.com/doc",
+  linux: "https://www.kernel.org/doc/html/latest/",
+  mitLinear: "https://ocw.mit.edu/courses/18-06-linear-algebra-fall-2011/",
+  mitProbability:
+    "https://ocw.mit.edu/courses/18-600-probability-and-random-variables-fall-2019/",
+  mitMathML:
+    "https://ocw.mit.edu/courses/18-657-mathematics-of-machine-learning-fall-2015/",
+  cs229: "https://cs229.stanford.edu/",
+  d2l: "https://d2l.ai/",
+  deeplearning: "https://www.deeplearning.ai/",
+  pytorch: "https://pytorch.org/docs/stable/",
+  karpathy:
+    "https://github.com/karpathy/nn-zero-to-hero",
+  cs231n: "https://cs231n.github.io/",
+  cs224n: "https://web.stanford.edu/class/cs224n/",
+  cs336: "https://cs336.stanford.edu/",
+  hf:
+    "https://huggingface.co/learn/llm-course/chapter1/1",
+  fastai: "https://course.fast.ai/",
+  rl: "https://rail.eecs.berkeley.edu/deeprlcourse/",
+  cuda:
+    "https://docs.nvidia.com/cuda/cuda-programming-guide/",
+  triton: "https://triton-lang.org/main/index.html",
+  arxiv: "https://arxiv.org/",
+  paperswithcode: "https://paperswithcode.com/",
+};
+
+const stages: Stage[] = [
   {
-    id: "horus-grado",
     code: "G",
     title: "Grado — Fundamentos",
-    subtitle: "La base matemática, informática y científica",
+    subtitle:
+      "Programación, matemáticas, sistemas, estadística, Machine Learning y Deep Learning.",
     description:
-      "Fundamentos necesarios para comprender Machine Learning y Deep Learning desde sus principios, no únicamente utilizar librerías.",
-    topics: [
+      "Esta etapa construye todas las bases que posteriormente permiten entender los modelos modernos sin depender de abstracciones.",
+    subjects: [
       {
-        name: "G01 · Programación",
-        items: [
-          "Python: sintaxis, variables, tipos y operadores",
-          "Control de flujo: if, for, while",
-          "Funciones, argumentos, scope y closures",
-          "Listas, tuplas, diccionarios y sets",
-          "Comprehensions y expresiones",
-          "Strings, slicing y manipulación de datos",
-          "Iteradores y generadores",
-          "Decoradores y context managers",
-          "Excepciones y manejo de errores",
-          "Módulos, paquetes e imports",
-          "Programación orientada a objetos",
-          "Herencia, composición y polimorfismo",
-          "Dataclasses",
-          "Type hints",
-          "Testing",
-          "Debugging",
-          "Profiling",
-          "NumPy",
-          "Arrays multidimensionales",
-          "Vectorización",
-          "Broadcasting",
-          "Pandas",
-          "Matplotlib",
-          "Jupyter",
-          "Git",
-          "GitHub",
-          "Linux",
-          "Bash",
-          "SSH",
-          "Entornos virtuales",
-          "Gestión de dependencias",
-          "Docker"
-        ]
+        code: "G01",
+        title: "Programación y Python",
+        description:
+          "Programación general, Python científico y herramientas necesarias para trabajar con modelos.",
+        topics: [
+          {
+            code: "G01.01",
+            title: "Sintaxis y modelo básico de Python",
+            items: [
+              "01.01.01 · Sintaxis básica de Python",
+              "01.01.02 · Estructura de un programa Python",
+              "01.01.03 · Indentación significativa",
+              "01.01.04 · Comentarios",
+              "01.01.05 · Docstrings",
+              "01.01.06 · Keywords y palabras reservadas",
+              "01.01.07 · Identificadores",
+              "01.01.08 · Literales",
+              "01.01.09 · Expresiones",
+              "01.01.10 · Statements",
+              "01.01.11 · Diferencia entre expresión y statement",
+              "01.01.12 · Evaluación de expresiones",
+              "01.01.13 · Precedencia de operadores",
+              "01.01.14 · Asociatividad",
+              "01.01.15 · Convenciones PEP 8"
+            ]
+          },
+          {
+            code: "G01.02",
+            title: "Variables, objetos y tipos",
+            items: [
+              "01.02.01 · Variables",
+              "01.02.02 · Asignación",
+              "01.02.03 · Reasignación",
+              "01.02.04 · Referencias a objetos",
+              "01.02.05 · Namespaces",
+              "01.02.06 · Scope",
+              "01.02.07 · type()",
+              "01.02.08 · isinstance()",
+              "01.02.09 · id()",
+              "01.02.10 · Identidad de objetos",
+              "01.02.11 · int",
+              "01.02.12 · float",
+              "01.02.13 · complex",
+              "01.02.14 · bool",
+              "01.02.15 · str",
+              "01.02.16 · bytes",
+              "01.02.17 · None",
+              "01.02.18 · Tipado dinámico",
+              "01.02.19 · Tipado fuerte",
+              "01.02.20 · Mutabilidad e inmutabilidad",
+              "01.02.21 · Truthiness",
+              "01.02.22 · Conversión de tipos",
+              "01.02.23 · Casting",
+              "01.02.24 · repr()",
+              "01.02.25 · str()"
+            ]
+          },
+          {
+            code: "G01.03",
+            title: "Operadores",
+            items: [
+              "01.03.01 · Suma",
+              "01.03.02 · Resta",
+              "01.03.03 · Multiplicación",
+              "01.03.04 · División",
+              "01.03.05 · División entera",
+              "01.03.06 · Módulo",
+              "01.03.07 · Potenciación",
+              "01.03.08 · Igualdad",
+              "01.03.09 · Desigualdad",
+              "01.03.10 · Menor que",
+              "01.03.11 · Mayor que",
+              "01.03.12 · Menor o igual",
+              "01.03.13 · Mayor o igual",
+              "01.03.14 · and",
+              "01.03.15 · or",
+              "01.03.16 · not",
+              "01.03.17 · Asignación",
+              "01.03.18 · Asignación aumentada",
+              "01.03.19 · Operadores bit a bit",
+              "01.03.20 · AND bit a bit",
+              "01.03.21 · OR bit a bit",
+              "01.03.22 · XOR bit a bit",
+              "01.03.23 · NOT bit a bit",
+              "01.03.24 · Desplazamiento izquierdo",
+              "01.03.25 · Desplazamiento derecho",
+              "01.03.26 · is",
+              "01.03.27 · is not",
+              "01.03.28 · in",
+              "01.03.29 · not in"
+            ]
+          },
+          {
+            code: "G01.04",
+            title: "Control de flujo",
+            items: [
+              "01.04.01 · if",
+              "01.04.02 · elif",
+              "01.04.03 · else",
+              "01.04.04 · Condiciones anidadas",
+              "01.04.05 · Operador ternario",
+              "01.04.06 · while",
+              "01.04.07 · for",
+              "01.04.08 · range()",
+              "01.04.09 · enumerate()",
+              "01.04.10 · zip()",
+              "01.04.11 · break",
+              "01.04.12 · continue",
+              "01.04.13 · pass",
+              "01.04.14 · else en loops",
+              "01.04.15 · match/case",
+              "01.04.16 · Pattern matching"
+            ]
+          },
+          {
+            code: "G01.05",
+            title: "Strings y texto",
+            items: [
+              "01.05.01 · Creación de strings",
+              "01.05.02 · Indexación",
+              "01.05.03 · Slicing",
+              "01.05.04 · Concatenación",
+              "01.05.05 · Métodos de strings",
+              "01.05.06 · split()",
+              "01.05.07 · join()",
+              "01.05.08 · strip()",
+              "01.05.09 · replace()",
+              "01.05.10 · startswith()",
+              "01.05.11 · endswith()",
+              "01.05.12 · find()",
+              "01.05.13 · f-strings",
+              "01.05.14 · Formateo de texto",
+              "01.05.15 · Unicode",
+              "01.05.16 · Encoding",
+              "01.05.17 · UTF-8"
+            ]
+          },
+          {
+            code: "G01.06",
+            title: "Estructuras de datos",
+            items: [
+              "01.06.01 · list",
+              "01.06.02 · tuple",
+              "01.06.03 · set",
+              "01.06.04 · frozenset",
+              "01.06.05 · dict",
+              "01.06.06 · Indexación",
+              "01.06.07 · Slicing",
+              "01.06.08 · Nested collections",
+              "01.06.09 · Mutabilidad de listas",
+              "01.06.10 · Mutabilidad de diccionarios",
+              "01.06.11 · Hashability",
+              "01.06.12 · Comprensión de listas",
+              "01.06.13 · Comprensión de diccionarios",
+              "01.06.14 · Comprensión de sets",
+              "01.06.15 · Generadores por comprensión",
+              "01.06.16 · sorted()",
+              "01.06.17 · min()",
+              "01.06.18 · max()",
+              "01.06.19 · sum()",
+              "01.06.20 · any()",
+              "01.06.21 · all()"
+            ]
+          },
+          {
+            code: "G01.07",
+            title: "Funciones",
+            items: [
+              "01.07.01 · Definición de funciones",
+              "01.07.02 · Parámetros",
+              "01.07.03 · Argumentos",
+              "01.07.04 · Return",
+              "01.07.05 · Valores por defecto",
+              "01.07.06 · Argumentos posicionales",
+              "01.07.07 · Keyword arguments",
+              "01.07.08 · *args",
+              "01.07.09 · **kwargs",
+              "01.07.10 · Scope local",
+              "01.07.11 · Scope global",
+              "01.07.12 · Regla LEGB",
+              "01.07.13 · Funciones anidadas",
+              "01.07.14 · Closures",
+              "01.07.15 · lambda",
+              "01.07.16 · Recursión",
+              "01.07.17 · Funciones de orden superior",
+              "01.07.18 · map()",
+              "01.07.19 · filter()",
+              "01.07.20 · functools.reduce()",
+              "01.07.21 · Anotaciones de funciones"
+            ]
+          },
+          {
+            code: "G01.08",
+            title: "Módulos, paquetes y entornos",
+            items: [
+              "01.08.01 · import",
+              "01.08.02 · from import",
+              "01.08.03 · __name__",
+              "01.08.04 · __main__",
+              "01.08.05 · Módulos",
+              "01.08.06 · Paquetes",
+              "01.08.07 · __init__.py",
+              "01.08.08 · Imports absolutos",
+              "01.08.09 · Imports relativos",
+              "01.08.10 · sys.path",
+              "01.08.11 · venv",
+              "01.08.12 · pip",
+              "01.08.13 · requirements.txt",
+              "01.08.14 · pyproject.toml",
+              "01.08.15 · Dependencias",
+              "01.08.16 · Versionado de dependencias"
+            ]
+          },
+          {
+            code: "G01.09",
+            title: "Errores, excepciones y debugging",
+            items: [
+              "01.09.01 · SyntaxError",
+              "01.09.02 · TypeError",
+              "01.09.03 · ValueError",
+              "01.09.04 · KeyError",
+              "01.09.05 · IndexError",
+              "01.09.06 · AttributeError",
+              "01.09.07 · try",
+              "01.09.08 · except",
+              "01.09.09 · else en excepciones",
+              "01.09.10 · finally",
+              "01.09.11 · raise",
+              "01.09.12 · Excepciones personalizadas",
+              "01.09.13 · traceback",
+              "01.09.14 · pdb",
+              "01.09.15 · Debugging con IDE"
+            ]
+          },
+          {
+            code: "G01.10",
+            title: "Programación orientada a objetos",
+            items: [
+              "01.10.01 · Clase",
+              "01.10.02 · Objeto",
+              "01.10.03 · Instancia",
+              "01.10.04 · Atributos",
+              "01.10.05 · Métodos",
+              "01.10.06 · __init__",
+              "01.10.07 · self",
+              "01.10.08 · class attributes",
+              "01.10.09 · Instance attributes",
+              "01.10.10 · Encapsulación",
+              "01.10.11 · Herencia",
+              "01.10.12 · Polimorfismo",
+              "01.10.13 · Composición",
+              "01.10.14 · Method overriding",
+              "01.10.15 · super()",
+              "01.10.16 · Métodos estáticos",
+              "01.10.17 · classmethod",
+              "01.10.18 · abstract base classes",
+              "01.10.19 · dataclasses",
+              "01.10.20 · Protocols"
+            ]
+          },
+          {
+            code: "G01.11",
+            title: "Iteración, generadores y contexto",
+            items: [
+              "01.11.01 · Iterable",
+              "01.11.02 · Iterator",
+              "01.11.03 · __iter__",
+              "01.11.04 · __next__",
+              "01.11.05 · Generadores",
+              "01.11.06 · yield",
+              "01.11.07 · yield from",
+              "01.11.08 · Generator expressions",
+              "01.11.09 · Context managers",
+              "01.11.10 · with",
+              "01.11.11 · __enter__",
+              "01.11.12 · __exit__"
+            ]
+          },
+          {
+            code: "G01.12",
+            title: "Decoradores y metaprogramación",
+            items: [
+              "01.12.01 · Decoradores de funciones",
+              "01.12.02 · functools.wraps",
+              "01.12.03 · Decoradores con argumentos",
+              "01.12.04 · Decoradores de clases",
+              "01.12.05 · Introspección",
+              "01.12.06 · getattr()",
+              "01.12.07 · setattr()",
+              "01.12.08 · hasattr()",
+              "01.12.09 · callable()",
+              "01.12.10 · Reflection básica"
+            ]
+          },
+          {
+            code: "G01.13",
+            title: "Type hints y typing",
+            items: [
+              "01.13.01 · Anotaciones de tipos",
+              "01.13.02 · Union",
+              "01.13.03 · Optional",
+              "01.13.04 · Any",
+              "01.13.05 · Generic types",
+              "01.13.06 · list[str]",
+              "01.13.07 · dict[str, int]",
+              "01.13.08 · Callable",
+              "01.13.09 · TypeVar",
+              "01.13.10 · Protocol",
+              "01.13.11 · Literal",
+              "01.13.12 · TypedDict",
+              "01.13.13 · mypy",
+              "01.13.14 · static type checking"
+            ]
+          },
+          {
+            code: "G01.14",
+            title: "Testing",
+            items: [
+              "01.14.01 · Unit testing",
+              "01.14.02 · pytest",
+              "01.14.03 · Fixtures",
+              "01.14.04 · Parametrized tests",
+              "01.14.05 · Assertions",
+              "01.14.06 · Mocking",
+              "01.14.07 · Integration testing",
+              "01.14.08 · Test coverage",
+              "01.14.09 · Regression tests",
+              "01.14.10 · Property-based testing"
+            ]
+          },
+          {
+            code: "G01.15",
+            title: "I/O, datos y serialización",
+            items: [
+              "01.15.01 · stdin",
+              "01.15.02 · stdout",
+              "01.15.03 · stderr",
+              "01.15.04 · Apertura de archivos",
+              "01.15.05 · Lectura de archivos",
+              "01.15.06 · Escritura de archivos",
+              "01.15.07 · CSV",
+              "01.15.08 · JSON",
+              "01.15.09 · Pickle",
+              "01.15.10 · pathlib",
+              "01.15.11 · Serialización segura",
+              "01.15.12 · Streams"
+            ]
+          },
+          {
+            code: "G01.16",
+            title: "Concurrencia, paralelismo y asincronía",
+            items: [
+              "01.16.01 · Procesos",
+              "01.16.02 · Threads",
+              "01.16.03 · GIL",
+              "01.16.04 · multiprocessing",
+              "01.16.05 · threading",
+              "01.16.06 · concurrent.futures",
+              "01.16.07 · asyncio",
+              "01.16.08 · async",
+              "01.16.09 · await",
+              "01.16.10 · Event loops",
+              "01.16.11 · Race conditions",
+              "01.16.12 · Locks",
+              "01.16.13 · Queues",
+              "01.16.14 · Producer-consumer"
+            ]
+          },
+          {
+            code: "G01.17",
+            title: "Performance y Python internals",
+            items: [
+              "01.17.01 · Complejidad temporal",
+              "01.17.02 · Complejidad espacial",
+              "01.17.03 · Profiling",
+              "01.17.04 · cProfile",
+              "01.17.05 · timeit",
+              "01.17.06 · Memory profiling",
+              "01.17.07 · Garbage collection",
+              "01.17.08 · Reference counting",
+              "01.17.09 · Python bytecode",
+              "01.17.10 · Disassembler",
+              "01.17.11 · C extensions",
+              "01.17.12 · Cython",
+              "01.17.13 · Numba"
+            ]
+          },
+          {
+            code: "G01.18",
+            title: "NumPy",
+            items: [
+              "01.18.01 · ndarray",
+              "01.18.02 · Shape",
+              "01.18.03 · ndim",
+              "01.18.04 · dtype",
+              "01.18.05 · Indexing",
+              "01.18.06 · Slicing",
+              "01.18.07 · Boolean indexing",
+              "01.18.08 · Fancy indexing",
+              "01.18.09 · Reshape",
+              "01.18.10 · Transpose",
+              "01.18.11 · Broadcasting",
+              "01.18.12 · Vectorization",
+              "01.18.13 · Matrix multiplication",
+              "01.18.14 · einsum",
+              "01.18.15 · Random sampling",
+              "01.18.16 · Numerical precision",
+              "01.18.17 · Floating-point error"
+            ]
+          }
+        ],
+        resources: [
+          { name: "Python Documentation", url: resources.python, type: "Official" },
+          { name: "NumPy Documentation", url: resources.numpy, type: "Official" },
+          { name: "CS50P", url: "https://cs50.harvard.edu/python/", type: "Course" }
+        ],
+        project:
+          "Construir una colección de ejercicios de Python y un proyecto CLI completo sin copiar soluciones."
       },
+
       {
-        name: "G02 · Álgebra lineal",
-        items: [
-          "Escalares, vectores y matrices",
-          "Operaciones con vectores",
-          "Producto escalar",
-          "Normas y distancias",
-          "Producto matricial",
-          "Transpuesta",
-          "Matriz identidad",
-          "Inversa",
-          "Determinante",
-          "Rango",
-          "Sistemas de ecuaciones lineales",
-          "Eliminación de Gauss",
-          "Espacios vectoriales",
-          "Subespacios",
-          "Bases",
-          "Dimensión",
-          "Independencia lineal",
-          "Transformaciones lineales",
-          "Ortogonalidad",
-          "Proyecciones",
-          "Gram-Schmidt",
-          "Eigenvalues",
-          "Eigenvectors",
-          "Diagonalización",
-          "Matrices simétricas",
-          "Matrices positivas definidas",
-          "SVD",
-          "PCA desde el punto de vista algebraico"
-        ]
+        code: "G02",
+        title: "Sistemas, Linux, Git y Computer Science",
+        description:
+          "Fundamentos de informática necesarios para comprender el entorno donde se entrenan y ejecutan modelos.",
+        topics: [
+          {
+            code: "G02.01",
+            title: "Sistemas operativos",
+            items: [
+              "02.01.01 · Kernel",
+              "02.01.02 · User space",
+              "02.01.03 · Processes",
+              "02.01.04 · Threads",
+              "02.01.05 · Process scheduling",
+              "02.01.06 · Context switching",
+              "02.01.07 · Virtual memory",
+              "02.01.08 · Paging",
+              "02.01.09 · Filesystems",
+              "02.01.10 · Permissions",
+              "02.01.11 · System calls",
+              "02.01.12 · IPC",
+              "02.01.13 · Signals",
+              "02.01.14 · Environment variables"
+            ]
+          },
+          {
+            code: "G02.02",
+            title: "Linux",
+            items: [
+              "02.02.01 · Shell",
+              "02.02.02 · Bash",
+              "02.02.03 · Processes",
+              "02.02.04 · ps",
+              "02.02.05 · top",
+              "02.02.06 · htop",
+              "02.02.07 · grep",
+              "02.02.08 · sed",
+              "02.02.09 · awk",
+              "02.02.10 · find",
+              "02.02.11 · xargs",
+              "02.02.12 · pipes",
+              "02.02.13 · redirections",
+              "02.02.14 · permissions",
+              "02.02.15 · systemd",
+              "02.02.16 · logs",
+              "02.02.17 · SSH",
+              "02.02.18 · package managers",
+              "02.02.19 · environment management"
+            ]
+          },
+          {
+            code: "G02.03",
+            title: "Git",
+            items: [
+              "02.03.01 · Repository",
+              "02.03.02 · Working tree",
+              "02.03.03 · Staging area",
+              "02.03.04 · Commit",
+              "02.03.05 · Branch",
+              "02.03.06 · Merge",
+              "02.03.07 · Rebase",
+              "02.03.08 · Conflict resolution",
+              "02.03.09 · Remote",
+              "02.03.10 · Pull",
+              "02.03.11 · Push",
+              "02.03.12 · Tags",
+              "02.03.13 · Releases",
+              "02.03.14 · GitHub workflows",
+              "02.03.15 · .gitignore"
+            ]
+          },
+          {
+            code: "G02.04",
+            title: "Networking y servicios",
+            items: [
+              "02.04.01 · OSI model",
+              "02.04.02 · TCP/IP",
+              "02.04.03 · IPv4",
+              "02.04.04 · IPv6",
+              "02.04.05 · DNS",
+              "02.04.06 · HTTP",
+              "02.04.07 · HTTPS",
+              "02.04.08 · TLS",
+              "02.04.09 · TCP",
+              "02.04.10 · UDP",
+              "02.04.11 · Sockets",
+              "02.04.12 · REST",
+              "02.04.13 · WebSockets",
+              "02.04.14 · Reverse proxy",
+              "02.04.15 · Load balancing"
+            ]
+          },
+          {
+            code: "G02.05",
+            title: "Bases de datos",
+            items: [
+              "02.05.01 · Modelo relacional",
+              "02.05.02 · Tables",
+              "02.05.03 · Primary keys",
+              "02.05.04 · Foreign keys",
+              "02.05.05 · Indexes",
+              "02.05.06 · SQL SELECT",
+              "02.05.07 · JOIN",
+              "02.05.08 · GROUP BY",
+              "02.05.09 · Aggregations",
+              "02.05.10 · Transactions",
+              "02.05.11 · ACID",
+              "02.05.12 · Normalization",
+              "02.05.13 · PostgreSQL",
+              "02.05.14 · Redis",
+              "02.05.15 · Document databases",
+              "02.05.16 · Vector databases",
+              "02.05.17 · ANN indexes"
+            ]
+          },
+          {
+            code: "G02.06",
+            title: "Docker y virtualización",
+            items: [
+              "02.06.01 · Containers",
+              "02.06.02 · Images",
+              "02.06.03 · Dockerfile",
+              "02.06.04 · Layers",
+              "02.06.05 · Volumes",
+              "02.06.06 · Networks",
+              "02.06.07 · Docker Compose",
+              "02.06.08 · Container security",
+              "02.06.09 · GPU containers"
+            ]
+          }
+        ],
+        resources: [
+          { name: "The Linux Kernel", url: resources.linux, type: "Official" },
+          { name: "Git Documentation", url: resources.git, type: "Official" },
+          { name: "Docker Docs", url: "https://docs.docker.com/", type: "Official" }
+        ],
+        project:
+          "Construir un entorno reproducible de investigación con Linux, Git, Python, Docker y PostgreSQL."
       },
+
       {
-        name: "G03 · Cálculo",
-        items: [
-          "Funciones",
-          "Límites",
-          "Continuidad",
-          "Derivadas",
-          "Regla de la cadena",
-          "Derivadas parciales",
-          "Gradiente",
-          "Derivación de funciones vectoriales",
-          "Jacobiano",
-          "Hessiano",
-          "Derivación matricial",
-          "Integrales",
-          "Integrales múltiples",
-          "Series",
-          "Optimización multivariable",
-          "Puntos críticos",
-          "Convexidad",
-          "Aproximaciones y Taylor"
-        ]
+        code: "G03",
+        title: "Matemáticas — Álgebra Lineal",
+        description:
+          "Base matemática imprescindible para Machine Learning y Deep Learning.",
+        topics: [
+          {
+            code: "G03.01",
+            title: "Vectores",
+            items: [
+              "03.01.01 · Escalares",
+              "03.01.02 · Vectores",
+              "03.01.03 · Componentes",
+              "03.01.04 · Vector fila",
+              "03.01.05 · Vector columna",
+              "03.01.06 · Magnitud",
+              "03.01.07 · Norma L1",
+              "03.01.08 · Norma L2",
+              "03.01.09 · Distancia Euclídea",
+              "03.01.10 · Producto escalar",
+              "03.01.11 · Ángulo entre vectores",
+              "03.01.12 · Ortogonalidad",
+              "03.01.13 · Proyección"
+            ]
+          },
+          {
+            code: "G03.02",
+            title: "Matrices",
+            items: [
+              "03.02.01 · Matrices",
+              "03.02.02 · Dimensión",
+              "03.02.03 · Filas",
+              "03.02.04 · Columnas",
+              "03.02.05 · Matriz cuadrada",
+              "03.02.06 · Matriz diagonal",
+              "03.02.07 · Matriz triangular",
+              "03.02.08 · Matriz identidad",
+              "03.02.09 · Matriz cero",
+              "03.02.10 · Matriz simétrica",
+              "03.02.11 · Suma de matrices",
+              "03.02.12 · Multiplicación por escalar",
+              "03.02.13 · Producto matricial",
+              "03.02.14 · Transpuesta",
+              "03.02.15 · Inversa",
+              "03.02.16 · Determinante",
+              "03.02.17 · Rango"
+            ]
+          },
+          {
+            code: "G03.03",
+            title: "Sistemas lineales",
+            items: [
+              "03.03.01 · Sistemas de ecuaciones",
+              "03.03.02 · Representación matricial",
+              "03.03.03 · Eliminación de Gauss",
+              "03.03.04 · Eliminación de Gauss-Jordan",
+              "03.03.05 · Forma escalonada",
+              "03.03.06 · Solución única",
+              "03.03.07 · Infinitas soluciones",
+              "03.03.08 · Sistema incompatible",
+              "03.03.09 · Interpretación geométrica"
+            ]
+          },
+          {
+            code: "G03.04",
+            title: "Espacios vectoriales",
+            items: [
+              "03.04.01 · Espacio vectorial",
+              "03.04.02 · Subespacio",
+              "03.04.03 · Combinación lineal",
+              "03.04.04 · Span",
+              "03.04.05 · Independencia lineal",
+              "03.04.06 · Base",
+              "03.04.07 · Dimensión",
+              "03.04.08 · Coordenadas",
+              "03.04.09 · Cambio de base"
+            ]
+          },
+          {
+            code: "G03.05",
+            title: "Transformaciones lineales",
+            items: [
+              "03.05.01 · Transformación lineal",
+              "03.05.02 · Kernel",
+              "03.05.03 · Imagen",
+              "03.05.04 · Matriz de transformación",
+              "03.05.05 · Composición de transformaciones",
+              "03.05.06 · Cambio de coordenadas"
+            ]
+          },
+          {
+            code: "G03.06",
+            title: "Ortonormalidad y descomposiciones",
+            items: [
+              "03.06.01 · Bases ortogonales",
+              "03.06.02 · Bases ortonormales",
+              "03.06.03 · Gram-Schmidt",
+              "03.06.04 · Proyección ortogonal",
+              "03.06.05 · QR decomposition",
+              "03.06.06 · Eigenvalues",
+              "03.06.07 · Eigenvectors",
+              "03.06.08 · Eigenbasis",
+              "03.06.09 · Diagonalización",
+              "03.06.10 · Matrices positivas definidas",
+              "03.06.11 · SVD",
+              "03.06.12 · Pseudoinversa"
+            ]
+          },
+          {
+            code: "G03.07",
+            title: "Álgebra multilineal",
+            items: [
+              "03.07.01 · Tensors",
+              "03.07.02 · Orden de un tensor",
+              "03.07.03 · Contracción",
+              "03.07.04 · Einstein notation",
+              "03.07.05 · Einsum",
+              "03.07.06 · Outer product",
+              "03.07.07 · Kronecker product"
+            ]
+          }
+        ],
+        resources: [
+          { name: "MIT 18.06 Linear Algebra", url: resources.mitLinear, type: "MIT OCW" },
+          { name: "MIT Mathematics for ML", url: resources.mitMathML, type: "MIT OCW" }
+        ],
+        project:
+          "Implementar operaciones matriciales, regresión lineal y PCA exclusivamente con NumPy."
       },
+
       {
-        name: "G04 · Probabilidad",
-        items: [
-          "Espacios de probabilidad",
-          "Eventos",
-          "Probabilidad condicional",
-          "Independencia",
-          "Teorema de Bayes",
-          "Variables aleatorias",
-          "Variables discretas y continuas",
-          "Esperanza",
-          "Varianza",
-          "Covarianza",
-          "Distribuciones conjuntas",
-          "Distribución Bernoulli",
-          "Binomial",
-          "Poisson",
-          "Normal",
-          "Uniforme",
-          "Esperanza condicional",
-          "Ley de los grandes números",
-          "Teorema central del límite"
-        ]
+        code: "G04",
+        title: "Matemáticas — Cálculo y Optimización",
+        description:
+          "Derivación, gradientes y optimización necesarios para comprender el entrenamiento de redes.",
+        topics: [
+          {
+            code: "G04.01",
+            title: "Cálculo diferencial",
+            items: [
+              "04.01.01 · Funciones",
+              "04.01.02 · Dominio y recorrido",
+              "04.01.03 · Límites",
+              "04.01.04 · Continuidad",
+              "04.01.05 · Derivada",
+              "04.01.06 · Interpretación geométrica de la derivada",
+              "04.01.07 · Derivadas de funciones elementales",
+              "04.01.08 · Regla del producto",
+              "04.01.09 · Regla del cociente",
+              "04.01.10 · Regla de la cadena"
+            ]
+          },
+          {
+            code: "G04.02",
+            title: "Cálculo multivariable",
+            items: [
+              "04.02.01 · Derivadas parciales",
+              "04.02.02 · Gradiente",
+              "04.02.03 · Derivadas direccionales",
+              "04.02.04 · Jacobiano",
+              "04.02.05 · Hessiano",
+              "04.02.06 · Divergencia",
+              "04.02.07 · Derivadas vectoriales",
+              "04.02.08 · Derivadas matriciales"
+            ]
+          },
+          {
+            code: "G04.03",
+            title: "Integración",
+            items: [
+              "04.03.01 · Integral definida",
+              "04.03.02 · Integral indefinida",
+              "04.03.03 · Integrales múltiples",
+              "04.03.04 · Sustitución",
+              "04.03.05 · Taylor",
+              "04.03.06 · Aproximaciones locales"
+            ]
+          },
+          {
+            code: "G04.04",
+            title: "Optimización",
+            items: [
+              "04.04.01 · Función objetivo",
+              "04.04.02 · Puntos críticos",
+              "04.04.03 · Máximos y mínimos",
+              "04.04.04 · Convexidad",
+              "04.04.05 · Problemas convexos",
+              "04.04.06 · Optimización con restricciones",
+              "04.04.07 · Lagrange multipliers",
+              "04.04.08 · Gradient descent",
+              "04.04.09 · Step size",
+              "04.04.10 · Learning rate"
+            ]
+          },
+          {
+            code: "G04.05",
+            title: "Métodos numéricos",
+            items: [
+              "04.05.01 · Error absoluto",
+              "04.05.02 · Error relativo",
+              "04.05.03 · Floating point",
+              "04.05.04 · Condition number",
+              "04.05.05 · Estabilidad numérica",
+              "04.05.06 · Iterative methods",
+              "04.05.07 · Newton's method",
+              "04.05.08 · Numerical differentiation"
+            ]
+          }
+        ],
+        resources: [
+          { name: "MIT Mathematics for ML", url: resources.mitMathML, type: "MIT OCW" },
+          { name: "Mathematics for Machine Learning", url: "https://mml-book.github.io/", type: "Book" }
+        ],
+        project:
+          "Implementar gradient descent y Newton optimization sobre funciones de prueba y visualizar convergencia."
       },
+
       {
-        name: "G05 · Estadística",
-        items: [
-          "Población y muestra",
-          "Muestreo",
-          "Estimación",
-          "Estimadores",
-          "Máxima verosimilitud",
-          "Máximo a posteriori",
-          "Intervalos de confianza",
-          "Contrastes de hipótesis",
-          "p-values",
-          "Regresión",
-          "Correlación",
-          "Covarianza",
-          "Bias y variance",
-          "PCA",
-          "Bootstrap",
-          "Data leakage",
-          "Reproducibilidad estadística",
-          "Evaluación estadística de modelos"
-        ]
+        code: "G05",
+        title: "Probabilidad y Estadística",
+        description:
+          "Fundamentos probabilísticos y estadísticos necesarios para ML, evaluación y modelos generativos.",
+        topics: [
+          {
+            code: "G05.01",
+            title: "Probabilidad",
+            items: [
+              "05.01.01 · Experimentos aleatorios",
+              "05.01.02 · Espacio muestral",
+              "05.01.03 · Eventos",
+              "05.01.04 · Axiomas de probabilidad",
+              "05.01.05 · Probabilidad condicional",
+              "05.01.06 · Independencia",
+              "05.01.07 · Teorema de Bayes",
+              "05.01.08 · Odds y log-odds"
+            ]
+          },
+          {
+            code: "G05.02",
+            title: "Variables aleatorias",
+            items: [
+              "05.02.01 · Variable aleatoria discreta",
+              "05.02.02 · Variable aleatoria continua",
+              "05.02.03 · PMF",
+              "05.02.04 · PDF",
+              "05.02.05 · CDF",
+              "05.02.06 · Esperanza",
+              "05.02.07 · Varianza",
+              "05.02.08 · Desviación estándar",
+              "05.02.09 · Covarianza",
+              "05.02.10 · Correlación"
+            ]
+          },
+          {
+            code: "G05.03",
+            title: "Distribuciones",
+            items: [
+              "05.03.01 · Bernoulli",
+              "05.03.02 · Binomial",
+              "05.03.03 · Categórica",
+              "05.03.04 · Multinomial",
+              "05.03.05 · Poisson",
+              "05.03.06 · Uniforme",
+              "05.03.07 · Normal",
+              "05.03.08 · Log-normal",
+              "05.03.09 · Exponencial",
+              "05.03.10 · Distribuciones conjuntas"
+            ]
+          },
+          {
+            code: "G05.04",
+            title: "Inferencia estadística",
+            items: [
+              "05.04.01 · Población y muestra",
+              "05.04.02 · Estimadores",
+              "05.04.03 · Sesgo del estimador",
+              "05.04.04 · Varianza del estimador",
+              "05.04.05 · Máxima verosimilitud",
+              "05.04.06 · MAP",
+              "05.04.07 · Intervalos de confianza",
+              "05.04.08 · Hipótesis nula",
+              "05.04.09 · Hipótesis alternativa",
+              "05.04.10 · p-value",
+              "05.04.11 · Error tipo I",
+              "05.04.12 · Error tipo II",
+              "05.04.13 · Power"
+            ]
+          },
+          {
+            code: "G05.05",
+            title: "Conceptos estadísticos para ML",
+            items: [
+              "05.05.01 · Bias",
+              "05.05.02 · Variance",
+              "05.05.03 · Noise",
+              "05.05.04 · Data leakage",
+              "05.05.05 · Sampling bias",
+              "05.05.06 · Distribution shift",
+              "05.05.07 · Confidence intervals",
+              "05.05.08 · Bootstrap",
+              "05.05.09 · Cross-validation",
+              "05.05.10 · Statistical significance"
+            ]
+          },
+          {
+            code: "G05.06",
+            title: "Información",
+            items: [
+              "05.06.01 · Entropía",
+              "05.06.02 · Entropía conjunta",
+              "05.06.03 · Entropía condicional",
+              "05.06.04 · KL divergence",
+              "05.06.05 · Jensen-Shannon divergence",
+              "05.06.06 · Mutual information",
+              "05.06.07 · Cross entropy",
+              "05.06.08 · Perplexity"
+            ]
+          }
+        ],
+        resources: [
+          { name: "MIT Probability", url: resources.mitProbability, type: "MIT OCW" },
+          { name: "CS229", url: resources.cs229, type: "Stanford" }
+        ],
+        project:
+          "Implementar y visualizar distribuciones, Monte Carlo, máxima verosimilitud, Bayes y métricas de incertidumbre."
       },
+
       {
-        name: "G06 · Algoritmos y estructuras de datos",
-        items: [
-          "Complejidad temporal",
-          "Big O",
-          "Arrays",
-          "Linked lists",
-          "Stacks",
-          "Queues",
-          "Hash tables",
-          "Trees",
-          "Heaps",
-          "Graphs",
-          "Recursión",
-          "Sorting",
-          "Searching",
-          "BFS",
-          "DFS",
-          "Shortest paths",
-          "Divide and conquer",
-          "Greedy algorithms",
-          "Dynamic programming"
-        ]
+        code: "G06",
+        title: "Algoritmos y Estructuras de Datos",
+        description:
+          "Base algorítmica para escribir software eficiente y comprender sistemas de ML.",
+        topics: [
+          {
+            code: "G06.01",
+            title: "Complejidad",
+            items: [
+              "06.01.01 · Big O",
+              "06.01.02 · Big Omega",
+              "06.01.03 · Big Theta",
+              "06.01.04 · Complejidad temporal",
+              "06.01.05 · Complejidad espacial",
+              "06.01.06 · Amortized analysis"
+            ]
+          },
+          {
+            code: "G06.02",
+            title: "Estructuras lineales",
+            items: [
+              "06.02.01 · Arrays",
+              "06.02.02 · Dynamic arrays",
+              "06.02.03 · Linked lists",
+              "06.02.04 · Doubly linked lists",
+              "06.02.05 · Stacks",
+              "06.02.06 · Queues",
+              "06.02.07 · Deques",
+              "06.02.08 · Hash tables",
+              "06.02.09 · Collision handling"
+            ]
+          },
+          {
+            code: "G06.03",
+            title: "Trees y heaps",
+            items: [
+              "06.03.01 · Binary trees",
+              "06.03.02 · Binary search trees",
+              "06.03.03 · Tree traversal",
+              "06.03.04 · AVL trees",
+              "06.03.05 · Red-black trees",
+              "06.03.06 · Heaps",
+              "06.03.07 · Priority queues",
+              "06.03.08 · Tries"
+            ]
+          },
+          {
+            code: "G06.04",
+            title: "Graphs",
+            items: [
+              "06.04.01 · Graph representation",
+              "06.04.02 · Adjacency matrix",
+              "06.04.03 · Adjacency list",
+              "06.04.04 · BFS",
+              "06.04.05 · DFS",
+              "06.04.06 · Topological sorting",
+              "06.04.07 · Connected components",
+              "06.04.08 · Dijkstra",
+              "06.04.09 · Bellman-Ford",
+              "06.04.10 · A*",
+              "06.04.11 · Minimum spanning tree"
+            ]
+          },
+          {
+            code: "G06.05",
+            title: "Algoritmos fundamentales",
+            items: [
+              "06.05.01 · Linear search",
+              "06.05.02 · Binary search",
+              "06.05.03 · Bubble sort",
+              "06.05.04 · Insertion sort",
+              "06.05.05 · Selection sort",
+              "06.05.06 · Merge sort",
+              "06.05.07 · Quick sort",
+              "06.05.08 · Heap sort",
+              "06.05.09 · Recursión",
+              "06.05.10 · Divide and conquer",
+              "06.05.11 · Greedy algorithms",
+              "06.05.12 · Dynamic programming"
+            ]
+          }
+        ],
+        resources: [
+          {
+            name: "MIT Introduction to Algorithms",
+            url: "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/",
+            type: "MIT OCW"
+          }
+        ],
+        project:
+          "Implementar las estructuras y algoritmos fundamentales en Python y medir complejidad."
       },
+
       {
-        name: "G07 · Machine Learning",
-        items: [
-          "Supervised learning",
-          "Unsupervised learning",
-          "Train / validation / test",
-          "Features y labels",
-          "Loss functions",
-          "Model fitting",
-          "Generalización",
-          "Linear regression",
-          "Logistic regression",
-          "Polynomial regression",
-          "k-NN",
-          "Naive Bayes",
-          "SVM",
-          "Decision trees",
-          "Random forests",
-          "Gradient boosting",
-          "XGBoost",
-          "k-means",
-          "Clustering",
-          "PCA",
-          "Anomaly detection",
-          "Feature engineering",
-          "Cross-validation",
-          "Overfitting",
-          "Underfitting",
-          "Regularización",
-          "Bias / variance",
-          "Model selection",
-          "Evaluation metrics",
-          "Data leakage",
-          "Empirical risk minimization",
-          "Convex optimization"
-        ]
+        code: "G07",
+        title: "Machine Learning",
+        description:
+          "Machine Learning clásico y fundamentos estadísticos de aprendizaje.",
+        topics: [
+          {
+            code: "G07.01",
+            title: "Fundamentos",
+            items: [
+              "07.01.01 · Supervised learning",
+              "07.01.02 · Unsupervised learning",
+              "07.01.03 · Semi-supervised learning",
+              "07.01.04 · Self-supervised learning",
+              "07.01.05 · Features",
+              "07.01.06 · Labels",
+              "07.01.07 · Training set",
+              "07.01.08 · Validation set",
+              "07.01.09 · Test set",
+              "07.01.10 · Loss function",
+              "07.01.11 · Objective function",
+              "07.01.12 · Generalization"
+            ]
+          },
+          {
+            code: "G07.02",
+            title: "Regresión",
+            items: [
+              "07.02.01 · Linear regression",
+              "07.02.02 · Ordinary least squares",
+              "07.02.03 · Normal equation",
+              "07.02.04 · Gradient descent regression",
+              "07.02.05 · Polynomial regression",
+              "07.02.06 · Ridge regression",
+              "07.02.07 · Lasso regression",
+              "07.02.08 · Elastic Net"
+            ]
+          },
+          {
+            code: "G07.03",
+            title: "Clasificación",
+            items: [
+              "07.03.01 · Logistic regression",
+              "07.03.02 · Binary classification",
+              "07.03.03 · Multiclass classification",
+              "07.03.04 · Multilabel classification",
+              "07.03.05 · Decision boundaries",
+              "07.03.06 · Naive Bayes",
+              "07.03.07 · k-NN",
+              "07.03.08 · SVM",
+              "07.03.09 · Kernel trick"
+            ]
+          },
+          {
+            code: "G07.04",
+            title: "Árboles y ensembles",
+            items: [
+              "07.04.01 · Decision trees",
+              "07.04.02 · Entropy split",
+              "07.04.03 · Information gain",
+              "07.04.04 · Gini impurity",
+              "07.04.05 · Random forest",
+              "07.04.06 · Bagging",
+              "07.04.07 · Boosting",
+              "07.04.08 · AdaBoost",
+              "07.04.09 · Gradient boosting",
+              "07.04.10 · XGBoost",
+              "07.04.11 · LightGBM",
+              "07.04.12 · CatBoost"
+            ]
+          },
+          {
+            code: "G07.05",
+            title: "Unsupervised learning",
+            items: [
+              "07.05.01 · Clustering",
+              "07.05.02 · k-means",
+              "07.05.03 · Hierarchical clustering",
+              "07.05.04 · DBSCAN",
+              "07.05.05 · Gaussian mixture models",
+              "07.05.06 · Dimensionality reduction",
+              "07.05.07 · PCA",
+              "07.05.08 · Kernel PCA",
+              "07.05.09 · t-SNE",
+              "07.05.10 · UMAP"
+            ]
+          },
+          {
+            code: "G07.06",
+            title: "Evaluación y generalización",
+            items: [
+              "07.06.01 · Overfitting",
+              "07.06.02 · Underfitting",
+              "07.06.03 · Bias-variance tradeoff",
+              "07.06.04 · Cross-validation",
+              "07.06.05 · Stratified cross-validation",
+              "07.06.06 · Accuracy",
+              "07.06.07 · Precision",
+              "07.06.08 · Recall",
+              "07.06.09 · F1",
+              "07.06.10 · ROC",
+              "07.06.11 · AUC",
+              "07.06.12 · PR-AUC",
+              "07.06.13 · Calibration",
+              "07.06.14 · Confusion matrix",
+              "07.06.15 · Regression metrics"
+            ]
+          },
+          {
+            code: "G07.07",
+            title: "Teoría de aprendizaje",
+            items: [
+              "07.07.01 · Empirical risk minimization",
+              "07.07.02 · Generalization error",
+              "07.07.03 · VC dimension",
+              "07.07.04 · PAC learning",
+              "07.07.05 · Margin",
+              "07.07.06 · Regularization",
+              "07.07.07 · Structural risk minimization",
+              "07.07.08 · Learning curves"
+            ]
+          },
+          {
+            code: "G07.08",
+            title: "Preparación de datos",
+            items: [
+              "07.08.01 · Missing data",
+              "07.08.02 · Outliers",
+              "07.08.03 · Feature scaling",
+              "07.08.04 · Standardization",
+              "07.08.05 · Normalization",
+              "07.08.06 · Encoding categorical variables",
+              "07.08.07 · Feature selection",
+              "07.08.08 · Feature engineering",
+              "07.08.09 · Data leakage",
+              "07.08.10 · Class imbalance",
+              "07.08.11 · Resampling",
+              "07.08.12 · SMOTE"
+            ]
+          }
+        ],
+        resources: [
+          { name: "Stanford CS229", url: resources.cs229, type: "Stanford" },
+          { name: "DeepLearning.AI ML", url: resources.deeplearning, type: "Course" },
+          { name: "Mathematics of Machine Learning", url: resources.mitMathML, type: "MIT" }
+        ],
+        project:
+          "Implementar regresión lineal, logística, árboles, clustering y PCA desde cero antes de usar librerías."
       },
+
       {
-        name: "G08 · Deep Learning",
-        items: [
-          "Perceptron",
-          "Neurona artificial",
-          "Weights y bias",
-          "Funciones de activación",
-          "Sigmoid",
-          "Tanh",
-          "ReLU",
-          "Softmax",
-          "Forward propagation",
-          "Loss",
-          "Computational graphs",
-          "Backpropagation",
-          "Chain rule aplicada a redes",
-          "Gradient descent",
-          "SGD",
-          "Momentum",
-          "Adam",
-          "AdamW",
-          "Learning-rate schedules",
-          "Weight initialization",
-          "Xavier initialization",
-          "He initialization",
-          "Vanishing gradients",
-          "Exploding gradients",
-          "Dropout",
-          "Batch normalization",
-          "Layer normalization",
-          "Weight decay",
-          "Gradient clipping",
-          "Residual connections"
-        ]
+        code: "G08",
+        title: "Deep Learning Fundamentals",
+        description:
+          "Redes neuronales y entrenamiento desde el nivel matemático hasta arquitecturas modernas.",
+        topics: [
+          {
+            code: "G08.01",
+            title: "Neuronas y redes",
+            items: [
+              "08.01.01 · Perceptron",
+              "08.01.02 · Artificial neuron",
+              "08.01.03 · Weights",
+              "08.01.04 · Bias",
+              "08.01.05 · Linear layer",
+              "08.01.06 · Activation function",
+              "08.01.07 · Sigmoid",
+              "08.01.08 · Tanh",
+              "08.01.09 · ReLU",
+              "08.01.10 · Leaky ReLU",
+              "08.01.11 · GELU",
+              "08.01.12 · Softmax"
+            ]
+          },
+          {
+            code: "G08.02",
+            title: "Forward y Loss",
+            items: [
+              "08.02.01 · Forward pass",
+              "08.02.02 · Computational graph",
+              "08.02.03 · Logits",
+              "08.02.04 · Probability output",
+              "08.02.05 · Mean squared error",
+              "08.02.06 · Binary cross entropy",
+              "08.02.07 · Categorical cross entropy",
+              "08.02.08 · Negative log likelihood"
+            ]
+          },
+          {
+            code: "G08.03",
+            title: "Backpropagation",
+            items: [
+              "08.03.01 · Chain rule",
+              "08.03.02 · Local gradients",
+              "08.03.03 · Gradient propagation",
+              "08.03.04 · Backpropagation",
+              "08.03.05 · Gradient checking",
+              "08.03.06 · Computational graph differentiation",
+              "08.03.07 · Automatic differentiation"
+            ]
+          },
+          {
+            code: "G08.04",
+            title: "Optimización",
+            items: [
+              "08.04.01 · Gradient descent",
+              "08.04.02 · Stochastic gradient descent",
+              "08.04.03 · Mini-batch SGD",
+              "08.04.04 · Momentum",
+              "08.04.05 · Nesterov momentum",
+              "08.04.06 · AdaGrad",
+              "08.04.07 · RMSProp",
+              "08.04.08 · Adam",
+              "08.04.09 · AdamW",
+              "08.04.10 · Learning-rate warmup",
+              "08.04.11 · Learning-rate decay",
+              "08.04.12 · Cosine decay",
+              "08.04.13 · One-cycle schedule"
+            ]
+          },
+          {
+            code: "G08.05",
+            title: "Inicialización y estabilidad",
+            items: [
+              "08.05.01 · Xavier initialization",
+              "08.05.02 · He initialization",
+              "08.05.03 · Orthogonal initialization",
+              "08.05.04 · Vanishing gradients",
+              "08.05.05 · Exploding gradients",
+              "08.05.06 · Gradient clipping",
+              "08.05.07 · Activation statistics",
+              "08.05.08 · Numerical stability"
+            ]
+          },
+          {
+            code: "G08.06",
+            title: "Regularización",
+            items: [
+              "08.06.01 · L1 regularization",
+              "08.06.02 · L2 regularization",
+              "08.06.03 · Weight decay",
+              "08.06.04 · Dropout",
+              "08.06.05 · Data augmentation",
+              "08.06.06 · Early stopping",
+              "08.06.07 · Label smoothing",
+              "08.06.08 · Batch normalization",
+              "08.06.09 · Layer normalization"
+            ]
+          },
+          {
+            code: "G08.07",
+            title: "Arquitecturas básicas",
+            items: [
+              "08.07.01 · MLP",
+              "08.07.02 · Residual network",
+              "08.07.03 · Skip connections",
+              "08.07.04 · Representation learning",
+              "08.07.05 · Embeddings",
+              "08.07.06 · Bottleneck architectures"
+            ]
+          }
+        ],
+        resources: [
+          { name: "DeepLearning.AI Deep Learning", url: resources.deeplearning, type: "Course" },
+          { name: "Dive into Deep Learning", url: resources.d2l, type: "Book" },
+          { name: "Karpathy Zero to Hero", url: resources.karpathy, type: "Code" }
+        ],
+        project:
+          "Construir autograd mínimo, MLP y entrenamiento completo sin utilizar un framework de Deep Learning."
       },
+
       {
-        name: "G09 · PyTorch y computación científica",
-        items: [
-          "Tensors",
-          "Tensor shapes",
-          "Broadcasting",
-          "Autograd",
-          "Computational graphs",
-          "nn.Module",
-          "Datasets",
-          "DataLoaders",
-          "Training loops",
-          "Optimizers",
-          "Loss functions",
-          "Validation",
-          "Checkpoints",
-          "Model serialization",
-          "CUDA tensors",
-          "GPU memory",
-          "Mixed precision",
-          "FP32",
-          "FP16",
-          "BF16",
-          "Gradient accumulation"
-        ]
+        code: "G09",
+        title: "PyTorch y Frameworks de Deep Learning",
+        description:
+          "Capacidad práctica para implementar, entrenar, depurar y perfilar modelos.",
+        topics: [
+          {
+            code: "G09.01",
+            title: "Tensors",
+            items: [
+              "09.01.01 · Tensor creation",
+              "09.01.02 · Shape",
+              "09.01.03 · dtype",
+              "09.01.04 · Device",
+              "09.01.05 · Indexing",
+              "09.01.06 · Broadcasting",
+              "09.01.07 · Reshape",
+              "09.01.08 · View",
+              "09.01.09 · Permute",
+              "09.01.10 · Contiguous tensors",
+              "09.01.11 · Matrix multiplication",
+              "09.01.12 · einsum"
+            ]
+          },
+          {
+            code: "G09.02",
+            title: "Autograd y modelos",
+            items: [
+              "09.02.01 · requires_grad",
+              "09.02.02 · Computational graph",
+              "09.02.03 · backward()",
+              "09.02.04 · Gradient accumulation",
+              "09.02.05 · no_grad",
+              "09.02.06 · nn.Module",
+              "09.02.07 · Parameters",
+              "09.02.08 · Buffers",
+              "09.02.09 · state_dict"
+            ]
+          },
+          {
+            code: "G09.03",
+            title: "Training",
+            items: [
+              "09.03.01 · Dataset",
+              "09.03.02 · DataLoader",
+              "09.03.03 · Batch",
+              "09.03.04 · Optimizer",
+              "09.03.05 · Loss",
+              "09.03.06 · Training loop",
+              "09.03.07 · Validation loop",
+              "09.03.08 · Evaluation mode",
+              "09.03.09 · Checkpoints",
+              "09.03.10 · Resume training"
+            ]
+          },
+          {
+            code: "G09.04",
+            title: "GPU",
+            items: [
+              "09.04.01 · CUDA devices",
+              "09.04.02 · CPU vs GPU tensors",
+              "09.04.03 · Device placement",
+              "09.04.04 · CUDA memory",
+              "09.04.05 · Mixed precision",
+              "09.04.06 · AMP",
+              "09.04.07 · FP32",
+              "09.04.08 · FP16",
+              "09.04.09 · BF16",
+              "09.04.10 · Gradient scaling"
+            ]
+          },
+          {
+            code: "G09.05",
+            title: "Performance",
+            items: [
+              "09.05.01 · Profiling",
+              "09.05.02 · PyTorch Profiler",
+              "09.05.03 · Data bottlenecks",
+              "09.05.04 · GPU utilization",
+              "09.05.05 · CPU-GPU transfers",
+              "09.05.06 · Memory fragmentation",
+              "09.05.07 · Gradient accumulation",
+              "09.05.08 · Activation checkpointing"
+            ]
+          }
+        ],
+        resources: [
+          { name: "PyTorch Documentation", url: resources.pytorch, type: "Official" },
+          { name: "fast.ai", url: resources.fastai, type: "Course" },
+          { name: "Dive into Deep Learning", url: resources.d2l, type: "Book" }
+        ],
+        project:
+          "Reimplementar varios modelos del bloque anterior con PyTorch y perfilar CPU/GPU."
       }
-    ],
-    resources: [
-      "MIT OpenCourseWare",
-      "DeepLearning.AI Machine Learning",
-      "DeepLearning.AI Deep Learning",
-      "Dive into Deep Learning",
-      "Python Documentation",
-      "NumPy Documentation",
-      "PyTorch Documentation"
-    ],
-    project: "Implementar una red neuronal desde cero con NumPy y posteriormente reproducirla con PyTorch."
+    ]
   },
 
   {
-    id: "horus-master",
     code: "M",
-    title: "Máster — Deep Learning e IA moderna",
-    subtitle: "Modelos que constituyen la IA contemporánea",
+    title: "Máster — IA moderna",
+    subtitle:
+      "Computer Vision, NLP, secuencias, Transformers, modelos generativos, RL y modelos fundacionales.",
     description:
-      "Arquitecturas y técnicas modernas de aprendizaje profundo, procesamiento de lenguaje, visión, generación y modelos fundacionales.",
-    topics: [
+      "Aquí se pasa de los fundamentos generales a las arquitecturas y disciplinas modernas de IA.",
+    subjects: [
       {
-        name: "M01 · Computer Vision",
-        items: [
-          "Representación de imágenes",
-          "Convoluciones",
-          "Kernels",
-          "Padding",
-          "Stride",
-          "Pooling",
-          "Receptive fields",
-          "CNN",
-          "Image classification",
-          "Object detection",
-          "Semantic segmentation",
-          "Instance segmentation",
-          "Object tracking",
-          "Transfer learning",
-          "ResNet",
-          "Efficient architectures",
-          "Vision Transformer",
-          "CLIP",
-          "Vision-language models"
-        ]
+        code: "M01",
+        title: "Computer Vision",
+        description: "Comprensión de visión por computador desde CNN hasta modelos visuales modernos.",
+        topics: [
+          {
+            code: "M01.01",
+            title: "Representación de imágenes",
+            items: [
+              "M01.01.01 · Pixels",
+              "M01.01.02 · Channels",
+              "M01.01.03 · RGB",
+              "M01.01.04 · Grayscale",
+              "M01.01.05 · Resolution",
+              "M01.01.06 · Image tensors",
+              "M01.01.07 · Normalization",
+              "M01.01.08 · Data augmentation"
+            ]
+          },
+          {
+            code: "M01.02",
+            title: "Convolutional Neural Networks",
+            items: [
+              "M01.02.01 · Convolution",
+              "M01.02.02 · Kernel",
+              "M01.02.03 · Filters",
+              "M01.02.04 · Stride",
+              "M01.02.05 · Padding",
+              "M01.02.06 · Receptive field",
+              "M01.02.07 · Pooling",
+              "M01.02.08 · Max pooling",
+              "M01.02.09 · Average pooling",
+              "M01.02.10 · Channel dimension",
+              "M01.02.11 · Feature maps"
+            ]
+          },
+          {
+            code: "M01.03",
+            title: "Arquitecturas de visión",
+            items: [
+              "M01.03.01 · LeNet",
+              "M01.03.02 · AlexNet",
+              "M01.03.03 · VGG",
+              "M01.03.04 · Inception",
+              "M01.03.05 · ResNet",
+              "M01.03.06 · Residual block",
+              "M01.03.07 · DenseNet",
+              "M01.03.08 · EfficientNet"
+            ]
+          },
+          {
+            code: "M01.04",
+            title: "Computer Vision tasks",
+            items: [
+              "M01.04.01 · Image classification",
+              "M01.04.02 · Object detection",
+              "M01.04.03 · Semantic segmentation",
+              "M01.04.04 · Instance segmentation",
+              "M01.04.05 · Panoptic segmentation",
+              "M01.04.06 · Object tracking",
+              "M01.04.07 · Pose estimation",
+              "M01.04.08 · Optical flow",
+              "M01.04.09 · Depth estimation"
+            ]
+          },
+          {
+            code: "M01.05",
+            title: "Visión moderna",
+            items: [
+              "M01.05.01 · Vision Transformer",
+              "M01.05.02 · Patch embeddings",
+              "M01.05.03 · Swin Transformer",
+              "M01.05.04 · Contrastive vision learning",
+              "M01.05.05 · CLIP",
+              "M01.05.06 · Vision-language models",
+              "M01.05.07 · Image embeddings",
+              "M01.05.08 · Visual grounding",
+              "M01.05.09 · Image captioning"
+            ]
+          }
+        ],
+        resources: [
+          { name: "Stanford CS231n", url: resources.cs231n, type: "Stanford" },
+          { name: "Dive into Deep Learning", url: resources.d2l, type: "Book" }
+        ],
+        project:
+          "Implementar una CNN y posteriormente un Vision Transformer sobre un dataset real."
       },
+
       {
-        name: "M02 · NLP clásico",
-        items: [
-          "Text preprocessing",
-          "Normalización",
-          "Tokenización",
-          "N-grams",
-          "Bag of Words",
-          "TF-IDF",
-          "Language modeling",
-          "Word embeddings",
-          "Word2Vec",
-          "GloVe",
-          "Sequence classification",
-          "Named Entity Recognition",
-          "Question answering",
-          "Machine translation"
-        ]
+        code: "M02",
+        title: "NLP clásico y representación del lenguaje",
+        description:
+          "La evolución desde modelos estadísticos de lenguaje hasta embeddings y modelos secuenciales.",
+        topics: [
+          {
+            code: "M02.01",
+            title: "Procesamiento de texto",
+            items: [
+              "M02.01.01 · Normalización de texto",
+              "M02.01.02 · Tokenización por palabras",
+              "M02.01.03 · Tokenización por caracteres",
+              "M02.01.04 · Sentence splitting",
+              "M02.01.05 · Stopwords",
+              "M02.01.06 · Stemming",
+              "M02.01.07 · Lemmatization",
+              "M02.01.08 · Subword tokenization"
+            ]
+          },
+          {
+            code: "M02.02",
+            title: "Modelos estadísticos",
+            items: [
+              "M02.02.01 · N-grams",
+              "M02.02.02 · Unigram language model",
+              "M02.02.03 · Bigram model",
+              "M02.02.04 · Trigram model",
+              "M02.02.05 · Smoothing",
+              "M02.02.06 · Backoff",
+              "M02.02.07 · Perplexity"
+            ]
+          },
+          {
+            code: "M02.03",
+            title: "Embeddings",
+            items: [
+              "M02.03.01 · One-hot representation",
+              "M02.03.02 · Dense embeddings",
+              "M02.03.03 · Word2Vec",
+              "M02.03.04 · CBOW",
+              "M02.03.05 · Skip-gram",
+              "M02.03.06 · Negative sampling",
+              "M02.03.07 · GloVe",
+              "M02.03.08 · Contextual representations"
+            ]
+          },
+          {
+            code: "M02.04",
+            title: "Tareas NLP",
+            items: [
+              "M02.04.01 · Sentiment analysis",
+              "M02.04.02 · Text classification",
+              "M02.04.03 · Named Entity Recognition",
+              "M02.04.04 · Part-of-speech tagging",
+              "M02.04.05 · Question answering",
+              "M02.04.06 · Machine translation",
+              "M02.04.07 · Summarization",
+              "M02.04.08 · Information extraction"
+            ]
+          }
+        ],
+        resources: [
+          { name: "Stanford CS224N", url: resources.cs224n, type: "Stanford" },
+          { name: "Hugging Face LLM Course", url: resources.hf, type: "Course" }
+        ],
+        project:
+          "Construir un pipeline NLP clásico y comparar representaciones one-hot, TF-IDF y embeddings."
       },
+
       {
-        name: "M03 · RNN / LSTM / GRU",
-        items: [
-          "Sequence modeling",
-          "Recurrent neural networks",
-          "Hidden state",
-          "Teacher forcing",
-          "Vanishing gradients",
-          "LSTM",
-          "GRU",
-          "Bidirectional networks",
-          "Sequence-to-sequence",
-          "Encoder-decoder",
-          "Beam search"
-        ]
+        code: "M03",
+        title: "RNN, LSTM y GRU",
+        description: "Modelado de secuencias antes de la llegada de Transformers.",
+        topics: [
+          {
+            code: "M03.01",
+            title: "RNN",
+            items: [
+              "M03.01.01 · Sequence modeling",
+              "M03.01.02 · Hidden state",
+              "M03.01.03 · Recurrent connection",
+              "M03.01.04 · Unrolling",
+              "M03.01.05 · Teacher forcing",
+              "M03.01.06 · Many-to-one",
+              "M03.01.07 · One-to-many",
+              "M03.01.08 · Many-to-many"
+            ]
+          },
+          {
+            code: "M03.02",
+            title: "Problemas de RNN",
+            items: [
+              "M03.02.01 · Vanishing gradients",
+              "M03.02.02 · Exploding gradients",
+              "M03.02.03 · Long-term dependencies",
+              "M03.02.04 · Gradient clipping",
+              "M03.02.05 · Truncated backpropagation"
+            ]
+          },
+          {
+            code: "M03.03",
+            title: "LSTM",
+            items: [
+              "M03.03.01 · Cell state",
+              "M03.03.02 · Forget gate",
+              "M03.03.03 · Input gate",
+              "M03.03.04 · Output gate",
+              "M03.03.05 · Candidate state",
+              "M03.03.06 · Bidirectional LSTM"
+            ]
+          },
+          {
+            code: "M03.04",
+            title: "GRU y Seq2Seq",
+            items: [
+              "M03.04.01 · GRU",
+              "M03.04.02 · Update gate",
+              "M03.04.03 · Reset gate",
+              "M03.04.04 · Encoder-decoder",
+              "M03.04.05 · Sequence-to-sequence",
+              "M03.04.06 · Beam search"
+            ]
+          }
+        ],
+        resources: [
+          { name: "Stanford CS224N", url: resources.cs224n, type: "Stanford" },
+          { name: "DeepLearning.AI NLP", url: resources.deeplearning, type: "Course" }
+        ],
+        project:
+          "Implementar una RNN y LSTM pequeña para generación de texto y analizar el problema de los gradientes."
       },
+
       {
-        name: "M04 · Attention",
-        items: [
-          "Query",
-          "Key",
-          "Value",
-          "Dot-product attention",
-          "Scaled dot-product attention",
-          "Attention weights",
-          "Causal masking",
-          "Padding masks",
-          "Multi-head attention",
-          "Cross-attention",
-          "Attention complexity",
-          "Positional information"
-        ]
+        code: "M04",
+        title: "Attention",
+        description: "Fundamento matemático y computacional de los Transformers.",
+        topics: [
+          {
+            code: "M04.01",
+            title: "Attention básica",
+            items: [
+              "M04.01.01 · Query",
+              "M04.01.02 · Key",
+              "M04.01.03 · Value",
+              "M04.01.04 · Attention scores",
+              "M04.01.05 · Dot-product attention",
+              "M04.01.06 · Scaled dot-product attention",
+              "M04.01.07 · Softmax attention weights",
+              "M04.01.08 · Weighted sum"
+            ]
+          },
+          {
+            code: "M04.02",
+            title: "Tipos de atención",
+            items: [
+              "M04.02.01 · Self-attention",
+              "M04.02.02 · Cross-attention",
+              "M04.02.03 · Causal attention",
+              "M04.02.04 · Masked attention",
+              "M04.02.05 · Padding mask",
+              "M04.02.06 · Attention mask"
+            ]
+          },
+          {
+            code: "M04.03",
+            title: "Multi-head attention",
+            items: [
+              "M04.03.01 · Head",
+              "M04.03.02 · Q projection",
+              "M04.03.03 · K projection",
+              "M04.03.04 · V projection",
+              "M04.03.05 · Head splitting",
+              "M04.03.06 · Head concatenation",
+              "M04.03.07 · Output projection",
+              "M04.03.08 · Attention complexity"
+            ]
+          }
+        ],
+        resources: [
+          { name: "Stanford CS224N", url: resources.cs224n, type: "Stanford" },
+          {
+            name: "Attention Is All You Need",
+            url: "https://arxiv.org/abs/1706.03762",
+            type: "Paper"
+          }
+        ],
+        project:
+          "Implementar scaled dot-product attention y multi-head attention únicamente con NumPy/PyTorch básico."
       },
+
       {
-        name: "M05 · Transformers",
-        items: [
-          "Transformer architecture",
-          "Encoder",
-          "Decoder",
-          "Self-attention",
-          "Cross-attention",
-          "Multi-head attention",
-          "Positional encoding",
-          "Learned positional embeddings",
-          "RoPE",
-          "ALiBi",
-          "Residual connections",
-          "LayerNorm",
-          "RMSNorm",
-          "Feed-forward networks",
-          "GELU",
-          "SwiGLU",
-          "Causal language modeling",
-          "Logits",
-          "Softmax",
-          "Cross entropy",
-          "Autoregressive generation",
-          "KV cache"
-        ]
+        code: "M05",
+        title: "Transformers",
+        description:
+          "Arquitectura que constituye la base de gran parte de los modelos modernos de lenguaje y multimodales.",
+        topics: [
+          {
+            code: "M05.01",
+            title: "Arquitectura Transformer",
+            items: [
+              "M05.01.01 · Transformer block",
+              "M05.01.02 · Encoder",
+              "M05.01.03 · Decoder",
+              "M05.01.04 · Encoder-decoder Transformer",
+              "M05.01.05 · Decoder-only Transformer",
+              "M05.01.06 · Residual connections",
+              "M05.01.07 · Feed-forward network",
+              "M05.01.08 · Layer normalization"
+            ]
+          },
+          {
+            code: "M05.02",
+            title: "Positional information",
+            items: [
+              "M05.02.01 · Positional encoding",
+              "M05.02.02 · Sinusoidal positional encoding",
+              "M05.02.03 · Learned positional embeddings",
+              "M05.02.04 · Relative position",
+              "M05.02.05 · Rotary positional embeddings",
+              "M05.02.06 · RoPE scaling",
+              "M05.02.07 · ALiBi"
+            ]
+          },
+          {
+            code: "M05.03",
+            title: "Bloques modernos",
+            items: [
+              "M05.03.01 · Pre-norm Transformer",
+              "M05.03.02 · Post-norm Transformer",
+              "M05.03.03 · RMSNorm",
+              "M05.03.04 · GELU",
+              "M05.03.05 · SwiGLU",
+              "M05.03.06 · Gated MLP",
+              "M05.03.07 · Residual stream"
+            ]
+          },
+          {
+            code: "M05.04",
+            title: "Entrenamiento Transformer",
+            items: [
+              "M05.04.01 · Causal language modeling",
+              "M05.04.02 · Teacher forcing",
+              "M05.04.03 · Next-token prediction",
+              "M05.04.04 · Cross entropy",
+              "M05.04.05 · Logits",
+              "M05.04.06 · Sampling",
+              "M05.04.07 · Temperature",
+              "M05.04.08 · Top-k sampling",
+              "M05.04.09 · Top-p sampling",
+              "M05.04.10 · Greedy decoding",
+              "M05.04.11 · Beam search"
+            ]
+          }
+        ],
+        resources: [
+          {
+            name: "Attention Is All You Need",
+            url: "https://arxiv.org/abs/1706.03762",
+            type: "Paper"
+          },
+          { name: "Stanford CS224N", url: resources.cs224n, type: "Stanford" },
+          { name: "Stanford CS336", url: resources.cs336, type: "Stanford" }
+        ],
+        project:
+          "Implementar un Transformer decoder-only desde cero y entrenarlo sobre un dataset pequeño."
       },
+
       {
-        name: "M06 · Large Language Models",
-        items: [
-          "Language model objectives",
-          "Causal language modeling",
-          "Masked language modeling",
-          "GPT family",
-          "BERT family",
-          "Encoder-only models",
-          "Decoder-only models",
-          "Encoder-decoder models",
-          "Tokenizers",
-          "BPE",
-          "WordPiece",
-          "SentencePiece",
-          "Vocabulary design",
-          "Special tokens",
-          "Dataset construction",
-          "Data collection",
-          "Data cleaning",
-          "Deduplication",
-          "Quality filtering",
-          "Data contamination",
-          "Data mixtures",
-          "Synthetic data",
-          "Pretraining",
-          "Batch size",
-          "Sequence length",
-          "Learning rate",
-          "Warmup",
-          "Weight decay",
-          "Gradient accumulation",
-          "Checkpointing",
-          "Perplexity",
-          "Scaling laws",
-          "Compute/data/model scaling",
-          "Evaluation"
-        ]
+        code: "M06",
+        title: "Large Language Models",
+        description:
+          "Construcción, entrenamiento, evaluación y funcionamiento interno de LLMs.",
+        topics: [
+          {
+            code: "M06.01",
+            title: "Language modeling",
+            items: [
+              "M06.01.01 · Language modeling",
+              "M06.01.02 · Autoregressive language modeling",
+              "M06.01.03 · Next-token prediction",
+              "M06.01.04 · Conditional language modeling",
+              "M06.01.05 · Masked language modeling",
+              "M06.01.06 · Causal language modeling",
+              "M06.01.07 · Perplexity"
+            ]
+          },
+          {
+            code: "M06.02",
+            title: "Tokenización",
+            items: [
+              "M06.02.01 · Character tokenization",
+              "M06.02.02 · Word tokenization",
+              "M06.02.03 · Subword tokenization",
+              "M06.02.04 · Byte-level tokenization",
+              "M06.02.05 · BPE",
+              "M06.02.06 · WordPiece",
+              "M06.02.07 · Unigram",
+              "M06.02.08 · SentencePiece",
+              "M06.02.09 · Vocabulary size",
+              "M06.02.10 · Special tokens",
+              "M06.02.11 · BOS",
+              "M06.02.12 · EOS",
+              "M06.02.13 · PAD",
+              "M06.02.14 · UNK"
+            ]
+          },
+          {
+            code: "M06.03",
+            title: "Datos de pretraining",
+            items: [
+              "M06.03.01 · Dataset construction",
+              "M06.03.02 · Data collection",
+              "M06.03.03 · Web corpora",
+              "M06.03.04 · Common Crawl",
+              "M06.03.05 · Text extraction",
+              "M06.03.06 · Language identification",
+              "M06.03.07 · Quality filtering",
+              "M06.03.08 · Deduplication",
+              "M06.03.09 · Near-duplicate detection",
+              "M06.03.10 · Toxicity filtering",
+              "M06.03.11 · PII considerations",
+              "M06.03.12 · Data contamination",
+              "M06.03.13 · Data mixtures",
+              "M06.03.14 · Synthetic data"
+            ]
+          },
+          {
+            code: "M06.04",
+            title: "Pretraining",
+            items: [
+              "M06.04.01 · Pretraining objective",
+              "M06.04.02 · Batch size",
+              "M06.04.03 · Sequence length",
+              "M06.04.04 · Tokens per batch",
+              "M06.04.05 · Learning rate",
+              "M06.04.06 · Warmup",
+              "M06.04.07 · Weight decay",
+              "M06.04.08 · Gradient accumulation",
+              "M06.04.09 · Gradient clipping",
+              "M06.04.10 · Checkpointing",
+              "M06.04.11 · Resume training",
+              "M06.04.12 · Validation loss",
+              "M06.04.13 · Perplexity"
+            ]
+          },
+          {
+            code: "M06.05",
+            title: "Scaling",
+            items: [
+              "M06.05.01 · Parameter count",
+              "M06.05.02 · Training compute",
+              "M06.05.03 · Dataset size",
+              "M06.05.04 · Compute-optimal training",
+              "M06.05.05 · Scaling laws",
+              "M06.05.06 · Chinchilla scaling",
+              "M06.05.07 · Loss scaling",
+              "M06.05.08 · Emergent capabilities"
+            ]
+          },
+          {
+            code: "M06.06",
+            title: "Arquitecturas LLM modernas",
+            items: [
+              "M06.06.01 · GPT-style models",
+              "M06.06.02 · BERT-style models",
+              "M06.06.03 · T5",
+              "M06.06.04 · Decoder-only models",
+              "M06.06.05 · Encoder-only models",
+              "M06.06.06 · Encoder-decoder models",
+              "M06.06.07 · Grouped-query attention",
+              "M06.06.08 · Multi-query attention",
+              "M06.06.09 · Sliding-window attention",
+              "M06.06.10 · Mixture of Experts",
+              "M06.06.11 · Sparse MoE",
+              "M06.06.12 · Router",
+              "M06.06.13 · Expert load balancing"
+            ]
+          },
+          {
+            code: "M06.07",
+            title: "Generación e inferencia",
+            items: [
+              "M06.07.01 · Autoregressive decoding",
+              "M06.07.02 · Greedy decoding",
+              "M06.07.03 · Temperature",
+              "M06.07.04 · Top-k",
+              "M06.07.05 · Top-p",
+              "M06.07.06 · Repetition penalty",
+              "M06.07.07 · Stop tokens",
+              "M06.07.08 · KV cache",
+              "M06.07.09 · Context window",
+              "M06.07.10 · Long-context models",
+              "M06.07.11 · Speculative decoding"
+            ]
+          },
+          {
+            code: "M06.08",
+            title: "Evaluación",
+            items: [
+              "M06.08.01 · Intrinsic evaluation",
+              "M06.08.02 · Perplexity",
+              "M06.08.03 · Benchmark datasets",
+              "M06.08.04 · Task evaluation",
+              "M06.08.05 · Human evaluation",
+              "M06.08.06 · Instruction following",
+              "M06.08.07 · Factuality",
+              "M06.08.08 · Hallucination",
+              "M06.08.09 · Robustness",
+              "M06.08.10 · Bias evaluation"
+            ]
+          }
+        ],
+        resources: [
+          { name: "Stanford CS336", url: resources.cs336, type: "Stanford" },
+          { name: "Hugging Face LLM Course", url: resources.hf, type: "Course" },
+          {
+            name: "Stanford CS224N",
+            url: resources.cs224n,
+            type: "Stanford"
+          }
+        ],
+        project:
+          "Construir tokenizer, Transformer decoder-only, pipeline de datos y entrenar un pequeño language model desde cero."
       },
+
       {
-        name: "M07 · Generative AI",
-        items: [
-          "Autoencoders",
-          "Latent spaces",
-          "Variational autoencoders",
-          "GANs",
-          "Generator",
-          "Discriminator",
-          "Adversarial training",
-          "Mode collapse",
-          "Diffusion models",
-          "Forward diffusion",
-          "Reverse diffusion",
-          "Noise prediction",
-          "Score matching",
-          "DDPM",
-          "DDIM",
-          "Latent diffusion",
-          "U-Net",
-          "Diffusion Transformers",
-          "Text-to-image generation"
-        ]
+        code: "M07",
+        title: "Fine-Tuning, Instruction Tuning y Alignment",
+        description:
+          "Cómo convertir un modelo pretrained en un modelo útil y alineado a instrucciones/preferencias.",
+        topics: [
+          {
+            code: "M07.01",
+            title: "Adaptación de modelos",
+            items: [
+              "M07.01.01 · Continued pretraining",
+              "M07.01.02 · Domain adaptation",
+              "M07.01.03 · Supervised fine-tuning",
+              "M07.01.04 · Instruction tuning",
+              "M07.01.05 · Chat templates",
+              "M07.01.06 · Formatting training data",
+              "M07.01.07 · Data quality",
+              "M07.01.08 · Catastrophic forgetting"
+            ]
+          },
+          {
+            code: "M07.02",
+            title: "Parameter-efficient fine-tuning",
+            items: [
+              "M07.02.01 · Adapters",
+              "M07.02.02 · LoRA",
+              "M07.02.03 · Low-rank decomposition",
+              "M07.02.04 · QLoRA",
+              "M07.02.05 · Rank selection",
+              "M07.02.06 · Target modules",
+              "M07.02.07 · Merge adapters"
+            ]
+          },
+          {
+            code: "M07.03",
+            title: "Preference alignment",
+            items: [
+              "M07.03.01 · Preference datasets",
+              "M07.03.02 · Reward models",
+              "M07.03.03 · RLHF",
+              "M07.03.04 · PPO",
+              "M07.03.05 · DPO",
+              "M07.03.06 · Preference optimization",
+              "M07.03.07 · Rejection sampling",
+              "M07.03.08 · Constitutional methods"
+            ]
+          }
+        ],
+        resources: [
+          { name: "Hugging Face LLM Course", url: resources.hf, type: "Course" },
+          { name: "Stanford CS336", url: resources.cs336, type: "Stanford" }
+        ],
+        project:
+          "Fine-tunear un modelo pequeño con SFT y LoRA, evaluar el cambio y documentar el dataset."
       },
+
       {
-        name: "M08 · Reinforcement Learning",
-        items: [
-          "Markov decision processes",
-          "States",
-          "Actions",
-          "Rewards",
-          "Policies",
-          "Value functions",
-          "Q-functions",
-          "Bellman equation",
-          "Dynamic programming",
-          "Monte Carlo methods",
-          "Temporal difference learning",
-          "Q-learning",
-          "DQN",
-          "Policy gradients",
-          "Actor-critic",
-          "PPO",
-          "Offline reinforcement learning",
-          "Model-based reinforcement learning"
-        ]
+        code: "M08",
+        title: "Generative AI",
+        description:
+          "Modelos generativos más allá de los LLMs.",
+        topics: [
+          {
+            code: "M08.01",
+            title: "Autoencoders",
+            items: [
+              "M08.01.01 · Encoder",
+              "M08.01.02 · Decoder",
+              "M08.01.03 · Latent representation",
+              "M08.01.04 · Reconstruction loss",
+              "M08.01.05 · Bottleneck"
+            ]
+          },
+          {
+            code: "M08.02",
+            title: "Variational Autoencoders",
+            items: [
+              "M08.02.01 · Latent distribution",
+              "M08.02.02 · Reparameterization trick",
+              "M08.02.03 · KL divergence loss",
+              "M08.02.04 · ELBO",
+              "M08.02.05 · VAE sampling"
+            ]
+          },
+          {
+            code: "M08.03",
+            title: "GANs",
+            items: [
+              "M08.03.01 · Generator",
+              "M08.03.02 · Discriminator",
+              "M08.03.03 · Adversarial objective",
+              "M08.03.04 · Minimax game",
+              "M08.03.05 · Mode collapse",
+              "M08.03.06 · WGAN",
+              "M08.03.07 · GAN stability"
+            ]
+          },
+          {
+            code: "M08.04",
+            title: "Diffusion",
+            items: [
+              "M08.04.01 · Forward diffusion",
+              "M08.04.02 · Noise schedule",
+              "M08.04.03 · Reverse diffusion",
+              "M08.04.04 · Score function",
+              "M08.04.05 · Noise prediction",
+              "M08.04.06 · DDPM",
+              "M08.04.07 · DDIM",
+              "M08.04.08 · Latent diffusion",
+              "M08.04.09 · U-Net",
+              "M08.04.10 · Conditioning",
+              "M08.04.11 · Classifier-free guidance",
+              "M08.04.12 · Diffusion Transformer"
+            ]
+          }
+        ],
+        resources: [
+          { name: "fast.ai", url: resources.fastai, type: "Course" },
+          { name: "Dive into Deep Learning", url: resources.d2l, type: "Book" }
+        ],
+        project:
+          "Implementar un VAE y posteriormente un pequeño diffusion model para comprender el proceso generativo."
       },
+
       {
-        name: "M09 · Fine-tuning y Alignment",
-        items: [
-          "Pretraining",
-          "Continued pretraining",
-          "Supervised fine-tuning",
-          "Instruction tuning",
-          "Parameter-efficient fine-tuning",
-          "LoRA",
-          "QLoRA",
-          "Adapters",
-          "Catastrophic forgetting",
-          "Preference datasets",
-          "Reward models",
-          "RLHF",
-          "PPO for alignment",
-          "DPO",
-          "Preference optimization",
-          "Rejection sampling",
-          "Evaluation of aligned models"
-        ]
+        code: "M09",
+        title: "Reinforcement Learning",
+        description:
+          "Aprendizaje mediante interacción, recompensas, políticas y control.",
+        topics: [
+          {
+            code: "M09.01",
+            title: "Fundamentos RL",
+            items: [
+              "M09.01.01 · Agent",
+              "M09.01.02 · Environment",
+              "M09.01.03 · State",
+              "M09.01.04 · Action",
+              "M09.01.05 · Reward",
+              "M09.01.06 · Policy",
+              "M09.01.07 · Value function",
+              "M09.01.08 · Q function",
+              "M09.01.09 · Return",
+              "M09.01.10 · Discount factor"
+            ]
+          },
+          {
+            code: "M09.02",
+            title: "MDPs",
+            items: [
+              "M09.02.01 · Markov property",
+              "M09.02.02 · Transition model",
+              "M09.02.03 · Reward model",
+              "M09.02.04 · Markov Decision Process",
+              "M09.02.05 · Bellman equation",
+              "M09.02.06 · Bellman optimality",
+              "M09.02.07 · Dynamic programming"
+            ]
+          },
+          {
+            code: "M09.03",
+            title: "Value-based RL",
+            items: [
+              "M09.03.01 · Monte Carlo",
+              "M09.03.02 · Temporal difference",
+              "M09.03.03 · Q-learning",
+              "M09.03.04 · SARSA",
+              "M09.03.05 · DQN",
+              "M09.03.06 · Experience replay",
+              "M09.03.07 · Target network",
+              "M09.03.08 · Double DQN"
+            ]
+          },
+          {
+            code: "M09.04",
+            title: "Policy-based RL",
+            items: [
+              "M09.04.01 · Policy gradient",
+              "M09.04.02 · REINFORCE",
+              "M09.04.03 · Actor-critic",
+              "M09.04.04 · Advantage function",
+              "M09.04.05 · A2C",
+              "M09.04.06 · A3C",
+              "M09.04.07 · PPO"
+            ]
+          },
+          {
+            code: "M09.05",
+            title: "RL avanzado",
+            items: [
+              "M09.05.01 · Model-based RL",
+              "M09.05.02 · Planning",
+              "M09.05.03 · Exploration",
+              "M09.05.04 · Intrinsic motivation",
+              "M09.05.05 · Offline RL",
+              "M09.05.06 · Inverse RL",
+              "M09.05.07 · Imitation learning",
+              "M09.05.08 · Multi-task RL",
+              "M09.05.09 · Meta-RL",
+              "M09.05.10 · RL for LLMs"
+            ]
+          }
+        ],
+        resources: [
+          { name: "Berkeley CS285", url: resources.rl, type: "Berkeley" },
+          {
+            name: "Sutton & Barto",
+            url: "http://incompleteideas.net/book/the-book-2nd.html",
+            type: "Book"
+          }
+        ],
+        project:
+          "Implementar Q-learning, DQN y PPO en entornos controlados y analizar convergencia."
       },
+
       {
-        name: "M10 · Multimodal AI",
-        items: [
-          "Image-text models",
-          "Audio-text models",
-          "Video-text models",
-          "Multimodal embeddings",
-          "Contrastive learning",
-          "CLIP",
-          "Vision encoders",
-          "Vision-language models",
-          "Multimodal Transformers",
-          "Image tokens",
-          "Audio tokens",
-          "Video tokens",
-          "Cross-modal alignment"
-        ]
+        code: "M10",
+        title: "Multimodal AI",
+        description:
+          "Modelos que combinan texto, imagen, audio y vídeo.",
+        topics: [
+          {
+            code: "M10.01",
+            title: "Representaciones multimodales",
+            items: [
+              "M10.01.01 · Modality",
+              "M10.01.02 · Joint embedding",
+              "M10.01.03 · Cross-modal representation",
+              "M10.01.04 · Contrastive learning",
+              "M10.01.05 · Alignment",
+              "M10.01.06 · Projection layers"
+            ]
+          },
+          {
+            code: "M10.02",
+            title: "Vision-language",
+            items: [
+              "M10.02.01 · CLIP",
+              "M10.02.02 · Image encoder",
+              "M10.02.03 · Text encoder",
+              "M10.02.04 · Contrastive loss",
+              "M10.02.05 · Visual instruction tuning",
+              "M10.02.06 · VLM",
+              "M10.02.07 · Image tokens",
+              "M10.02.08 · Vision-language connector"
+            ]
+          },
+          {
+            code: "M10.03",
+            title: "Audio y vídeo",
+            items: [
+              "M10.03.01 · Audio embeddings",
+              "M10.03.02 · Video embeddings",
+              "M10.03.03 · Temporal modeling",
+              "M10.03.04 · Audio-language models",
+              "M10.03.05 · Video-language models",
+              "M10.03.06 · Multimodal attention"
+            ]
+          }
+        ],
+        resources: [
+          { name: "Hugging Face", url: resources.hf, type: "Course" },
+          { name: "Stanford CS224N", url: resources.cs224n, type: "Stanford" }
+        ],
+        project:
+          "Construir una pequeña arquitectura texto-imagen usando embeddings y un módulo de alineamiento."
       },
+
       {
-        name: "M11 · Speech y Audio",
-        items: [
-          "Digital signals",
-          "Sampling",
-          "Frequency domain",
-          "Fourier transform",
-          "Spectrograms",
-          "Mel spectrograms",
-          "MFCC",
-          "Speech recognition",
-          "CTC",
-          "wav2vec",
-          "Whisper",
-          "Text-to-speech",
-          "Neural vocoders",
-          "Audio generation"
-        ]
+        code: "M11",
+        title: "Speech y Audio AI",
+        description:
+          "Procesamiento digital de audio y modelos modernos de voz.",
+        topics: [
+          {
+            code: "M11.01",
+            title: "Signal processing",
+            items: [
+              "M11.01.01 · Sampling rate",
+              "M11.01.02 · Nyquist theorem",
+              "M11.01.03 · Frequency",
+              "M11.01.04 · Amplitude",
+              "M11.01.05 · Fourier transform",
+              "M11.01.06 · FFT",
+              "M11.01.07 · Spectrogram",
+              "M11.01.08 · Mel scale",
+              "M11.01.09 · Mel spectrogram",
+              "M11.01.10 · MFCC"
+            ]
+          },
+          {
+            code: "M11.02",
+            title: "Speech recognition",
+            items: [
+              "M11.02.01 · ASR",
+              "M11.02.02 · CTC",
+              "M11.02.03 · Connectionist Temporal Classification",
+              "M11.02.04 · wav2vec",
+              "M11.02.05 · Self-supervised speech",
+              "M11.02.06 · Whisper"
+            ]
+          },
+          {
+            code: "M11.03",
+            title: "Text-to-speech",
+            items: [
+              "M11.03.01 · TTS",
+              "M11.03.02 · Acoustic model",
+              "M11.03.03 · Neural vocoder",
+              "M11.03.04 · WaveNet",
+              "M11.03.05 · Mel-to-audio generation",
+              "M11.03.06 · Prosody"
+            ]
+          }
+        ],
+        resources: [
+          { name: "Hugging Face", url: resources.hf, type: "Course" },
+          { name: "Stanford CS224N", url: resources.cs224n, type: "Stanford" }
+        ],
+        project:
+          "Construir un pipeline de speech-to-text y analizar una arquitectura neural de audio."
       }
-    ],
-    resources: [
-      "DeepLearning.AI",
-      "Hugging Face LLM Course",
-      "Stanford CS336",
-      "Dive into Deep Learning",
-      "Attention Is All You Need",
-      "Hugging Face Transformers documentation",
-      "PyTorch documentation"
-    ],
-    project:
-      "Construir un Transformer autoregresivo desde cero y entrenar un pequeño language model sobre un dataset controlado."
+    ]
   },
 
   {
-    id: "horus-specialization",
     code: "S",
-    title: "Especialización — AI Systems",
-    subtitle: "Cómo entrenar y ejecutar modelos a escala",
+    title: "Especialización — AI Systems, eficiencia y seguridad",
+    subtitle:
+      "GPU, CUDA, entrenamiento distribuido, inferencia, optimización, MLOps, seguridad e interpretabilidad.",
     description:
-      "Infraestructura, optimización y sistemas necesarios para pasar de un modelo que funciona a sistemas de IA eficientes.",
-    topics: [
+      "Esta etapa convierte el conocimiento de modelos en capacidad para entrenarlos y ejecutarlos eficientemente.",
+    subjects: [
       {
-        name: "S01 · GPU y CUDA",
-        items: [
-          "GPU architecture",
-          "CPU vs GPU",
-          "CUDA",
-          "CUDA kernels",
-          "Threads",
-          "Blocks",
-          "Warps",
-          "Memory hierarchy",
-          "Global memory",
-          "Shared memory",
-          "Registers",
-          "Memory bandwidth",
-          "FLOPs",
-          "Arithmetic intensity",
-          "GPU profiling",
-          "Kernel optimization"
-        ]
+        code: "S01",
+        title: "Arquitectura de computadores y GPU",
+        description: "Entender físicamente qué ocurre cuando ejecutas modelos sobre CPU y GPU.",
+        topics: [
+          {
+            code: "S01.01",
+            title: "CPU",
+            items: [
+              "S01.01.01 · CPU architecture",
+              "S01.01.02 · Registers",
+              "S01.01.03 · Cache L1",
+              "S01.01.04 · Cache L2",
+              "S01.01.05 · Cache L3",
+              "S01.01.06 · RAM",
+              "S01.01.07 · Memory bandwidth",
+              "S01.01.08 · SIMD",
+              "S01.01.09 · Vectorization",
+              "S01.01.10 · Branch prediction"
+            ]
+          },
+          {
+            code: "S01.02",
+            title: "GPU",
+            items: [
+              "S01.02.01 · GPU architecture",
+              "S01.02.02 · Streaming multiprocessor",
+              "S01.02.03 · CUDA core",
+              "S01.02.04 · Tensor core",
+              "S01.02.05 · VRAM",
+              "S01.02.06 · Memory bandwidth",
+              "S01.02.07 · Warp",
+              "S01.02.08 · Occupancy",
+              "S01.02.09 · FLOPS",
+              "S01.02.10 · Arithmetic intensity"
+            ]
+          }
+        ],
+        resources: [
+          { name: "NVIDIA CUDA Programming Guide", url: resources.cuda, type: "Official" }
+        ],
+        project:
+          "Medir diferencias de ejecución CPU/GPU y analizar memory bandwidth y arithmetic intensity."
       },
+
       {
-        name: "S02 · Distributed Training",
-        items: [
-          "Data parallelism",
-          "Distributed data parallelism",
-          "All-reduce",
-          "Gradient synchronization",
-          "Model parallelism",
-          "Tensor parallelism",
-          "Pipeline parallelism",
-          "FSDP",
-          "ZeRO",
-          "Distributed checkpointing",
-          "Fault tolerance",
-          "Communication bottlenecks"
-        ]
+        code: "S02",
+        title: "CUDA y GPU Programming",
+        description: "Programación directa de GPU y comprensión de kernels.",
+        topics: [
+          {
+            code: "S02.01",
+            title: "CUDA programming model",
+            items: [
+              "S02.01.01 · CUDA platform",
+              "S02.01.02 · Host",
+              "S02.01.03 · Device",
+              "S02.01.04 · Kernel",
+              "S02.01.05 · Thread",
+              "S02.01.06 · Block",
+              "S02.01.07 · Grid",
+              "S02.01.08 · Warp",
+              "S02.01.09 · SIMT"
+            ]
+          },
+          {
+            code: "S02.02",
+            title: "Memoria CUDA",
+            items: [
+              "S02.02.01 · Global memory",
+              "S02.02.02 · Shared memory",
+              "S02.02.03 · Registers",
+              "S02.02.04 · Constant memory",
+              "S02.02.05 · Unified memory",
+              "S02.02.06 · Memory coalescing",
+              "S02.02.07 · Bank conflicts"
+            ]
+          },
+          {
+            code: "S02.03",
+            title: "Kernels",
+            items: [
+              "S02.03.01 · Kernel launch",
+              "S02.03.02 · Thread indexing",
+              "S02.03.03 · Synchronization",
+              "S02.03.04 · __syncthreads",
+              "S02.03.05 · Atomic operations",
+              "S02.03.06 · Tiled kernels",
+              "S02.03.07 · Asynchronous execution",
+              "S02.03.08 · CUDA streams",
+              "S02.03.09 · CUDA events"
+            ]
+          },
+          {
+            code: "S02.04",
+            title: "CUDA avanzado",
+            items: [
+              "S02.04.01 · CUDA graphs",
+              "S02.04.02 · Cooperative groups",
+              "S02.04.03 · Multi-GPU programming",
+              "S02.04.04 · Driver API",
+              "S02.04.05 · CUDA profiling",
+              "S02.04.06 · Nsight Systems",
+              "S02.04.07 · Nsight Compute"
+            ]
+          }
+        ],
+        resources: [
+          { name: "NVIDIA CUDA Programming Guide", url: resources.cuda, type: "Official" }
+        ],
+        project:
+          "Implementar kernels CUDA básicos para operaciones vectoriales y matriciales y compararlos con PyTorch."
       },
+
       {
-        name: "S03 · LLM Systems e inferencia",
-        items: [
-          "KV cache",
-          "Batching",
-          "Dynamic batching",
-          "Continuous batching",
-          "Paged attention",
-          "Speculative decoding",
-          "Inference throughput",
-          "Inference latency",
-          "Memory optimization",
-          "Model serving",
-          "Serving architectures",
-          "Request scheduling"
-        ]
+        code: "S03",
+        title: "Distributed Training",
+        description: "Entrenamiento de modelos que no caben o no son eficientes en una sola GPU.",
+        topics: [
+          {
+            code: "S03.01",
+            title: "Distributed computing",
+            items: [
+              "S03.01.01 · Distributed systems basics",
+              "S03.01.02 · Communication overhead",
+              "S03.01.03 · Network bandwidth",
+              "S03.01.04 · Latency",
+              "S03.01.05 · Synchronization",
+              "S03.01.06 · Fault tolerance"
+            ]
+          },
+          {
+            code: "S03.02",
+            title: "Parallelism",
+            items: [
+              "S03.02.01 · Data parallelism",
+              "S03.02.02 · DistributedDataParallel",
+              "S03.02.03 · Gradient synchronization",
+              "S03.02.04 · All-reduce",
+              "S03.02.05 · Parameter synchronization",
+              "S03.02.06 · Model parallelism",
+              "S03.02.07 · Tensor parallelism",
+              "S03.02.08 · Pipeline parallelism",
+              "S03.02.09 · Sequence parallelism",
+              "S03.02.10 · Expert parallelism"
+            ]
+          },
+          {
+            code: "S03.03",
+            title: "Memory-efficient training",
+            items: [
+              "S03.03.01 · FSDP",
+              "S03.03.02 · ZeRO",
+              "S03.03.03 · Parameter sharding",
+              "S03.03.04 · Optimizer sharding",
+              "S03.03.05 · Gradient sharding",
+              "S03.03.06 · Activation checkpointing",
+              "S03.03.07 · Distributed checkpointing"
+            ]
+          }
+        ],
+        resources: [
+          { name: "Stanford CS336", url: resources.cs336, type: "Stanford" },
+          {
+            name: "PyTorch Distributed",
+            url: "https://pytorch.org/docs/stable/distributed.html",
+            type: "Official"
+          }
+        ],
+        project:
+          "Entrenar un modelo pequeño en varias GPUs y comparar data parallelism, memory usage y throughput."
       },
+
       {
-        name: "S04 · Optimización de modelos",
-        items: [
-          "FP32",
-          "FP16",
-          "BF16",
-          "INT8",
-          "INT4",
-          "Quantization",
-          "GPTQ",
-          "AWQ",
-          "Pruning",
-          "Sparsity",
-          "Knowledge distillation",
-          "Model distillation",
-          "Kernel fusion",
-          "FlashAttention"
-        ]
+        code: "S04",
+        title: "LLM Inference y Serving",
+        description: "Cómo ejecutar modelos de forma eficiente en producción o investigación.",
+        topics: [
+          {
+            code: "S04.01",
+            title: "Inference",
+            items: [
+              "S04.01.01 · Forward inference",
+              "S04.01.02 · Batch inference",
+              "S04.01.03 · Token generation",
+              "S04.01.04 · KV cache",
+              "S04.01.05 · Prefill",
+              "S04.01.06 · Decode",
+              "S04.01.07 · Context length"
+            ]
+          },
+          {
+            code: "S04.02",
+            title: "Serving",
+            items: [
+              "S04.02.01 · Model server",
+              "S04.02.02 · Request batching",
+              "S04.02.03 · Continuous batching",
+              "S04.02.04 · Scheduling",
+              "S04.02.05 · Throughput",
+              "S04.02.06 · Latency",
+              "S04.02.07 · Time to first token",
+              "S04.02.08 · Tokens per second"
+            ]
+          },
+          {
+            code: "S04.03",
+            title: "Optimización de inference",
+            items: [
+              "S04.03.01 · Paged attention",
+              "S04.03.02 · Speculative decoding",
+              "S04.03.03 · Prefix caching",
+              "S04.03.04 · Quantized inference",
+              "S04.03.05 · Memory optimization",
+              "S04.03.06 · GPU utilization",
+              "S04.03.07 · Model parallel inference"
+            ]
+          }
+        ],
+        resources: [
+          {
+            name: "vLLM",
+            url: "https://docs.vllm.ai/",
+            type: "Framework"
+          },
+          { name: "Stanford CS336", url: resources.cs336, type: "Stanford" }
+        ],
+        project:
+          "Servir un LLM pequeño y medir TTFT, throughput, memoria y latencia bajo diferentes cargas."
       },
+
       {
-        name: "S05 · MLOps / ML Engineering",
-        items: [
-          "Experiment tracking",
-          "Reproducibility",
-          "Dataset versioning",
-          "Model versioning",
-          "Model registry",
-          "Training pipelines",
-          "Evaluation pipelines",
-          "Deployment",
-          "Monitoring",
-          "Model drift",
-          "CI/CD",
-          "Rollback",
-          "Infrastructure",
-          "Observability"
-        ]
+        code: "S05",
+        title: "Quantization, Compression y Optimization",
+        description: "Reducir coste computacional y memoria sin perder rendimiento excesivamente.",
+        topics: [
+          {
+            code: "S05.01",
+            title: "Precision",
+            items: [
+              "S05.01.01 · FP64",
+              "S05.01.02 · FP32",
+              "S05.01.03 · TF32",
+              "S05.01.04 · FP16",
+              "S05.01.05 · BF16",
+              "S05.01.06 · FP8"
+            ]
+          },
+          {
+            code: "S05.02",
+            title: "Quantization",
+            items: [
+              "S05.02.01 · Quantization basics",
+              "S05.02.02 · Symmetric quantization",
+              "S05.02.03 · Asymmetric quantization",
+              "S05.02.04 · Calibration",
+              "S05.02.05 · Post-training quantization",
+              "S05.02.06 · Quantization-aware training",
+              "S05.02.07 · INT8",
+              "S05.02.08 · INT4",
+              "S05.02.09 · GPTQ",
+              "S05.02.10 · AWQ",
+              "S05.02.11 · GGUF"
+            ]
+          },
+          {
+            code: "S05.03",
+            title: "Compression",
+            items: [
+              "S05.03.01 · Pruning",
+              "S05.03.02 · Structured pruning",
+              "S05.03.03 · Unstructured pruning",
+              "S05.03.04 · Sparsity",
+              "S05.03.05 · Knowledge distillation",
+              "S05.03.06 · Teacher-student models",
+              "S05.03.07 · Model merging"
+            ]
+          },
+          {
+            code: "S05.04",
+            title: "Efficient kernels",
+            items: [
+              "S05.04.01 · Kernel fusion",
+              "S05.04.02 · FlashAttention",
+              "S05.04.03 · Memory-efficient attention",
+              "S05.04.04 · Tensor cores",
+              "S05.04.05 · Triton kernels",
+              "S05.04.06 · Benchmarking kernels"
+            ]
+          }
+        ],
+        resources: [
+          { name: "Stanford CS336", url: resources.cs336, type: "Stanford" },
+          { name: "Triton", url: resources.triton, type: "Official" }
+        ],
+        project:
+          "Cuantizar un modelo, comparar memoria/latencia/calidad y documentar el trade-off."
       },
+
       {
-        name: "S06 · AI Security",
-        items: [
-          "Adversarial examples",
-          "Adversarial attacks",
-          "Data poisoning",
-          "Model poisoning",
-          "Prompt injection",
-          "Jailbreaks",
-          "Model extraction",
-          "Membership inference",
-          "Privacy",
-          "Differential privacy",
-          "Supply-chain security",
-          "Dataset security",
-          "Model security"
-        ]
+        code: "S06",
+        title: "MLOps y ML Engineering",
+        description: "Reproducibilidad, experimentación, deployment y mantenimiento de sistemas ML.",
+        topics: [
+          {
+            code: "S06.01",
+            title: "Experimentación",
+            items: [
+              "S06.01.01 · Experiment tracking",
+              "S06.01.02 · Hyperparameter logging",
+              "S06.01.03 · Dataset versioning",
+              "S06.01.04 · Model versioning",
+              "S06.01.05 · Random seeds",
+              "S06.01.06 · Reproducibility",
+              "S06.01.07 · Experiment metadata"
+            ]
+          },
+          {
+            code: "S06.02",
+            title: "Pipelines",
+            items: [
+              "S06.02.01 · Data pipelines",
+              "S06.02.02 · Training pipelines",
+              "S06.02.03 · Evaluation pipelines",
+              "S06.02.04 · CI/CD",
+              "S06.02.05 · Model registry",
+              "S06.02.06 · Artifact storage"
+            ]
+          },
+          {
+            code: "S06.03",
+            title: "Producción",
+            items: [
+              "S06.03.01 · Deployment",
+              "S06.03.02 · Monitoring",
+              "S06.03.03 · Data drift",
+              "S06.03.04 · Concept drift",
+              "S06.03.05 · Performance monitoring",
+              "S06.03.06 · Rollbacks",
+              "S06.03.07 · Observability"
+            ]
+          }
+        ],
+        resources: [
+          {
+            name: "MLflow",
+            url: "https://mlflow.org/docs/latest/ml/",
+            type: "Framework"
+          },
+          {
+            name: "Weights & Biases",
+            url: "https://docs.wandb.ai/",
+            type: "Platform"
+          }
+        ],
+        project:
+          "Crear un pipeline reproducible de entrenamiento, evaluación, versionado y deployment."
       },
+
       {
-        name: "S07 · Interpretability",
-        items: [
-          "Activation analysis",
-          "Feature visualization",
-          "Attribution",
-          "Probing",
-          "Mechanistic interpretability",
-          "Circuits",
-          "Activation patching",
-          "Causal tracing",
-          "Sparse autoencoders",
-          "Feature superposition",
-          "Representation analysis"
-        ]
+        code: "S07",
+        title: "AI Security y Privacy",
+        description: "Ataques, robustez, privacidad y seguridad específica de modelos.",
+        topics: [
+          {
+            code: "S07.01",
+            title: "Adversarial ML",
+            items: [
+              "S07.01.01 · Adversarial examples",
+              "S07.01.02 · Evasion attacks",
+              "S07.01.03 · White-box attacks",
+              "S07.01.04 · Black-box attacks",
+              "S07.01.05 · Adversarial training",
+              "S07.01.06 · Robustness evaluation"
+            ]
+          },
+          {
+            code: "S07.02",
+            title: "LLM security",
+            items: [
+              "S07.02.01 · Prompt injection",
+              "S07.02.02 · Indirect prompt injection",
+              "S07.02.03 · Jailbreaks",
+              "S07.02.04 · Data exfiltration",
+              "S07.02.05 · Tool misuse",
+              "S07.02.06 · Model extraction",
+              "S07.02.07 · Data poisoning",
+              "S07.02.08 · Model poisoning"
+            ]
+          },
+          {
+            code: "S07.03",
+            title: "Privacy",
+            items: [
+              "S07.03.01 · Membership inference",
+              "S07.03.02 · Model inversion",
+              "S07.03.03 · Data memorization",
+              "S07.03.04 · Differential privacy",
+              "S07.03.05 · Private aggregation",
+              "S07.03.06 · Privacy-preserving ML"
+            ]
+          },
+          {
+            code: "S07.04",
+            title: "Supply chain",
+            items: [
+              "S07.04.01 · Model provenance",
+              "S07.04.02 · Dataset provenance",
+              "S07.04.03 · Dependency security",
+              "S07.04.04 · Malicious models",
+              "S07.04.05 · Artifact integrity",
+              "S07.04.06 · Secure deployment"
+            ]
+          }
+        ],
+        resources: [
+          {
+            name: "OWASP GenAI Security Project",
+            url: "https://genai.owasp.org/",
+            type: "Security"
+          },
+          {
+            name: "NIST AI Risk Management Framework",
+            url: "https://www.nist.gov/itl/ai-risk-management-framework",
+            type: "Framework"
+          }
+        ],
+        project:
+          "Crear un laboratorio controlado de evaluación de seguridad para modelos y documentar ataques y mitigaciones."
+      },
+
+      {
+        code: "S08",
+        title: "Interpretability y Mechanistic Interpretability",
+        description: "Intentar entender qué representaciones y circuitos internos aprende una red.",
+        topics: [
+          {
+            code: "S08.01",
+            title: "Interpretabilidad clásica",
+            items: [
+              "S08.01.01 · Feature visualization",
+              "S08.01.02 · Saliency",
+              "S08.01.03 · Attribution",
+              "S08.01.04 · Integrated gradients",
+              "S08.01.05 · SHAP",
+              "S08.01.06 · LIME",
+              "S08.01.07 · Probing"
+            ]
+          },
+          {
+            code: "S08.02",
+            title: "Mechanistic interpretability",
+            items: [
+              "S08.02.01 · Activations",
+              "S08.02.02 · Residual stream",
+              "S08.02.03 · Attention head analysis",
+              "S08.02.04 · MLP neurons",
+              "S08.02.05 · Circuits",
+              "S08.02.06 · Activation patching",
+              "S08.02.07 · Causal tracing",
+              "S08.02.08 · Representation analysis",
+              "S08.02.09 · Feature superposition",
+              "S08.02.10 · Sparse autoencoders",
+              "S08.02.11 · Dictionary learning",
+              "S08.02.12 · Monosemanticity"
+            ]
+          }
+        ],
+        resources: [
+          {
+            name: "Transformer Circuits Thread",
+            url: "https://transformer-circuits.pub/",
+            type: "Research"
+          },
+          { name: "arXiv", url: resources.arxiv, type: "Research" }
+        ],
+        project:
+          "Analizar activaciones y atención de un Transformer pequeño y documentar un circuito interpretable."
       }
-    ],
-    resources: [
-      "Stanford CS336",
-      "NVIDIA CUDA documentation",
-      "PyTorch distributed documentation",
-      "Triton documentation",
-      "FlashAttention papers",
-      "Hugging Face documentation"
-    ],
-    project:
-      "Perfilar, optimizar y desplegar un modelo pequeño comparando memoria, latencia y throughput antes y después de las optimizaciones."
+    ]
   },
 
   {
-    id: "horus-research",
     code: "R",
-    title: "Investigación — AI Research",
-    subtitle: "Pasar de estudiar conocimiento a producirlo",
+    title: "Research — Investigación en IA",
+    subtitle:
+      "Método científico, papers, reproducción, experimentación e investigación original.",
     description:
-      "Metodología científica, lectura de papers, reproducción de resultados y eventualmente investigación original.",
-    topics: [
+      "La etapa final no consiste en terminar un curso: consiste en ser capaz de producir, comprobar y comunicar conocimiento.",
+    subjects: [
       {
-        name: "R01 · Método científico",
-        items: [
-          "Definir problemas",
-          "Literature review",
-          "State of the art",
-          "Hipótesis",
-          "Variables",
-          "Baselines",
-          "Experimental design",
-          "Controls",
-          "Ablation studies",
-          "Metrics",
-          "Statistical analysis",
-          "Reproducibility",
-          "Limitations"
-        ]
+        code: "R01",
+        title: "Método científico y metodología experimental",
+        description:
+          "Aprender a formular preguntas y diseñar experimentos que realmente permitan extraer conclusiones.",
+        topics: [
+          {
+            code: "R01.01",
+            title: "Problemas e hipótesis",
+            items: [
+              "R01.01.01 · Definir un problema",
+              "R01.01.02 · Research question",
+              "R01.01.03 · Hypothesis",
+              "R01.01.04 · Falsifiability",
+              "R01.01.05 · Assumptions",
+              "R01.01.06 · Scope"
+            ]
+          },
+          {
+            code: "R01.02",
+            title: "Diseño experimental",
+            items: [
+              "R01.02.01 · Baseline",
+              "R01.02.02 · Control",
+              "R01.02.03 · Treatment",
+              "R01.02.04 · Variables",
+              "R01.02.05 · Confounders",
+              "R01.02.06 · Ablation study",
+              "R01.02.07 · Hyperparameter control",
+              "R01.02.08 · Replicate experiments",
+              "R01.02.09 · Statistical significance",
+              "R01.02.10 · Error analysis"
+            ]
+          },
+          {
+            code: "R01.03",
+            title: "Reproducibilidad",
+            items: [
+              "R01.03.01 · Reproducible environment",
+              "R01.03.02 · Dependency locking",
+              "R01.03.03 · Seeds",
+              "R01.03.04 · Dataset versioning",
+              "R01.03.05 · Experiment logs",
+              "R01.03.06 · Checkpoint preservation",
+              "R01.03.07 · Hardware documentation"
+            ]
+          }
+        ],
+        resources: [
+          { name: "Stanford CS336", url: resources.cs336, type: "Stanford" },
+          { name: "Papers with Code", url: resources.paperswithcode, type: "Research" }
+        ],
+        project:
+          "Diseñar un experimento completo con baseline, hipótesis, ablations, métricas y análisis estadístico."
       },
+
       {
-        name: "R02 · Lectura de papers",
-        items: [
-          "Abstract",
-          "Introduction",
-          "Related work",
-          "Methodology",
-          "Experiments",
-          "Results",
-          "Ablations",
-          "Limitations",
-          "Appendix",
-          "Identificar claims",
-          "Identificar evidencia",
-          "Evaluar metodología"
-        ]
+        code: "R02",
+        title: "Lectura y análisis de papers",
+        description: "Aprender a leer literatura científica de forma crítica.",
+        topics: [
+          {
+            code: "R02.01",
+            title: "Estructura de un paper",
+            items: [
+              "R02.01.01 · Abstract",
+              "R02.01.02 · Introduction",
+              "R02.01.03 · Related work",
+              "R02.01.04 · Method",
+              "R02.01.05 · Experiments",
+              "R02.01.06 · Results",
+              "R02.01.07 · Limitations",
+              "R02.01.08 · Appendix",
+              "R02.01.09 · References"
+            ]
+          },
+          {
+            code: "R02.02",
+            title: "Evaluación crítica",
+            items: [
+              "R02.02.01 · Claim",
+              "R02.02.02 · Evidence",
+              "R02.02.03 · Baseline quality",
+              "R02.02.04 · Dataset quality",
+              "R02.02.05 · Evaluation metrics",
+              "R02.02.06 · Statistical validity",
+              "R02.02.07 · Reproducibility",
+              "R02.02.08 · Limitations",
+              "R02.02.09 · Possible confounders"
+            ]
+          }
+        ],
+        resources: [
+          { name: "arXiv", url: resources.arxiv, type: "Research" },
+          { name: "Papers with Code", url: resources.paperswithcode, type: "Research" }
+        ],
+        project:
+          "Crear una ficha técnica crítica para cada paper fundamental estudiado."
       },
+
       {
-        name: "R03 · Reproducción",
-        items: [
-          "Seleccionar paper",
-          "Entender arquitectura",
-          "Obtener datasets",
-          "Recrear preprocessing",
-          "Implementar modelo",
-          "Recrear training",
-          "Recrear evaluación",
-          "Comparar resultados",
-          "Analizar discrepancias",
-          "Documentar reproducción"
-        ]
+        code: "R03",
+        title: "Paper Reproduction",
+        description:
+          "Reproducir resultados de investigación como paso previo a producir resultados propios.",
+        topics: [
+          {
+            code: "R03.01",
+            title: "Reproducción",
+            items: [
+              "R03.01.01 · Selección de paper",
+              "R03.01.02 · Identificación del código oficial",
+              "R03.01.03 · Identificación del dataset",
+              "R03.01.04 · Reproducción del preprocessing",
+              "R03.01.05 · Reproducción de la arquitectura",
+              "R03.01.06 · Reproducción del training",
+              "R03.01.07 · Reproducción de métricas",
+              "R03.01.08 · Comparación con paper",
+              "R03.01.09 · Análisis de discrepancias"
+            ]
+          }
+        ],
+        resources: [
+          { name: "Papers with Code", url: resources.paperswithcode, type: "Research" },
+          { name: "arXiv", url: resources.arxiv, type: "Research" }
+        ],
+        project:
+          "Reproducir al menos un paper clásico y uno moderno, documentando cualquier diferencia."
       },
+
       {
-        name: "R04 · Investigación experimental",
-        items: [
-          "Diseño de experimentos",
-          "Baseline",
-          "Control experimental",
-          "Hyperparameter search",
-          "Ablations",
-          "Error analysis",
-          "Statistical confidence",
-          "Reproducibility",
-          "Experiment tracking",
-          "Interpretación de resultados"
-        ]
+        code: "R04",
+        title: "Advanced AI Theory",
+        description:
+          "Áreas teóricas adicionales para ampliar la capacidad de investigación.",
+        topics: [
+          {
+            code: "R04.01",
+            title: "Probabilistic Machine Learning",
+            items: [
+              "R04.01.01 · Bayesian inference",
+              "R04.01.02 · Priors",
+              "R04.01.03 · Likelihood",
+              "R04.01.04 · Posterior",
+              "R04.01.05 · MAP estimation",
+              "R04.01.06 · MCMC",
+              "R04.01.07 · Variational inference",
+              "R04.01.08 · Graphical models",
+              "R04.01.09 · Bayesian networks",
+              "R04.01.10 · Markov random fields"
+            ]
+          },
+          {
+            code: "R04.02",
+            title: "Graph Machine Learning",
+            items: [
+              "R04.02.01 · Graph representation",
+              "R04.02.02 · Node embeddings",
+              "R04.02.03 · Graph convolution",
+              "R04.02.04 · Graph neural networks",
+              "R04.02.05 · Message passing",
+              "R04.02.06 · Graph attention",
+              "R04.02.07 · Graph transformers",
+              "R04.02.08 · Link prediction",
+              "R04.02.09 · Node classification"
+            ]
+          },
+          {
+            code: "R04.03",
+            title: "Causal Machine Learning",
+            items: [
+              "R04.03.01 · Correlation vs causation",
+              "R04.03.02 · Causal graphs",
+              "R04.03.03 · DAGs",
+              "R04.03.04 · Confounding",
+              "R04.03.05 · Interventions",
+              "R04.03.06 · Counterfactuals",
+              "R04.03.07 · Potential outcomes",
+              "R04.03.08 · Causal identification"
+            ]
+          },
+          {
+            code: "R04.04",
+            title: "Recommender Systems",
+            items: [
+              "R04.04.01 · Collaborative filtering",
+              "R04.04.02 · Content-based recommendation",
+              "R04.04.03 · Matrix factorization",
+              "R04.04.04 · Implicit feedback",
+              "R04.04.05 · Ranking",
+              "R04.04.06 · Two-tower models",
+              "R04.04.07 · Retrieval",
+              "R04.04.08 · Recommendation evaluation"
+            ]
+          },
+          {
+            code: "R04.05",
+            title: "Robotics y Control",
+            items: [
+              "R04.05.01 · State estimation",
+              "R04.05.02 · Control systems",
+              "R04.05.03 · PID",
+              "R04.05.04 · Kalman filter",
+              "R04.05.05 · Model predictive control",
+              "R04.05.06 · Motion planning",
+              "R04.05.07 · Imitation learning",
+              "R04.05.08 · Reinforcement learning for robotics",
+              "R04.05.09 · Sim-to-real"
+            ]
+          }
+        ],
+        resources: [
+          { name: "MIT OpenCourseWare", url: "https://ocw.mit.edu/", type: "MIT" },
+          { name: "arXiv", url: resources.arxiv, type: "Research" }
+        ],
+        project:
+          "Escoger una de las ramas y reproducir un algoritmo fundamental con análisis matemático y experimental."
       },
+
       {
-        name: "R05 · Investigación original",
-        items: [
-          "Identificar gap",
-          "Proponer hipótesis",
-          "Diseñar arquitectura",
-          "Diseñar experimento",
-          "Implementar",
-          "Entrenar",
-          "Evaluar",
-          "Comparar con baselines",
-          "Ablation",
-          "Analizar resultados",
-          "Extraer conclusiones",
-          "Identificar limitaciones"
-        ]
+        code: "R05",
+        title: "Research Engineering",
+        description:
+          "Convertir una hipótesis en software de investigación reproducible.",
+        topics: [
+          {
+            code: "R05.01",
+            title: "Research code",
+            items: [
+              "R05.01.01 · Modular experiment code",
+              "R05.01.02 · Configuration management",
+              "R05.01.03 · Experiment launcher",
+              "R05.01.04 · Checkpoint management",
+              "R05.01.05 · Automatic evaluation",
+              "R05.01.06 · Experiment metadata",
+              "R05.01.07 · Reproducible training"
+            ]
+          },
+          {
+            code: "R05.02",
+            title: "Benchmarking",
+            items: [
+              "R05.02.01 · Benchmark design",
+              "R05.02.02 · Baselines",
+              "R05.02.03 · Metric selection",
+              "R05.02.04 · Throughput benchmark",
+              "R05.02.05 · Memory benchmark",
+              "R05.02.06 · Accuracy benchmark",
+              "R05.02.07 · Statistical comparison"
+            ]
+          }
+        ],
+        resources: [
+          { name: "Stanford CS336", url: resources.cs336, type: "Stanford" },
+          { name: "PyTorch", url: resources.pytorch, type: "Framework" }
+        ],
+        project:
+          "Construir un repositorio de investigación reproducible con configuración, training, evaluation y reports automáticos."
       },
+
       {
-        name: "R06 · Comunicación científica",
-        items: [
-          "Technical report",
-          "Paper writing",
-          "Figures",
-          "Tables",
-          "Method description",
-          "Results reporting",
-          "Limitations",
-          "References",
-          "Preprint",
-          "Open source",
-          "Model release",
-          "Dataset release"
-        ]
+        code: "R06",
+        title: "Investigación original y publicación",
+        description:
+          "Último nivel: identificar problemas nuevos, probar hipótesis y producir trabajo original.",
+        topics: [
+          {
+            code: "R06.01",
+            title: "Investigación original",
+            items: [
+              "R06.01.01 · Literature gap",
+              "R06.01.02 · Novel hypothesis",
+              "R06.01.03 · Novel architecture",
+              "R06.01.04 · Novel training method",
+              "R06.01.05 · Novel dataset",
+              "R06.01.06 · Novel evaluation method",
+              "R06.01.07 · Experimental validation",
+              "R06.01.08 · Ablation",
+              "R06.01.09 · Error analysis",
+              "R06.01.10 · Limitations"
+            ]
+          },
+          {
+            code: "R06.02",
+            title: "Technical writing",
+            items: [
+              "R06.02.01 · Paper structure",
+              "R06.02.02 · Technical abstract",
+              "R06.02.03 · Method description",
+              "R06.02.04 · Experimental description",
+              "R06.02.05 · Results",
+              "R06.02.06 · Tables",
+              "R06.02.07 · Figures",
+              "R06.02.08 · References",
+              "R06.02.09 · Limitations",
+              "R06.02.10 · Reproducibility statement"
+            ]
+          },
+          {
+            code: "R06.03",
+            title: "Publicación",
+            items: [
+              "R06.03.01 · Technical report",
+              "R06.03.02 · Preprint",
+              "R06.03.03 · arXiv",
+              "R06.03.04 · Conference submission",
+              "R06.03.05 · Peer review",
+              "R06.03.06 · Open-source release",
+              "R06.03.07 · Model release",
+              "R06.03.08 · Dataset release"
+            ]
+          }
+        ],
+        resources: [
+          { name: "arXiv", url: resources.arxiv, type: "Research" },
+          { name: "Papers with Code", url: resources.paperswithcode, type: "Research" }
+        ],
+        project:
+          "Desarrollar una investigación propia completa, desde literatura e hipótesis hasta experimento, informe y publicación."
       }
-    ],
-    resources: [
-      "arXiv",
-      "Papers With Code",
-      "Stanford CS336",
-      "Research papers de arquitecturas fundamentales",
-      "Documentación oficial de frameworks"
-    ],
-    project:
-      "Reproducir un paper completo, documentar las diferencias respecto al resultado original y realizar posteriormente una extensión experimental."
+    ]
   }
 ];
 
-const totalTopics = tracks.reduce(
-  (total, track) => total + track.topics.reduce((sum, topic) => sum + topic.items.length, 0),
-  0
-);
+const stageTotals = stages.map((stage) => ({
+  ...stage,
+  subjectsCount: stage.subjects.length,
+  topicsCount: stage.subjects.reduce((n, s) => n + s.topics.length, 0),
+  itemsCount: stage.subjects.reduce(
+    (n, s) => n + s.topics.reduce((m, t) => m + t.items.length, 0),
+    0
+  )
+}));
 
-const roadmapStages = [
-  { label: "Grado", value: "Fundamentos", code: "G", progress: 0 },
-  { label: "Máster", value: "Deep Learning & IA moderna", code: "M", progress: 0 },
-  { label: "Especialización", value: "AI Systems", code: "S", progress: 0 },
-  { label: "Investigación", value: "AI Research", code: "R", progress: 0 }
-];
-
-const currentStatus = [
-  { label: "Temario definido", value: "100%" },
-  { label: "Evaluación inicial", value: "Pendiente" },
-  { label: "Formación completada", value: "0%" },
-  { label: "Proyectos HORUS", value: "0" },
-  { label: "Papers reproducidos", value: "0" },
-  { label: "Investigación original", value: "0" }
-];
+const totalSubjects = stageTotals.reduce((n, s) => n + s.subjectsCount, 0);
+const totalTopics = stageTotals.reduce((n, s) => n + s.topicsCount, 0);
+const totalItems = stageTotals.reduce((n, s) => n + s.itemsCount, 0);
 ---
 
 <section id="horus" class="horus-section">
   <div class="horus-shell">
+
     <header class="horus-hero">
-      <div>
-        <span class="horus-eyebrow">PROJECT HORUS</span>
+      <div class="horus-hero-copy">
+        <p class="horus-kicker">PROJECT HORUS</p>
         <h2>AI Mastery &amp; Research Track</h2>
         <p class="horus-lead">
-          Formación técnica progresiva en Inteligencia Artificial,
-          desde matemáticas y Machine Learning hasta Deep Learning,
-          Transformers, LLMs, sistemas de IA e investigación.
+          Índice maestro de formación en Inteligencia Artificial:
+          fundamentos informáticos y matemáticos, Machine Learning,
+          Deep Learning, Computer Vision, NLP, Transformers, LLMs,
+          modelos generativos, Reinforcement Learning, sistemas,
+          seguridad, interpretabilidad e investigación.
         </p>
+
+        <div class="horus-hero-tags">
+          <span>Desde fundamentos</span>
+          <span>Implementación desde cero</span>
+          <span>LLM Engineering</span>
+          <span>AI Research</span>
+        </div>
       </div>
 
-      <div class="horus-status-card">
-        <span>ESTADO ACTUAL</span>
-        <strong>Preparación inicial</strong>
-        <small>Evaluación de conocimientos pendiente</small>
-      </div>
+      <aside class="horus-current">
+        <span>ESTADO</span>
+        <strong>Inicio</strong>
+        <p>
+          Todo el currículo comienza en 0%. El progreso real se
+          añadirá conforme se estudie y se complete cada bloque.
+        </p>
+      </aside>
     </header>
 
     <div class="horus-dashboard">
-      <article class="horus-card horus-progress-main">
-        <div class="horus-card-heading">
-          <div>
-            <span>PROGRESO GLOBAL</span>
-            <h3>Construcción de la especialización</h3>
-          </div>
-          <strong>0%</strong>
-        </div>
-        <div class="horus-progress">
-          <span style="width: 0%"></span>
-        </div>
-        <p>
-          El progreso académico se actualizará conforme se completen
-          teoría, ejercicios, implementaciones, evaluaciones y proyectos.
-        </p>
+      <article class="horus-stat-card horus-stat-main">
+        <span>CONCEPTOS DE ESTUDIO</span>
+        <strong>{totalItems}</strong>
+        <small>ítems concretos del índice</small>
       </article>
 
-      <article class="horus-card">
-        <span class="horus-card-label">CONTENIDO</span>
-        <strong class="horus-stat">{totalTopics}</strong>
-        <p>conceptos y competencias definidos inicialmente</p>
+      <article class="horus-stat-card">
+        <span>MATERIAS</span>
+        <strong>{totalSubjects}</strong>
+        <small>bloques académicos</small>
       </article>
 
-      <article class="horus-card">
-        <span class="horus-card-label">NIVELES</span>
-        <strong class="horus-stat">0–5</strong>
-        <p>familiaridad → comprensión → implementación → investigación</p>
+      <article class="horus-stat-card">
+        <span>SUBSECCIONES</span>
+        <strong>{totalTopics}</strong>
+        <small>unidades de estudio</small>
       </article>
 
-      <article class="horus-card">
-        <span class="horus-card-label">EVIDENCIA</span>
-        <strong class="horus-stat">6</strong>
-        <p>teoría, ejercicios, examen, código, proyectos y papers</p>
+      <article class="horus-stat-card">
+        <span>PROGRESO</span>
+        <strong>0%</strong>
+        <small>estado inicial</small>
       </article>
     </div>
 
-    <section class="horus-block">
-      <div class="horus-section-title">
-        <span>01</span>
-        <div>
-          <h3>Cómo funciona HORUS</h3>
-          <p>
-            No se considera una materia dominada simplemente por haber visto
-            un curso. Cada área requiere evidencia práctica.
-          </p>
-        </div>
+    <section class="horus-navigation">
+      <div class="horus-navigation-heading">
+        <p class="horus-label">ÍNDICE</p>
+        <h3>Roadmap completo</h3>
       </div>
 
-      <div class="horus-method-grid">
-        <article>
-          <strong>01 · Estudiar</strong>
-          <p>Teoría, matemáticas y documentación.</p>
-        </article>
-        <article>
-          <strong>02 · Practicar</strong>
-          <p>Ejercicios y problemas independientes.</p>
-        </article>
-        <article>
-          <strong>03 · Implementar</strong>
-          <p>Construcción desde cero cuando corresponda.</p>
-        </article>
-        <article>
-          <strong>04 · Evaluar</strong>
-          <p>Pruebas teóricas y prácticas.</p>
-        </article>
-        <article>
-          <strong>05 · Demostrar</strong>
-          <p>Proyecto, código, resultados o reproducción.</p>
-        </article>
-        <article>
-          <strong>06 · Documentar</strong>
-          <p>Evidencia preparada para CV, GitHub y LinkedIn.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="horus-block">
-      <div class="horus-section-title">
-        <span>02</span>
-        <div>
-          <h3>Niveles de dominio</h3>
-          <p>El estado académico y el dominio técnico se mantienen separados.</p>
-        </div>
-      </div>
-
-      <div class="horus-levels">
-        <article><b>0</b><strong>No conocido</strong><span>No se ha estudiado.</span></article>
-        <article><b>1</b><strong>Familiaridad</strong><span>Reconoce y explica superficialmente.</span></article>
-        <article><b>2</b><strong>Comprensión</strong><span>Comprende teoría y fundamentos.</span></article>
-        <article><b>3</b><strong>Implementación</strong><span>Puede programarlo sin depender de una receta.</span></article>
-        <article><b>4</b><strong>Dominio</strong><span>Puede modificar, experimentar y resolver problemas.</span></article>
-        <article><b>5</b><strong>Investigación</strong><span>Puede analizar, extender o investigar sobre ello.</span></article>
-      </div>
-    </section>
-
-    <section class="horus-block">
-      <div class="horus-section-title">
-        <span>03</span>
-        <div>
-          <h3>Roadmap académico</h3>
-          <p>El recorrido completo está dividido en cuatro grandes etapas.</p>
-        </div>
-      </div>
-
-      <div class="horus-roadmap">
-        {roadmapStages.map((stage, index) => (
-          <div class="horus-roadmap-item">
-            <div class="horus-roadmap-index">{stage.code}</div>
-            <div>
-              <span>ETAPA {index + 1}</span>
-              <strong>{stage.label}</strong>
-              <p>{stage.value}</p>
-              <div class="horus-mini-progress">
-                <span style={`width: ${stage.progress}%`}></span>
-              </div>
-              <small>{stage.progress}% completado</small>
-            </div>
-          </div>
+      <div class="horus-stage-buttons">
+        {stageTotals.map((stage) => (
+          <a href={`#horus-${stage.code.toLowerCase()}`} class="horus-stage-button">
+            <span>{stage.code}</span>
+            <strong>{stage.title.split("—")[0].trim()}</strong>
+            <small>{stage.itemsCount} conceptos</small>
+          </a>
         ))}
       </div>
     </section>
 
-    {tracks.map((track) => (
-      <section class="horus-block horus-track-block" id={track.id}>
-        <div class="horus-section-title">
-          <span>{track.code}</span>
-          <div>
-            <h3>{track.title}</h3>
-            <p>{track.subtitle}</p>
-          </div>
-        </div>
+    <section class="horus-method">
+      <div>
+        <p class="horus-label">CRITERIO</p>
+        <h3>El índice dice qué estudiar. El progreso se demuestra después.</h3>
+      </div>
 
-        <p class="horus-track-description">{track.description}</p>
+      <div class="horus-method-grid">
+        <article>
+          <b>01</b>
+          <strong>Estudiar</strong>
+          <span>Buscar y comprender cada concepto.</span>
+        </article>
+        <article>
+          <b>02</b>
+          <strong>Practicar</strong>
+          <span>Resolver ejercicios y problemas.</span>
+        </article>
+        <article>
+          <b>03</b>
+          <strong>Implementar</strong>
+          <span>Construir cuando la materia lo requiera.</span>
+        </article>
+        <article>
+          <b>04</b>
+          <strong>Evaluar</strong>
+          <span>Comprobar que realmente se domina.</span>
+        </article>
+      </div>
+    </section>
 
-        <div class="horus-track-meta">
-          <div>
-            <span>ESTADO</span>
-            <strong>Pendiente de evaluación</strong>
+    {stageTotals.map((stage) => (
+      <section
+        id={`horus-${stage.code.toLowerCase()}`}
+        class="horus-stage"
+      >
+        <header class="horus-stage-header">
+          <div class="horus-stage-number">{stage.code}</div>
+
+          <div class="horus-stage-title">
+            <p class="horus-label">{stage.title}</p>
+            <h3>{stage.subtitle}</h3>
+            <p>{stage.description}</p>
           </div>
-          <div>
-            <span>DOMINIO</span>
-            <strong>0 / 5</strong>
-          </div>
-          <div>
+
+          <div class="horus-stage-progress">
             <span>PROGRESO</span>
             <strong>0%</strong>
+            <div>
+              <i style="width: 0%"></i>
+            </div>
           </div>
-        </div>
+        </header>
 
-        <div class="horus-topics">
-          {track.topics.map((topic) => (
-            <details class="horus-topic">
-              <summary>
-                <span>{topic.name}</span>
-                <em>0%</em>
-              </summary>
-
-              <div class="horus-topic-content">
-                <div class="horus-checklist">
-                  {topic.items.map((item) => (
-                    <label>
-                      <input type="checkbox" disabled />
-                      <span>{item}</span>
-                    </label>
-                  ))}
+        <div class="horus-subjects">
+          {stage.subjects.map((subject) => (
+            <article class="horus-subject">
+              <header class="horus-subject-header">
+                <div>
+                  <span class="horus-subject-code">{subject.code}</span>
+                  <h4>{subject.title}</h4>
+                  <p>{subject.description}</p>
                 </div>
 
-                <div class="horus-topic-footer">
-                  <span>Estado: Pendiente</span>
-                  <span>Nivel: 0/5</span>
-                  <span>Ejercicios: 0</span>
-                  <span>Evaluación: pendiente</span>
+                <div class="horus-subject-status">
+                  <strong>0%</strong>
+                  <span>pendiente</span>
                 </div>
+              </header>
+
+              <div class="horus-topic-list">
+                {subject.topics.map((topic) => (
+                  <details class="horus-topic">
+                    <summary>
+                      <span class="horus-topic-title">
+                        <em>{topic.code}</em>
+                        <strong>{topic.title}</strong>
+                      </span>
+
+                      <span class="horus-topic-count">
+                        {topic.items.length} conceptos
+                      </span>
+
+                      <span class="horus-topic-chevron">+</span>
+                    </summary>
+
+                    <div class="horus-items">
+                      {topic.items.map((item) => (
+                        <label
+                          class="horus-item"
+                          data-horus-item={item}
+                        >
+                          <input
+                            type="checkbox"
+                            data-horus-check
+                            aria-label={`Marcar como estudiado: ${item}`}
+                          />
+                          <span>{item}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </details>
+                ))}
               </div>
-            </details>
+
+              <footer class="horus-subject-footer">
+                <div>
+                  <span>RECURSOS</span>
+                  <div class="horus-resource-list">
+                    {subject.resources.map((resource) => (
+                      <a
+                        href={resource.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <small>{resource.type}</small>
+                        {resource.name}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                {subject.project && (
+                  <div class="horus-project">
+                    <span>PROYECTO</span>
+                    <strong>{subject.project}</strong>
+                  </div>
+                )}
+              </footer>
+            </article>
           ))}
         </div>
-
-        <div class="horus-resources">
-          <h4>Recursos principales</h4>
-          <div class="horus-tags">
-            {track.resources.map((resource) => <span>{resource}</span>)}
-          </div>
-        </div>
-
-        <article class="horus-project">
-          <span>PROYECTO DE ETAPA</span>
-          <strong>{track.project}</strong>
-        </article>
       </section>
     ))}
 
-    <section class="horus-block">
-      <div class="horus-section-title">
-        <span>04</span>
-        <div>
-          <h3>Cursos y formación</h3>
-          <p>Separados de las certificaciones oficiales.</p>
-        </div>
-      </div>
+    <section class="horus-evidence">
+      <header>
+        <p class="horus-label">FORMACIÓN Y EVIDENCIA</p>
+        <h3>Lo que aparezca como aprendido tendrá que poder demostrarse.</h3>
+      </header>
 
       <div class="horus-evidence-grid">
         <article>
-          <span>CURSOS</span>
-          <strong>0 completados</strong>
-          <p>Programas formativos utilizados dentro del roadmap.</p>
+          <b>01</b>
+          <strong>Teoría</strong>
+          <p>Comprensión conceptual y matemática.</p>
         </article>
+
         <article>
-          <span>CERTIFICACIONES</span>
-          <strong>0 de HORUS</strong>
-          <p>Solo se mostrarán credenciales realmente obtenidas.</p>
+          <b>02</b>
+          <strong>Ejercicios</strong>
+          <p>Problemas resueltos de manera independiente.</p>
         </article>
+
         <article>
-          <span>FORMACIÓN AUTODIDACTA</span>
-          <strong>En curso</strong>
-          <p>Estudio realizado fuera de programas certificados.</p>
+          <b>03</b>
+          <strong>Implementación</strong>
+          <p>Código propio cuando el bloque lo requiera.</p>
+        </article>
+
+        <article>
+          <b>04</b>
+          <strong>Proyecto</strong>
+          <p>Aplicación integrada de los conocimientos.</p>
+        </article>
+
+        <article>
+          <b>05</b>
+          <strong>Evaluación</strong>
+          <p>Prueba objetiva antes de considerar dominado un bloque.</p>
+        </article>
+
+        <article>
+          <b>06</b>
+          <strong>Credencial</strong>
+          <p>Curso o certificación externa cuando exista.</p>
         </article>
       </div>
     </section>
 
-    <section class="horus-block">
-      <div class="horus-section-title">
-        <span>05</span>
-        <div>
-          <h3>Ejercicios y proyectos</h3>
-          <p>La parte práctica que demuestra que el conocimiento no es únicamente teórico.</p>
-        </div>
-      </div>
+    <section class="horus-levels">
+      <header>
+        <p class="horus-label">NIVELES DE DOMINIO</p>
+        <h3>El porcentaje y el dominio no son lo mismo.</h3>
+      </header>
 
-      <div class="horus-evidence-grid">
-        <article>
-          <span>EJERCICIOS</span>
-          <strong>0 realizados</strong>
-          <p>Problemas matemáticos, programación y experimentación.</p>
-        </article>
-        <article>
-          <span>IMPLEMENTACIONES</span>
-          <strong>0 completadas</strong>
-          <p>Modelos y algoritmos implementados desde cero.</p>
-        </article>
-        <article>
-          <span>PROYECTOS</span>
-          <strong>0 completados</strong>
-          <p>Proyectos que generan evidencia pública.</p>
-        </article>
+      <div class="horus-level-grid">
+        <article><b>0</b><strong>No estudiado</strong><span>No se ha trabajado.</span></article>
+        <article><b>1</b><strong>Familiaridad</strong><span>Reconoce el concepto.</span></article>
+        <article><b>2</b><strong>Comprensión</strong><span>Puede explicarlo.</span></article>
+        <article><b>3</b><strong>Implementación</strong><span>Puede usarlo sin guía.</span></article>
+        <article><b>4</b><strong>Dominio</strong><span>Resuelve problemas nuevos.</span></article>
+        <article><b>5</b><strong>Investigación</strong><span>Puede analizarlo y extenderlo.</span></article>
       </div>
     </section>
 
-    <section class="horus-block">
-      <div class="horus-section-title">
-        <span>06</span>
-        <div>
-          <h3>Research</h3>
-          <p>La última etapa del recorrido: dejar de limitarse a consumir conocimiento.</p>
-        </div>
-      </div>
+    <section class="horus-timeline">
+      <header>
+        <p class="horus-label">EVOLUCIÓN</p>
+        <h3>Timeline de HORUS</h3>
+      </header>
 
-      <div class="horus-research-board">
-        <div><strong>0</strong><span>Papers leídos</span></div>
-        <div><strong>0</strong><span>Papers reproducidos</span></div>
-        <div><strong>0</strong><span>Experimentos</span></div>
-        <div><strong>0</strong><span>Trabajos originales</span></div>
-        <div><strong>0</strong><span>Publicaciones</span></div>
-      </div>
+      <article>
+        <time>AGOSTO 2026</time>
+        <strong>HORUS iniciado</strong>
+        <p>
+          Definición del índice maestro de formación y del recorrido
+          desde fundamentos hasta investigación.
+        </p>
+      </article>
+
+      <article class="horus-timeline-future">
+        <time>PRÓXIMO HITO</time>
+        <strong>Evaluación inicial</strong>
+        <p>
+          Determinar el nivel real en cada área sin asumir conocimientos
+          por experiencia previa.
+        </p>
+      </article>
+
+      <article class="horus-timeline-future">
+        <time>FUTURO</time>
+        <strong>Primer proyecto desde cero</strong>
+        <p>
+          Primera implementación propia incluida como evidencia pública.
+        </p>
+      </article>
     </section>
 
-    <section class="horus-block">
-      <div class="horus-section-title">
-        <span>07</span>
-        <div>
-          <h3>Evidencias</h3>
-          <p>Cómo se justificará cada habilidad mostrada públicamente.</p>
-        </div>
-      </div>
-
-      <div class="horus-evidence-list">
-        <div><b>01</b><span>Teoría</span><small>Comprensión conceptual.</small></div>
-        <div><b>02</b><span>Ejercicios</span><small>Resolución independiente.</small></div>
-        <div><b>03</b><span>Examen</span><small>Validación del conocimiento.</small></div>
-        <div><b>04</b><span>Código</span><small>Implementación reproducible.</small></div>
-        <div><b>05</b><span>Proyecto</span><small>Aplicación integrada.</small></div>
-        <div><b>06</b><span>Research</span><small>Reproducción o investigación.</small></div>
-      </div>
-    </section>
-
-    <section class="horus-block">
-      <div class="horus-section-title">
-        <span>08</span>
-        <div>
-          <h3>Timeline</h3>
-          <p>La evolución de HORUS se irá registrando conforme avance la formación.</p>
-        </div>
-      </div>
-
-      <div class="horus-timeline">
-        <article>
-          <time>AGOSTO 2026</time>
-          <strong>Inicio de HORUS</strong>
-          <p>Definición del roadmap completo y evaluación inicial pendiente.</p>
-        </article>
-        <article class="is-future">
-          <time>PRÓXIMO HITO</time>
-          <strong>Evaluación inicial</strong>
-          <p>Determinar el punto real de partida en programación, matemáticas y ML.</p>
-        </article>
-        <article class="is-future">
-          <time>FUTURO</time>
-          <strong>Primer proyecto desde cero</strong>
-          <p>Primera evidencia técnica del recorrido.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="horus-block horus-final">
-      <span class="horus-eyebrow">OBJECTIVE</span>
-      <h3>Construir, no simplemente utilizar.</h3>
+    <footer class="horus-footer">
+      <p class="horus-label">PROJECT HORUS</p>
+      <h3>Construir, comprender e investigar.</h3>
       <p>
-        El objetivo de HORUS es desarrollar una formación capaz de pasar
-        desde los fundamentos matemáticos hasta la implementación, entrenamiento,
-        optimización y análisis de modelos de IA, culminando en investigación
-        reproducible y trabajo original.
+        Este índice constituye el mapa de estudio. El progreso no se
+        considera conocimiento adquirido simplemente por marcar una
+        casilla: posteriormente se añadirán ejercicios, proyectos,
+        evaluaciones, evidencias, cursos y certificaciones.
       </p>
-      <small>
-        Última actualización: agosto de 2026 · Estado: iniciado
-      </small>
-    </section>
+      <small>Última actualización · Agosto 2026</small>
+    </footer>
+
   </div>
 </section>
+
+<script>
+  /*
+   * Persistencia local de las casillas del índice.
+   *
+   * Esto NO convierte las casillas en una prueba de conocimiento.
+   * Solamente permite que tú marques qué has estudiado.
+   * La evaluación académica real se añadirá posteriormente.
+   */
+
+  const STORAGE_KEY = "horus-study-index-v1";
+  const root = document.querySelector("#horus");
+
+  if (root) {
+    const checks = Array.from(
+      root.querySelectorAll<HTMLInputElement>("[data-horus-check]")
+    );
+
+    const loadState = () => {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+
+        if (!raw) return;
+
+        const saved = JSON.parse(raw) as string[];
+
+        checks.forEach((check, index) => {
+          check.checked = saved.includes(String(index));
+          check.closest(".horus-item")?.classList.toggle(
+            "is-complete",
+            check.checked
+          );
+        });
+      } catch {
+        // Si localStorage está bloqueado o contiene datos corruptos,
+        // HORUS sigue funcionando normalmente.
+      }
+    };
+
+    const saveState = () => {
+      const saved = checks
+        .map((check, index) => (check.checked ? String(index) : null))
+        .filter((value): value is string => value !== null);
+
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+      } catch {
+        // No bloquear la interfaz por un problema de persistencia.
+      }
+    };
+
+    checks.forEach((check) => {
+      check.addEventListener("change", () => {
+        check.closest(".horus-item")?.classList.toggle(
+          "is-complete",
+          check.checked
+        );
+
+        saveState();
+      });
+    });
+
+    loadState();
+  }
+</script>
 
 <style>
   .horus-section {
@@ -1217,516 +3513,574 @@ const currentStatus = [
     overflow-x: hidden;
     scroll-behavior: smooth;
     background:
-      radial-gradient(circle at 15% 10%, rgba(96, 165, 250, 0.08), transparent 30%),
-      radial-gradient(circle at 85% 30%, rgba(167, 139, 250, 0.06), transparent 30%);
+      radial-gradient(circle at 10% 8%, rgba(79, 70, 229, 0.09), transparent 25%),
+      radial-gradient(circle at 90% 25%, rgba(14, 165, 233, 0.07), transparent 25%);
   }
 
   .horus-shell {
-    width: min(1180px, calc(100% - 56px));
+    width: min(1240px, calc(100% - 56px));
     margin: 0 auto;
-    padding: 110px 0 90px;
+    padding: 110px 0 100px;
   }
 
   .horus-hero {
     display: grid;
-    grid-template-columns: 1fr 320px;
+    grid-template-columns: minmax(0, 1fr) 330px;
     gap: 28px;
     align-items: end;
     margin-bottom: 28px;
   }
 
-  .horus-eyebrow,
-  .horus-card-label,
-  .horus-card-heading span,
-  .horus-track-meta span,
-  .horus-project span,
-  .horus-resources h4,
-  .horus-evidence-grid span,
-  .horus-research-board span,
+  .horus-kicker,
+  .horus-label,
+  .horus-current > span,
+  .horus-stat-card > span,
+  .horus-stage-progress > span,
+  .horus-subject-code,
+  .horus-project > span,
+  .horus-subject-footer > div > span,
   .horus-timeline time {
-    display: block;
-    font-size: 0.7rem;
+    margin: 0;
+    font-size: 0.68rem;
     font-weight: 800;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    opacity: 0.65;
+    opacity: 0.58;
   }
 
   .horus-hero h2 {
-    margin: 8px 0 14px;
-    font-size: clamp(2.3rem, 5vw, 4.7rem);
-    line-height: 0.95;
-    letter-spacing: -0.055em;
+    max-width: 950px;
+    margin: 9px 0 18px;
+    font-size: clamp(2.5rem, 6vw, 5.8rem);
+    line-height: 0.93;
+    letter-spacing: -0.065em;
   }
 
   .horus-lead {
-    max-width: 760px;
+    max-width: 850px;
     margin: 0;
     font-size: 1.05rem;
-    line-height: 1.75;
-    opacity: 0.74;
+    line-height: 1.8;
+    opacity: 0.72;
   }
 
-  .horus-status-card,
-  .horus-card,
-  .horus-method-grid article,
-  .horus-levels article,
-  .horus-evidence-grid article,
-  .horus-research-board div {
+  .horus-hero-tags,
+  .horus-tags,
+  .horus-resource-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .horus-hero-tags {
+    margin-top: 20px;
+  }
+
+  .horus-hero-tags span {
+    padding: 7px 10px;
     border: 1px solid rgba(127, 127, 127, 0.2);
-    background: rgba(127, 127, 127, 0.055);
-    backdrop-filter: blur(14px);
+    border-radius: 999px;
+    font-size: 0.68rem;
+    opacity: 0.62;
   }
 
-  .horus-status-card {
-    padding: 22px;
-    border-radius: 18px;
+  .horus-current,
+  .horus-stat-card,
+  .horus-method,
+  .horus-stage,
+  .horus-evidence,
+  .horus-levels,
+  .horus-timeline,
+  .horus-footer {
+    border: 1px solid rgba(127, 127, 127, 0.17);
+    background: rgba(127, 127, 127, 0.04);
+    backdrop-filter: blur(16px);
   }
 
-  .horus-status-card span {
+  .horus-current {
+    padding: 24px;
+    border-radius: 20px;
+  }
+
+  .horus-current strong {
     display: block;
-    font-size: 0.65rem;
-    letter-spacing: 0.14em;
-    opacity: 0.6;
+    margin-top: 8px;
+    font-size: 1.2rem;
   }
 
-  .horus-status-card strong {
-    display: block;
-    margin: 8px 0 5px;
-    font-size: 1.1rem;
-  }
-
-  .horus-status-card small {
-    opacity: 0.6;
+  .horus-current p {
+    margin: 9px 0 0;
+    line-height: 1.65;
+    opacity: 0.63;
+    font-size: 0.85rem;
   }
 
   .horus-dashboard {
     display: grid;
     grid-template-columns: 2fr repeat(3, 1fr);
-    gap: 14px;
-    margin-bottom: 70px;
+    gap: 12px;
+    margin-bottom: 72px;
   }
 
-  .horus-card {
-    min-height: 150px;
+  .horus-stat-card {
+    min-height: 145px;
     padding: 22px;
     border-radius: 18px;
   }
 
-  .horus-progress-main {
-    min-height: 150px;
+  .horus-stat-card strong {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    letter-spacing: -0.05em;
   }
 
-  .horus-card-heading {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 20px;
+  .horus-stat-card small {
+    opacity: 0.52;
   }
 
-  .horus-card-heading h3 {
-    margin: 7px 0 0;
-    font-size: 1rem;
+  .horus-method,
+  .horus-evidence,
+  .horus-levels,
+  .horus-timeline,
+  .horus-footer {
+    margin-bottom: 70px;
+    padding: 30px;
+    border-radius: 22px;
   }
 
-  .horus-card-heading strong {
-    font-size: 2rem;
+  .horus-method {
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr;
+    gap: 30px;
   }
 
-  .horus-progress {
-    height: 7px;
-    margin: 22px 0 14px;
+  .horus-method h3,
+  .horus-evidence h3,
+  .horus-levels h3,
+  .horus-timeline h3 {
+    margin: 8px 0 0;
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    letter-spacing: -0.04em;
+  }
+
+  .horus-method-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .horus-method-grid article {
+    display: grid;
+    grid-template-columns: 35px 1fr;
+    column-gap: 10px;
+    padding: 17px;
+    border: 1px solid rgba(127, 127, 127, 0.15);
+    border-radius: 15px;
+  }
+
+  .horus-method-grid b {
+    grid-row: span 2;
+    opacity: 0.4;
+  }
+
+  .horus-method-grid strong {
+    font-size: 0.9rem;
+  }
+
+  .horus-method-grid span {
+    margin-top: 4px;
+    font-size: 0.76rem;
+    line-height: 1.5;
+    opacity: 0.58;
+  }
+
+  .horus-navigation {
+    margin-bottom: 75px;
+  }
+
+  .horus-navigation-heading {
+    margin-bottom: 18px;
+  }
+
+  .horus-navigation-heading h3 {
+    margin: 8px 0 0;
+    font-size: 1.8rem;
+  }
+
+  .horus-stage-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .horus-stage-button {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    column-gap: 12px;
+    row-gap: 3px;
+    padding: 17px;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid rgba(127, 127, 127, 0.16);
+    border-radius: 16px;
+    background: rgba(127, 127, 127, 0.03);
+    transition:
+      transform 160ms ease,
+      border-color 160ms ease,
+      background 160ms ease;
+  }
+
+  .horus-stage-button:hover {
+    transform: translateY(-2px);
+    border-color: rgba(127, 127, 127, 0.32);
+    background: rgba(127, 127, 127, 0.07);
+  }
+
+  .horus-stage-button span {
+    grid-row: span 2;
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border: 1px solid rgba(127, 127, 127, 0.2);
+    border-radius: 11px;
+    font-weight: 800;
+  }
+
+  .horus-stage-button strong {
+    font-size: 0.9rem;
+  }
+
+  .horus-stage-button small {
+    opacity: 0.5;
+  }
+
+  .horus-stage {
+    margin-bottom: 85px;
+    padding: 28px;
+    border-radius: 24px;
+  }
+
+  .horus-stage-header {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr) 180px;
+    gap: 18px;
+    align-items: start;
+    margin-bottom: 25px;
+  }
+
+  .horus-stage-number {
+    display: grid;
+    width: 54px;
+    height: 54px;
+    place-items: center;
+    border: 1px solid rgba(127, 127, 127, 0.24);
+    border-radius: 14px;
+    font-weight: 900;
+  }
+
+  .horus-stage-title h3 {
+    margin: 7px 0;
+    font-size: clamp(1.45rem, 3vw, 2.5rem);
+    letter-spacing: -0.04em;
+  }
+
+  .horus-stage-title > p:last-child {
+    margin: 0;
+    max-width: 800px;
+    line-height: 1.65;
+    opacity: 0.62;
+    font-size: 0.88rem;
+  }
+
+  .horus-stage-progress {
+    padding: 13px;
+    border: 1px solid rgba(127, 127, 127, 0.15);
+    border-radius: 14px;
+  }
+
+  .horus-stage-progress strong {
+    display: block;
+    margin: 4px 0 8px;
+    font-size: 1.4rem;
+  }
+
+  .horus-stage-progress > div {
+    height: 5px;
     overflow: hidden;
     border-radius: 999px;
-    background: rgba(127, 127, 127, 0.16);
+    background: rgba(127, 127, 127, 0.14);
   }
 
-  .horus-progress span,
-  .horus-mini-progress span {
+  .horus-stage-progress i {
     display: block;
     height: 100%;
     border-radius: inherit;
     background: currentColor;
   }
 
-  .horus-card p,
-  .horus-method-grid p,
-  .horus-levels span,
-  .horus-evidence-grid p,
-  .horus-timeline p {
-    margin: 8px 0 0;
-    line-height: 1.6;
-    opacity: 0.65;
-  }
-
-  .horus-stat {
-    display: block;
+  .horus-subject {
     margin-top: 12px;
-    font-size: 2rem;
-  }
-
-  .horus-block {
-    margin-bottom: 76px;
-  }
-
-  .horus-section-title {
-    display: grid;
-    grid-template-columns: 52px 1fr;
-    gap: 18px;
-    align-items: start;
-    margin-bottom: 25px;
-  }
-
-  .horus-section-title > span {
-    display: grid;
-    width: 44px;
-    height: 44px;
-    place-items: center;
-    border: 1px solid rgba(127, 127, 127, 0.25);
-    border-radius: 12px;
-    font-weight: 800;
-    font-size: 0.8rem;
-  }
-
-  .horus-section-title h3 {
-    margin: 0;
-    font-size: clamp(1.5rem, 3vw, 2.3rem);
-    letter-spacing: -0.035em;
-  }
-
-  .horus-section-title p {
-    margin: 7px 0 0;
-    opacity: 0.65;
-  }
-
-  .horus-method-grid,
-  .horus-levels,
-  .horus-evidence-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-
-  .horus-method-grid article,
-  .horus-levels article,
-  .horus-evidence-grid article {
-    padding: 20px;
-    border-radius: 16px;
-  }
-
-  .horus-method-grid strong,
-  .horus-levels strong,
-  .horus-evidence-grid strong {
-    display: block;
-  }
-
-  .horus-levels {
-    grid-template-columns: repeat(6, 1fr);
-  }
-
-  .horus-levels b {
-    display: block;
-    margin-bottom: 12px;
-    font-size: 1.7rem;
-  }
-
-  .horus-roadmap {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-  }
-
-  .horus-roadmap-item {
-    display: grid;
-    grid-template-columns: 46px 1fr;
-    gap: 14px;
-    padding: 20px;
-    border: 1px solid rgba(127, 127, 127, 0.2);
+    border: 1px solid rgba(127, 127, 127, 0.15);
     border-radius: 18px;
-    background: rgba(127, 127, 127, 0.045);
-  }
-
-  .horus-roadmap-index {
-    display: grid;
-    width: 44px;
-    height: 44px;
-    place-items: center;
-    border: 1px solid rgba(127, 127, 127, 0.25);
-    border-radius: 12px;
-    font-weight: 800;
-  }
-
-  .horus-roadmap-item span {
-    display: block;
-    font-size: 0.6rem;
-    letter-spacing: 0.14em;
-    opacity: 0.55;
-  }
-
-  .horus-roadmap-item strong {
-    display: block;
-    margin-top: 5px;
-  }
-
-  .horus-roadmap-item p {
-    margin: 3px 0 15px;
-    font-size: 0.82rem;
-    opacity: 0.65;
-  }
-
-  .horus-mini-progress {
-    height: 5px;
-    margin-bottom: 7px;
     overflow: hidden;
-    border-radius: 999px;
-    background: rgba(127, 127, 127, 0.15);
+    background: rgba(127, 127, 127, 0.025);
   }
 
-  .horus-roadmap-item small {
-    font-size: 0.68rem;
-    opacity: 0.55;
-  }
-
-  .horus-track-description {
-    max-width: 850px;
-    margin: -8px 0 24px 70px;
-    line-height: 1.7;
-    opacity: 0.7;
-  }
-
-  .horus-track-meta {
+  .horus-subject-header {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin: 0 0 20px 70px;
+    grid-template-columns: 1fr 90px;
+    gap: 20px;
+    padding: 22px;
   }
 
-  .horus-track-meta div {
-    padding: 16px 18px;
-    border: 1px solid rgba(127, 127, 127, 0.17);
-    border-radius: 14px;
-    background: rgba(127, 127, 127, 0.035);
+  .horus-subject-header h4 {
+    margin: 5px 0 6px;
+    font-size: 1.25rem;
   }
 
-  .horus-track-meta strong {
+  .horus-subject-header p {
+    margin: 0;
+    max-width: 790px;
+    line-height: 1.6;
+    font-size: 0.82rem;
+    opacity: 0.6;
+  }
+
+  .horus-subject-status {
+    align-self: center;
+    text-align: right;
+  }
+
+  .horus-subject-status strong {
     display: block;
-    margin-top: 6px;
-    font-size: 0.9rem;
+    font-size: 1.3rem;
   }
 
-  .horus-topics {
-    margin-left: 70px;
+  .horus-subject-status span {
+    font-size: 0.65rem;
+    opacity: 0.5;
+    text-transform: uppercase;
   }
 
   .horus-topic {
-    margin-bottom: 8px;
-    border: 1px solid rgba(127, 127, 127, 0.18);
-    border-radius: 14px;
-    overflow: hidden;
-    background: rgba(127, 127, 127, 0.035);
+    border-top: 1px solid rgba(127, 127, 127, 0.13);
   }
 
   .horus-topic summary {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 100px 25px;
+    gap: 15px;
     align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 17px 19px;
+    padding: 16px 20px;
     cursor: pointer;
     list-style: none;
-    font-weight: 700;
   }
 
   .horus-topic summary::-webkit-details-marker {
     display: none;
   }
 
-  .horus-topic summary::after {
-    content: "+";
-    opacity: 0.5;
-    font-size: 1.2rem;
+  .horus-topic summary:hover {
+    background: rgba(127, 127, 127, 0.035);
   }
 
-  .horus-topic[open] summary::after {
-    content: "−";
+  .horus-topic-title {
+    display: flex;
+    gap: 12px;
+    align-items: center;
   }
 
-  .horus-topic summary em {
-    margin-left: auto;
-    font-size: 0.7rem;
+  .horus-topic-title em {
+    min-width: 70px;
+    font-size: 0.65rem;
     font-style: normal;
-    opacity: 0.5;
+    font-family: var(--font-mono, monospace);
+    opacity: 0.45;
   }
 
-  .horus-topic-content {
-    padding: 0 19px 18px;
-    border-top: 1px solid rgba(127, 127, 127, 0.14);
+  .horus-topic-title strong {
+    font-size: 0.86rem;
   }
 
-  .horus-checklist {
+  .horus-topic-count {
+    justify-self: end;
+    font-size: 0.65rem;
+    opacity: 0.48;
+    white-space: nowrap;
+  }
+
+  .horus-topic-chevron {
+    justify-self: end;
+    font-size: 1.1rem;
+    opacity: 0.45;
+  }
+
+  .horus-topic[open] .horus-topic-chevron {
+    transform: rotate(45deg);
+  }
+
+  .horus-items {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 7px 25px;
-    padding: 18px 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    padding: 8px 20px 20px;
+    background: rgba(127, 127, 127, 0.035);
   }
 
-  .horus-checklist label {
+  .horus-item {
     display: flex;
     gap: 10px;
     align-items: flex-start;
-    font-size: 0.83rem;
+    padding: 9px 8px;
+    border-radius: 8px;
+    font-size: 0.77rem;
     line-height: 1.45;
-    opacity: 0.72;
+    opacity: 0.7;
   }
 
-  .horus-checklist input {
+  .horus-item:hover {
+    background: rgba(127, 127, 127, 0.06);
+  }
+
+  .horus-item input {
+    flex: 0 0 auto;
     margin-top: 3px;
     accent-color: currentColor;
   }
 
-  .horus-topic-footer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  .horus-item.is-complete {
+    opacity: 0.38;
+    text-decoration: line-through;
   }
 
-  .horus-topic-footer span,
-  .horus-tags span {
-    padding: 6px 9px;
-    border: 1px solid rgba(127, 127, 127, 0.18);
+  .horus-subject-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px 22px;
+    border-top: 1px solid rgba(127, 127, 127, 0.13);
+  }
+
+  .horus-resource-list {
+    margin-top: 10px;
+  }
+
+  .horus-resource-list a {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    padding: 7px 9px;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid rgba(127, 127, 127, 0.16);
     border-radius: 999px;
-    font-size: 0.65rem;
-    opacity: 0.65;
+    font-size: 0.68rem;
   }
 
-  .horus-resources {
-    margin: 22px 0 0 70px;
+  .horus-resource-list a:hover {
+    border-color: rgba(127, 127, 127, 0.32);
   }
 
-  .horus-resources h4 {
-    margin: 0 0 12px;
-  }
-
-  .horus-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
+  .horus-resource-list small {
+    opacity: 0.5;
   }
 
   .horus-project {
-    display: grid;
-    gap: 8px;
-    margin: 20px 0 0 70px;
-    padding: 20px;
+    padding-left: 17px;
     border-left: 2px solid currentColor;
-    background: rgba(127, 127, 127, 0.04);
   }
 
   .horus-project strong {
-    line-height: 1.55;
-  }
-
-  .horus-evidence-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .horus-research-board {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-  }
-
-  .horus-research-board div {
-    padding: 24px 16px;
-    border-radius: 16px;
-    text-align: center;
-  }
-
-  .horus-research-board strong {
     display: block;
-    font-size: 2.1rem;
+    margin-top: 8px;
+    font-size: 0.8rem;
+    line-height: 1.6;
   }
 
-  .horus-evidence-list {
+  .horus-evidence-grid,
+  .horus-level-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
+    margin-top: 25px;
   }
 
-  .horus-evidence-list div {
-    display: grid;
-    grid-template-columns: 38px 1fr;
-    column-gap: 12px;
-    padding: 15px;
-    border-bottom: 1px solid rgba(127, 127, 127, 0.16);
+  .horus-evidence-grid article,
+  .horus-level-grid article {
+    padding: 20px;
+    border: 1px solid rgba(127, 127, 127, 0.14);
+    border-radius: 15px;
   }
 
-  .horus-evidence-list b {
-    grid-row: span 2;
-    opacity: 0.45;
+  .horus-evidence-grid b,
+  .horus-level-grid b {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 1.25rem;
+    opacity: 0.4;
   }
 
-  .horus-evidence-list small {
-    opacity: 0.55;
+  .horus-evidence-grid strong,
+  .horus-level-grid strong {
+    display: block;
   }
 
-  .horus-timeline {
-    position: relative;
-    display: grid;
-    gap: 10px;
-    margin-left: 20px;
-    padding-left: 30px;
-    border-left: 1px solid rgba(127, 127, 127, 0.25);
+  .horus-evidence-grid p,
+  .horus-level-grid span {
+    display: block;
+    margin: 8px 0 0;
+    font-size: 0.76rem;
+    line-height: 1.55;
+    opacity: 0.58;
   }
 
   .horus-timeline article {
     position: relative;
+    margin-top: 12px;
     padding: 20px;
-    border: 1px solid rgba(127, 127, 127, 0.18);
-    border-radius: 16px;
-    background: rgba(127, 127, 127, 0.04);
+    border: 1px solid rgba(127, 127, 127, 0.14);
+    border-radius: 15px;
   }
 
-  .horus-timeline article::before {
-    content: "";
-    position: absolute;
-    left: -37px;
-    top: 24px;
-    width: 11px;
-    height: 11px;
-    border: 2px solid currentColor;
-    border-radius: 50%;
-    background: var(--background, #111);
-  }
-
-  .horus-timeline strong {
+  .horus-timeline article strong {
     display: block;
     margin-top: 6px;
   }
 
-  .horus-final {
-    padding: 55px;
-    border: 1px solid rgba(127, 127, 127, 0.18);
-    border-radius: 24px;
-    background: rgba(127, 127, 127, 0.045);
-    text-align: center;
-  }
-
-  .horus-final h3 {
-    margin: 10px 0;
-    font-size: clamp(2rem, 5vw, 4rem);
-    letter-spacing: -0.05em;
-  }
-
-  .horus-final p {
+  .horus-timeline article p {
+    margin: 7px 0 0;
     max-width: 760px;
-    margin: 0 auto 18px;
-    line-height: 1.8;
-    opacity: 0.68;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    opacity: 0.58;
   }
 
-  .horus-final small {
-    opacity: 0.5;
+  .horus-timeline-future {
+    opacity: 0.6;
+  }
+
+  .horus-footer {
+    text-align: center;
+    padding: 60px 30px;
+  }
+
+  .horus-footer h3 {
+    margin: 8px 0 12px;
+    font-size: clamp(2rem, 5vw, 4rem);
+    letter-spacing: -0.055em;
+  }
+
+  .horus-footer > p:not(.horus-label) {
+    max-width: 790px;
+    margin: 0 auto 20px;
+    line-height: 1.8;
+    opacity: 0.62;
+  }
+
+  .horus-footer small {
+    opacity: 0.45;
   }
 
   @media (max-width: 1050px) {
@@ -1734,68 +4088,101 @@ const currentStatus = [
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .horus-progress-main {
+    .horus-stat-main {
       grid-column: 1 / -1;
     }
 
-    .horus-roadmap {
+    .horus-stage-buttons {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .horus-levels {
-      grid-template-columns: repeat(3, 1fr);
+    .horus-method {
+      grid-template-columns: 1fr;
     }
 
-    .horus-research-board {
-      grid-template-columns: repeat(3, 1fr);
+    .horus-stage-header {
+      grid-template-columns: 54px minmax(0, 1fr);
+    }
+
+    .horus-stage-progress {
+      grid-column: 2;
+    }
+
+    .horus-evidence-grid,
+    .horus-level-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
   @media (max-width: 760px) {
     .horus-shell {
-      width: min(100% - 30px, 680px);
-      padding: 90px 0 50px;
+      width: min(100% - 28px, 680px);
+      padding: 90px 0 55px;
     }
 
     .horus-hero {
       grid-template-columns: 1fr;
     }
 
-    .horus-dashboard,
-    .horus-method-grid,
-    .horus-levels,
-    .horus-roadmap,
-    .horus-evidence-grid,
-    .horus-evidence-list {
+    .horus-dashboard {
       grid-template-columns: 1fr;
     }
 
-    .horus-progress-main {
+    .horus-stat-main {
       grid-column: auto;
     }
 
-    .horus-track-description,
-    .horus-track-meta,
-    .horus-topics,
-    .horus-resources,
-    .horus-project {
-      margin-left: 0;
-    }
-
-    .horus-track-meta {
+    .horus-stage-buttons,
+    .horus-method-grid,
+    .horus-evidence-grid,
+    .horus-level-grid {
       grid-template-columns: 1fr;
     }
 
-    .horus-checklist {
+    .horus-stage {
+      padding: 18px;
+    }
+
+    .horus-stage-header {
+      grid-template-columns: 44px 1fr;
+    }
+
+    .horus-stage-number {
+      width: 44px;
+      height: 44px;
+    }
+
+    .horus-stage-progress {
+      grid-column: 1 / -1;
+    }
+
+    .horus-subject-header,
+    .horus-subject-footer {
       grid-template-columns: 1fr;
     }
 
-    .horus-research-board {
-      grid-template-columns: repeat(2, 1fr);
+    .horus-subject-status {
+      text-align: left;
     }
 
-    .horus-final {
-      padding: 35px 20px;
+    .horus-topic summary {
+      grid-template-columns: minmax(0, 1fr) 25px;
+    }
+
+    .horus-topic-count {
+      display: none;
+    }
+
+    .horus-items {
+      grid-template-columns: 1fr;
+    }
+
+    .horus-method,
+    .horus-evidence,
+    .horus-levels,
+    .horus-timeline,
+    .horus-footer {
+      padding: 22px;
     }
   }
 </style>

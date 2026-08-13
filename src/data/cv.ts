@@ -83,9 +83,9 @@ export const profile: Profile = {
   summary:
     "Me considero una persona ambiciosa pero realista. Destaco por mi rapidez a la hora de actuar, el enfoque, el brainstorming y la pasión por continuar aprendiendo.",
   email: "luisgg099@gmail.com",
-  phone: "+34 624010211",
+  phone: "",
   linkedin: "https://www.linkedin.com/in/luis-galindo-487b7a217/",
-  location: "Madridejos, Toledo",
+  location: "",
   profileImage: assetUrl("profile/fotocv.jpg")
 
 };

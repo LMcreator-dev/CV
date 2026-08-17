@@ -104,7 +104,7 @@ export const HORUS_RECORDS: Record<string, Partial<HorusRecord>> = {
 
 
   "G01.01.06": {
-    completed: false,
+    completed: true,
     level: 5,
     study: {
       status: "completed",
@@ -124,7 +124,7 @@ export const HORUS_RECORDS: Record<string, Partial<HorusRecord>> = {
   },
 
   "G01.01.07": {
-    completed: false,
+    completed: true,
     level: 5,
     study: {
       status: "completed",
@@ -142,5 +142,167 @@ export const HORUS_RECORDS: Record<string, Partial<HorusRecord>> = {
     evidence: [],
     notes: "",
   },
+
+
+  "G01.01.08": {
+    completed: true,
+    level: 5,
+    study: {
+      status: "completed",
+      startedAt: "",
+      completedAt: "",
+      hours: 0,
+    },
+    resources: [],
+    exercises: [],
+    exams: [],
+    projects: [],
+    courses: [],
+    certifications: [],
+    papers: [],
+    evidence: [],
+    notes: "",
+  },
+
+  "G01.01.09": {
+    completed: true,
+    level: 5,
+    study: {
+      status: "completed",
+      startedAt: "",
+      completedAt: "",
+      hours: 0,
+    },
+    resources: [],
+    exercises: [],
+    exams: [],
+    projects: [],
+    courses: [],
+    certifications: [],
+    papers: [],
+    evidence: [],
+    notes: "",
+  },
+
+  "G01.01.10": {
+    completed: true,
+    level: 5,
+    study: {
+      status: "completed",
+      startedAt: "",
+      completedAt: "",
+      hours: 0,
+    },
+    resources: [],
+    exercises: [],
+    exams: [],
+    projects: [],
+    courses: [],
+    certifications: [],
+    papers: [],
+    evidence: [],
+    notes: "",
+  },
+
+  "G01.01.11": {
+    completed: true,
+    level: 5,
+    study: {
+      status: "completed",
+      startedAt: "",
+      completedAt: "",
+      hours: 0,
+    },
+    resources: [],
+    exercises: [],
+    exams: [],
+    projects: [],
+    courses: [],
+    certifications: [],
+    papers: [],
+    evidence: [],
+    notes: "",
+  },
+
+ "G01.01.12": {
+    completed: true,
+    level: 5,
+    study: {
+      status: "completed",
+      startedAt: "",
+      completedAt: "",
+      hours: 0,
+    },
+    resources: [],
+    exercises: [],
+    exams: [],
+    projects: [],
+    courses: [],
+    certifications: [],
+    papers: [],
+    evidence: [],
+    notes: "",
+  },
+
+ "G01.01.13": {
+    completed: true,
+    level: 2,
+    study: {
+      status: "completed",
+      startedAt: "",
+      completedAt: "",
+      hours: 0,
+    },
+    resources: [],
+    exercises: [],
+    exams: [],
+    projects: [],
+    courses: [],
+    certifications: [],
+    papers: [],
+    evidence: [],
+    notes: "",
+  },
+
+"G01.01.14": {
+    completed: true,
+    level: 3,
+    study: {
+      status: "completed",
+      startedAt: "",
+      completedAt: "",
+      hours: 0,
+    },
+    resources: [],
+    exercises: [],
+    exams: [],
+    projects: [],
+    courses: [],
+    certifications: [],
+    papers: [],
+    evidence: [],
+    notes: "",
+  },
+
+ "G01.01.15": {
+    completed: false,
+    level: 0,
+    study: {
+      status: "not-started",
+      startedAt: "",
+      completedAt: "",
+      hours: 0,
+    },
+    resources: [],
+    exercises: [],
+    exams: [],
+    projects: [],
+    courses: [],
+    certifications: [],
+    papers: [],
+    evidence: [],
+    notes: "",
+  },
+
 
 };

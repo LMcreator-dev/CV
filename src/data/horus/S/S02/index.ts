@@ -1,35 +1,21 @@
 ﻿import type { HorusSubject } from "../../types";
 
-/*
- * ============================================================
- * S02
- * ============================================================
- *
- * Aquí se importan los subapartados de esta materia.
- *
- * Ejemplo:
- *
- * import { S0201 } from "./S02.01";
- * import { S0202 } from "./S02.02";
- *
- * ============================================================
- */
+import { S0201 } from "./S02.01";
+import { S0202 } from "./S02.02";
+import { S0203 } from "./S02.03";
+import { S0204 } from "./S02.04";
 
 export const S02: HorusSubject = {
 
   code: "S02",
-
-  title: "S02",
-
-  description: "",
+  title: "CUDA y GPU Programming",
+  description: "Programación directa de GPU, kernels y memoria.",
 
   topics: [
-
-    /*
-     * S0201,
-     * S0202,
-     */
-
+    S0201,
+    S0202,
+    S0203,
+    S0204,
   ],
 
   resources: [],

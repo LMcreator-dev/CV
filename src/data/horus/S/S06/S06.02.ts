@@ -1,38 +1,22 @@
 ﻿import { item } from "../../helpers";
 import type { HorusTopic } from "../../types";
 
-/*
- * ============================================================
- * S06.02
- * ============================================================
- *
- * Título del subapartado:
- *
- * S06.02
- *
- * ============================================================
- */
+/********************************************************
+ * S06.02 · Pipelines
+ ********************************************************/
+
 export const S0602: HorusTopic = {
 
   code: "S06.02",
-
-  title: "S06.02",
+  title: "Pipelines",
 
   items: [
-
-    /*
-     * Ejemplo:
-     *
-     * item(
-     *   "S06.02.01",
-     *   "Primer concepto"
-     * ),
-     *
-     * item(
-     *   "S06.02.02",
-     *   "Segundo concepto"
-     * ),
-     */
+    item("S06.02.01", "Data pipelines"),
+    item("S06.02.02", "Training pipelines"),
+    item("S06.02.03", "Evaluation pipelines"),
+    item("S06.02.04", "CI/CD"),
+    item("S06.02.05", "Model registry"),
+    item("S06.02.06", "Artifact storage"),
 
   ],
 

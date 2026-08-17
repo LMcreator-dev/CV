@@ -1,11 +1,6 @@
 ﻿import { item } from "../../helpers";
 import type { HorusTopic } from "../../types";
 
-/*******************************************************
- * G01.16
- * Concurrencia y asincronía
- *******************************************************/
-
 export const G0116: HorusTopic = {
 
   code: "G01.16",
@@ -14,75 +9,20 @@ export const G0116: HorusTopic = {
 
   items: [
 
-    item(
-      "G01.16.01",
-      "Procesos"
-    ),
-
-    item(
-      "G01.16.02",
-      "Threads"
-    ),
-
-    item(
-      "G01.16.03",
-      "GIL"
-    ),
-
-    item(
-      "G01.16.04",
-      "multiprocessing"
-    ),
-
-    item(
-      "G01.16.05",
-      "threading"
-    ),
-
-    item(
-      "G01.16.06",
-      "concurrent.futures"
-    ),
-
-    item(
-      "G01.16.07",
-      "asyncio"
-    ),
-
-    item(
-      "G01.16.08",
-      "async"
-    ),
-
-    item(
-      "G01.16.09",
-      "await"
-    ),
-
-    item(
-      "G01.16.10",
-      "Event loops"
-    ),
-
-    item(
-      "G01.16.11",
-      "Race conditions"
-    ),
-
-    item(
-      "G01.16.12",
-      "Locks"
-    ),
-
-    item(
-      "G01.16.13",
-      "Queues"
-    ),
-
-    item(
-      "G01.16.14",
-      "Producer-consumer"
-    ),
+    item("G01.16.01", "Procesos"),
+    item("G01.16.02", "Threads"),
+    item("G01.16.03", "GIL"),
+    item("G01.16.04", "multiprocessing"),
+    item("G01.16.05", "threading"),
+    item("G01.16.06", "concurrent.futures"),
+    item("G01.16.07", "asyncio"),
+    item("G01.16.08", "async"),
+    item("G01.16.09", "await"),
+    item("G01.16.10", "Event loops"),
+    item("G01.16.11", "Race conditions"),
+    item("G01.16.12", "Locks"),
+    item("G01.16.13", "Queues"),
+    item("G01.16.14", "Producer-consumer"),
 
   ],
 

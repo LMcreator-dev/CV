@@ -1,35 +1,19 @@
 ﻿import type { HorusSubject } from "../../types";
 
-/*
- * ============================================================
- * M04
- * ============================================================
- *
- * Aquí se importan los subapartados de esta materia.
- *
- * Ejemplo:
- *
- * import { M0401 } from "./M04.01";
- * import { M0402 } from "./M04.02";
- *
- * ============================================================
- */
+import { M0401 } from "./M04.01";
+import { M0402 } from "./M04.02";
+import { M0403 } from "./M04.03";
 
 export const M04: HorusSubject = {
 
   code: "M04",
-
-  title: "M04",
-
-  description: "",
+  title: "Attention",
+  description: "Mecanismo fundamental de atención utilizado por Transformers.",
 
   topics: [
-
-    /*
-     * M0401,
-     * M0402,
-     */
-
+    M0401,
+    M0402,
+    M0403,
   ],
 
   resources: [],

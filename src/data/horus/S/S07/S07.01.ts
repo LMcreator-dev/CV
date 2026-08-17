@@ -1,38 +1,22 @@
 ﻿import { item } from "../../helpers";
 import type { HorusTopic } from "../../types";
 
-/*
- * ============================================================
- * S07.01
- * ============================================================
- *
- * Título del subapartado:
- *
- * S07.01
- *
- * ============================================================
- */
+/********************************************************
+ * S07.01 · Adversarial ML
+ ********************************************************/
+
 export const S0701: HorusTopic = {
 
   code: "S07.01",
-
-  title: "S07.01",
+  title: "Adversarial ML",
 
   items: [
-
-    /*
-     * Ejemplo:
-     *
-     * item(
-     *   "S07.01.01",
-     *   "Primer concepto"
-     * ),
-     *
-     * item(
-     *   "S07.01.02",
-     *   "Segundo concepto"
-     * ),
-     */
+    item("S07.01.01", "Adversarial examples"),
+    item("S07.01.02", "Evasion attacks"),
+    item("S07.01.03", "White-box attacks"),
+    item("S07.01.04", "Black-box attacks"),
+    item("S07.01.05", "Adversarial training"),
+    item("S07.01.06", "Robustness evaluation"),
 
   ],
 

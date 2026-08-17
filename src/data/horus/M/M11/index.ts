@@ -1,35 +1,19 @@
 ﻿import type { HorusSubject } from "../../types";
 
-/*
- * ============================================================
- * M11
- * ============================================================
- *
- * Aquí se importan los subapartados de esta materia.
- *
- * Ejemplo:
- *
- * import { M1101 } from "./M11.01";
- * import { M1102 } from "./M11.02";
- *
- * ============================================================
- */
+import { M1101 } from "./M11.01";
+import { M1102 } from "./M11.02";
+import { M1103 } from "./M11.03";
 
 export const M11: HorusSubject = {
 
   code: "M11",
-
-  title: "M11",
-
-  description: "",
+  title: "Speech y Audio AI",
+  description: "Procesamiento de señales, reconocimiento y síntesis de voz.",
 
   topics: [
-
-    /*
-     * M1101,
-     * M1102,
-     */
-
+    M1101,
+    M1102,
+    M1103,
   ],
 
   resources: [],

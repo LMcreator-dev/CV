@@ -1,38 +1,23 @@
 ﻿import { item } from "../../helpers";
 import type { HorusTopic } from "../../types";
 
-/*
- * ============================================================
- * S04.01
- * ============================================================
- *
- * Título del subapartado:
- *
- * S04.01
- *
- * ============================================================
- */
+/********************************************************
+ * S04.01 · Inference
+ ********************************************************/
+
 export const S0401: HorusTopic = {
 
   code: "S04.01",
-
-  title: "S04.01",
+  title: "Inference",
 
   items: [
-
-    /*
-     * Ejemplo:
-     *
-     * item(
-     *   "S04.01.01",
-     *   "Primer concepto"
-     * ),
-     *
-     * item(
-     *   "S04.01.02",
-     *   "Segundo concepto"
-     * ),
-     */
+    item("S04.01.01", "Forward inference"),
+    item("S04.01.02", "Batch inference"),
+    item("S04.01.03", "Token generation"),
+    item("S04.01.04", "KV cache"),
+    item("S04.01.05", "Prefill"),
+    item("S04.01.06", "Decode"),
+    item("S04.01.07", "Context length"),
 
   ],
 

@@ -1,35 +1,19 @@
 ﻿import type { HorusSubject } from "../../types";
 
-/*
- * ============================================================
- * M10
- * ============================================================
- *
- * Aquí se importan los subapartados de esta materia.
- *
- * Ejemplo:
- *
- * import { M1001 } from "./M10.01";
- * import { M1002 } from "./M10.02";
- *
- * ============================================================
- */
+import { M1001 } from "./M10.01";
+import { M1002 } from "./M10.02";
+import { M1003 } from "./M10.03";
 
 export const M10: HorusSubject = {
 
   code: "M10",
-
-  title: "M10",
-
-  description: "",
+  title: "Multimodal AI",
+  description: "Integración de texto, imagen, audio y vídeo.",
 
   topics: [
-
-    /*
-     * M1001,
-     * M1002,
-     */
-
+    M1001,
+    M1002,
+    M1003,
   ],
 
   resources: [],

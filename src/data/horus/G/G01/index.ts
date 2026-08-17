@@ -23,13 +23,9 @@ import { G0120 } from "./G01.20";
 import { G0121 } from "./G01.21";
 
 export const G01: HorusSubject = {
-
   code: "G01",
-
   title: "Programación y Python",
-
   description: "Programación general, Python científico y herramientas necesarias para trabajar posteriormente con modelos.",
-
   topics: [
     G0101,
     G0102,
@@ -53,7 +49,5 @@ export const G01: HorusSubject = {
     G0120,
     G0121,
   ],
-
   resources: [],
-
 };

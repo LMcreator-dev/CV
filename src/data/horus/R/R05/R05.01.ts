@@ -1,38 +1,23 @@
 ﻿import { item } from "../../helpers";
 import type { HorusTopic } from "../../types";
 
-/*
- * ============================================================
- * R05.01
- * ============================================================
- *
- * Título del subapartado:
- *
- * R05.01
- *
- * ============================================================
- */
+/********************************************************
+ * R05.01 · Research code
+ ********************************************************/
+
 export const R0501: HorusTopic = {
 
   code: "R05.01",
-
-  title: "R05.01",
+  title: "Research code",
 
   items: [
-
-    /*
-     * Ejemplo:
-     *
-     * item(
-     *   "R05.01.01",
-     *   "Primer concepto"
-     * ),
-     *
-     * item(
-     *   "R05.01.02",
-     *   "Segundo concepto"
-     * ),
-     */
+    item("R05.01.01", "Modular experiment code"),
+    item("R05.01.02", "Configuration management"),
+    item("R05.01.03", "Experiment launcher"),
+    item("R05.01.04", "Checkpoint management"),
+    item("R05.01.05", "Automatic evaluation"),
+    item("R05.01.06", "Experiment metadata"),
+    item("R05.01.07", "Reproducible training"),
 
   ],
 

@@ -1,35 +1,21 @@
 ﻿import type { HorusSubject } from "../../types";
 
-/*
- * ============================================================
- * M08
- * ============================================================
- *
- * Aquí se importan los subapartados de esta materia.
- *
- * Ejemplo:
- *
- * import { M0801 } from "./M08.01";
- * import { M0802 } from "./M08.02";
- *
- * ============================================================
- */
+import { M0801 } from "./M08.01";
+import { M0802 } from "./M08.02";
+import { M0803 } from "./M08.03";
+import { M0804 } from "./M08.04";
 
 export const M08: HorusSubject = {
 
   code: "M08",
-
-  title: "M08",
-
-  description: "",
+  title: "Generative AI",
+  description: "Autoencoders, VAE, GANs y diffusion models.",
 
   topics: [
-
-    /*
-     * M0801,
-     * M0802,
-     */
-
+    M0801,
+    M0802,
+    M0803,
+    M0804,
   ],
 
   resources: [],

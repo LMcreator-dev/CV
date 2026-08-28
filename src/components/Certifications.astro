@@ -1,0 +1,68 @@
+---
+import SectionHeading from "./ui/SectionHeading.astro";
+import CertificationCard from "./ui/CertificationCard.astro";
+
+interface Cert {
+  name: string;
+  issuer: string;
+  date: string;
+  image: string;
+  credentialUrl?: string;
+  group?: "IT y redes" | "Desarrollo" | "Formación reglada" | "Industria y seguridad";
+}
+
+interface Props {
+  title: string;
+  certifications: Cert[];
+}
+
+const { title, certifications } = Astro.props;
+const groupOrder = [
+  "IT y redes",
+  "Desarrollo",
+  "Formación reglada",
+  "Industria y seguridad",
+] as const;
+
+const getGroup = (cert: Cert) => {
+  if (cert.group) return cert.group;
+  if (["Cisco"].includes(cert.issuer)) return "IT y redes";
+  if (["Docker", "Microsoft"].includes(cert.issuer)) return "Desarrollo";
+  if (["Andel", "Luis de Lucena"].includes(cert.issuer)) return "Formación reglada";
+  return "Industria y seguridad";
+};
+
+const groupedCertifications = groupOrder
+  .map((group) => ({
+    group,
+    items: certifications.filter((cert) => getGroup(cert) === group),
+  }))
+  .filter((entry) => entry.items.length > 0);
+---
+
+<section class="section section-alt" id="certifications">
+  <div class="container">
+    <SectionHeading
+      title={title}
+      intro="Formación técnica, credenciales verificables y certificados profesionales."
+      align="center"
+      eyebrow="Aprendizaje"
+    />
+    <div class="cert-groups">
+      {groupedCertifications.map((entry) => (
+        <section class="cert-group">
+          <header class="cert-group-heading">
+            <h3>{entry.group}</h3>
+            <span>{entry.items.length} credenciales</span>
+          </header>
+
+          <div class="cert-grid">
+            {entry.items.map((cert) => (
+              <CertificationCard {...cert} />
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+</section>

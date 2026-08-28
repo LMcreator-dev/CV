@@ -1,0 +1,53 @@
+---
+interface Props {
+  name: string;
+  issuer: string;
+  date: string;
+  image: string;
+  credentialUrl?: string;
+}
+
+const { name, issuer, date, image, credentialUrl } = Astro.props;
+const hasCredentialUrl = Boolean(credentialUrl?.trim());
+const showFullImage = !hasCredentialUrl;
+---
+
+<article class:list={["card cert-card", { "cert-card--full-image": showFullImage }]}>
+  <div class="cert-badge">
+    <a
+      class="cert-image-link"
+      href={image}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Abrir imagen completa de la certificación ${name}`}
+    >
+      <img
+        class="cert-image"
+        src={image}
+        alt={name}
+        loading="eager"
+        decoding="async"
+        width="120"
+        height="120"
+        onerror="this.onerror=null;this.src='/certifications/cert-fallback.svg';"
+      />
+    </a>
+  </div>
+  <div class="cert-body">
+    <div>
+      <span class="cert-issuer">{issuer}</span>
+      <h3>{name}</h3>
+      <p class="cert-date">{date}</p>
+    </div>
+
+    {hasCredentialUrl ? (
+      <a href={credentialUrl} target="_blank" rel="noopener noreferrer" class="button button-link">
+        Ver credencial
+      </a>
+    ) : (
+      <a href={image} target="_blank" rel="noopener noreferrer" class="button button-link">
+        Ver documento
+      </a>
+    )}
+  </div>
+</article>

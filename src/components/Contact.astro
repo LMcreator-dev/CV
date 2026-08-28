@@ -1,0 +1,85 @@
+---
+import SectionHeading from "./ui/SectionHeading.astro";
+import ContactItem from "./ui/ContactItem.astro";
+
+interface Props {
+  title: string;
+  email: string;
+  phone: string;
+  linkedin: string;
+}
+
+const { title, email, phone, linkedin } = Astro.props;
+const hasPhone = Boolean(phone.trim());
+---
+
+<section class="section contact" id="contact">
+  <div class="container">
+    <div class="contact-panel">
+      <div>
+        <p class="section-label">Contacto</p>
+        <h2>{title}</h2>
+        <p>
+          Abierto a conversaciones profesionales sobre automatización IT,
+          operación de sistemas, proyectos técnicos y entornos industriales.
+        </p>
+      </div>
+
+      <div class="contact-list">
+        <ContactItem href={`mailto:${email}`} label="Email profesional" value={email} />
+        <ContactItem href={linkedin} label="LinkedIn" value="Perfil y trayectoria" />
+        {hasPhone && (
+          <ContactItem href={`tel:${phone.replaceAll(" ", "")}`} label="Teléfono" value="Disponible bajo solicitud" />
+        )}
+      </div>
+
+      <div class="hero-actions contact-actions">
+        <a class="button button-primary" href={`mailto:${email}`}>
+          Escribir por email
+        </a>
+        <a class="button button-secondary" href={linkedin} target="_blank" rel="noopener noreferrer">
+          Ver LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-panel {
+    width: min(840px, 100%);
+    margin-inline: auto;
+    padding: clamp(1.4rem, 3vw, 2.2rem);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.075);
+    box-shadow: 0 26px 60px rgba(5, 12, 20, 0.24);
+  }
+
+  .contact-panel h2 {
+    margin: 0.55rem 0 0;
+    color: #f8fbff;
+    font-family: "Sora", sans-serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  .contact-panel > div:first-child > p:last-child {
+    max-width: 62ch;
+    margin: 1rem 0 0;
+    color: rgba(244, 249, 255, 0.76);
+  }
+
+  .contact-actions {
+    margin-top: 1.1rem;
+  }
+
+  .contact-actions .button-secondary {
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  .contact-actions .button-secondary:hover {
+    background: rgba(255, 255, 255, 0.26);
+  }
+</style>

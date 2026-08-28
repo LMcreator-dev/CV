@@ -1,0 +1,35 @@
+---
+interface Props {
+  name: string;
+  level: 1 | 2 | 3 | 4;
+  description: string;
+  group?: string;
+}
+
+const { name, level, description, group } = Astro.props;
+const levelLabels = {
+  1: "Base",
+  2: "Operativo",
+  3: "Avanzado",
+  4: "Especialista",
+} as const;
+
+const levelPercent = level * 25;
+const isHorus = group === "HORUS / IA";
+---
+
+<article class:list={["card card-skill", isHorus && "card-skill-horus"]}>
+  <div class="knowledge-heading">
+    <h3>{name}</h3>
+    <span>{isHorus ? "IA" : levelLabels[level]}</span>
+  </div>
+
+  <p>{description}</p>
+
+  <div class="knowledge-meter" aria-label={`Nivel ${levelLabels[level]}`}>
+    <span>
+      <i style={`width:${levelPercent}%`}></i>
+    </span>
+    <b>{levelLabels[level]}</b>
+  </div>
+</article>

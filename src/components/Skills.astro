@@ -1,0 +1,68 @@
+---
+import SectionHeading from "./ui/SectionHeading.astro";
+import SkillCard from "./ui/SkillCard.astro";
+
+interface Knowledge {
+  name: string;
+  level: 1 | 2 | 3 | 4;
+  group:
+    | "Automatización y Desarrollo"
+    | "HORUS / IA"
+    | "Técnica Industrial"
+    | "Observabilidad y Operación"
+    | "Infraestructura y Seguridad"
+    | "Gestión y Comunicación"
+    | "Capacidades Profesionales";
+  description: string;
+}
+
+interface Props {
+  title: string;
+  knowledge: Knowledge[];
+}
+
+const { title, knowledge } = Astro.props;
+const groupOrder = [
+  "Automatización y Desarrollo",
+  "HORUS / IA",
+  "Técnica Industrial",
+  "Observabilidad y Operación",
+  "Infraestructura y Seguridad",
+  "Gestión y Comunicación",
+  "Capacidades Profesionales",
+] as const;
+
+const groupedKnowledge = groupOrder
+  .map((group) => ({
+    group,
+    items: knowledge
+      .filter((item) => item.group === group)
+      .sort((a, b) => a.name.localeCompare(b.name, "es")),
+  }))
+  .filter((entry) => entry.items.length > 0);
+---
+
+<section class="section section-alt" id="skills">
+  <div class="container">
+    <SectionHeading
+      title={title}
+      intro="Competencias técnicas organizadas por área de trabajo y nivel de profundidad."
+      align="center"
+      eyebrow="Conocimientos"
+    />
+    <div class="knowledge-groups">
+      {groupedKnowledge.map((entry) => (
+        <section class="knowledge-group">
+          <header class="knowledge-group-heading">
+            <h3>{entry.group}</h3>
+          </header>
+          <div class="skills-grid">
+            {entry.items.map((item) => (
+              <SkillCard {...item} />
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+</section>

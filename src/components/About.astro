@@ -1,0 +1,46 @@
+---
+import SectionHeading from "./ui/SectionHeading.astro";
+
+interface Stat {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  motto?: string;
+  stats: Stat[];
+}
+
+const { title, description, motto, stats } = Astro.props;
+---
+
+<section class="section" id="about">
+  <div class="container">
+    <SectionHeading title={title} intro="Visión de trabajo" eyebrow="Resumen" />
+    <div class="about-layout">
+      <article class="card about-card">
+        {motto && (
+          <blockquote class="about-motto">
+            “{motto}”
+          </blockquote>
+        )}
+        <p>{description}</p>
+        <p>
+          Esa base se refleja en proyectos donde importan la disponibilidad,
+          la operación, la mejora continua y la capacidad de responder con
+          criterio técnico.
+        </p>
+      </article>
+      <div class="about-stats">
+        {stats.map((stat) => (
+          <article class="stat-item">
+            <strong>{stat.value}</strong>
+            <span>{stat.label}</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

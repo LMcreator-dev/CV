@@ -1,0 +1,75 @@
+---
+interface Props {
+  title: string;
+  role: string;
+  subtitle: string;
+  motto?: string;
+  ctaPrimary?: string;
+  ctaSecondary?: string;
+  location: string;
+  profileImage?: string;
+}
+
+const {
+  title,
+  role,
+  subtitle,
+  motto,
+  ctaPrimary = "Ver experiencia",
+  ctaSecondary = "Ir a contacto",
+  location,
+  profileImage,
+} = Astro.props;
+
+const profileInitials = title
+  .split(" ")
+  .filter(Boolean)
+  .slice(0, 2)
+  .map((part) => part[0]?.toUpperCase() ?? "")
+  .join("");
+---
+
+<section class="hero" id="inicio">
+  <div class="container hero-grid">
+    <div>
+      {motto && <p class="hero-motto">“{motto}”</p>}
+      <h1>{title}</h1>
+      <p class="hero-role">{role}</p>
+      <p class="hero-subtitle">{subtitle}</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#experience">{ctaPrimary}</a>
+        <a class="button button-secondary" href="#contact">{ctaSecondary}</a>
+      </div>
+    </div>
+    <aside class="hero-highlight" aria-label="Resumen profesional">
+      <div class="hero-profile">
+        {profileImage ? (
+          <a
+            class="hero-profile-link"
+            href={profileImage}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Abrir foto de perfil de ${title} en tamaño completo`}
+          >
+            <img
+              src={profileImage}
+              alt={`Foto de perfil de ${title}`}
+              loading="eager"
+              decoding="async"
+            />
+          </a>
+        ) : (
+          <span class="hero-profile-fallback" aria-hidden="true">{profileInitials}</span>
+        )}
+      </div>
+      <strong>Perfil técnico híbrido</strong>
+      <p>Automatización IT, sistemas, electricidad y soldadura industrial.</p>
+      <div class="hero-profile-tags" aria-label="Áreas principales">
+        <span>IT</span>
+        <span>Electricidad</span>
+        <span>Soldadura</span>
+      </div>
+      {location && <p class="hero-location">{location}</p>}
+    </aside>
+  </div>
+</section>

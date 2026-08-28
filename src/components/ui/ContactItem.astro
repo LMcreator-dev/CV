@@ -1,0 +1,14 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  value: string;
+}
+
+const { href, label, value } = Astro.props;
+---
+
+<a class="contact-pill" href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined}>
+  <span>{label}</span>
+  <strong>{value}</strong>
+</a>

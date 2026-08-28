@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Proyecto en desarrollo</title>
+  <desc id="desc">Placeholder visual para proyectos sin imagen propia.</desc>
+  <rect width="1200" height="675" fill="#f5f7fb"/>
+  <rect x="80" y="80" width="1040" height="515" rx="28" fill="#ffffff" stroke="#d9e0eb" stroke-width="4"/>
+  <path d="M180 220h360M180 285h520M180 350h430" fill="none" stroke="#1d2633" stroke-width="26" stroke-linecap="round"/>
+  <path d="M760 220h190a70 70 0 0 1 70 70v95a70 70 0 0 1-70 70H760a70 70 0 0 1-70-70v-95a70 70 0 0 1 70-70Z" fill="#e9f5f4" stroke="#11a7a2" stroke-width="8"/>
+  <circle cx="790" cy="338" r="24" fill="#11a7a2"/>
+  <circle cx="855" cy="338" r="24" fill="#11a7a2"/>
+  <circle cx="920" cy="338" r="24" fill="#11a7a2"/>
+  <path d="M735 455l-45 58 92-38" fill="#e9f5f4" stroke="#11a7a2" stroke-width="8" stroke-linejoin="round"/>
+</svg>

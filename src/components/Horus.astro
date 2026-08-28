@@ -1,0 +1,1404 @@
+﻿---
+import { HORUS } from "../data/horus";
+import { HORUS_RECORDS } from "../data/horus/progress";
+import { mergeRecord, getEvidence } from "../data/horus/helpers";
+
+const levelNames = [
+  "No conocido",
+  "Familiaridad",
+  "Comprensión",
+  "Implementación",
+  "Dominio",
+  "Investigación",
+];
+
+const masteryScale = levelNames.slice(1).map((name, index) => ({
+  level: index + 1,
+  name,
+}));
+
+const getRecord = (code: string) =>
+  mergeRecord(HORUS_RECORDS[code]);
+
+const getTopicProgress = (topic: any) => {
+  const completed = topic.items.filter(
+    (item: any) => getRecord(item.code).completed
+  ).length;
+
+  return topic.items.length
+    ? Math.round((completed / topic.items.length) * 100)
+    : 0;
+};
+
+const getSubjectProgress = (subject: any) => {
+  const items = subject.topics.flatMap(
+    (topic: any) => topic.items
+  );
+
+  const completed = items.filter(
+    (item: any) => getRecord(item.code).completed
+  ).length;
+
+  return items.length
+    ? Math.round((completed / items.length) * 100)
+    : 0;
+};
+
+const getStageProgress = (stage: any) => {
+  const items = stage.subjects.flatMap(
+    (subject: any) =>
+      subject.topics.flatMap(
+        (topic: any) => topic.items
+      )
+  );
+
+  const completed = items.filter(
+    (item: any) => getRecord(item.code).completed
+  ).length;
+
+  return items.length
+    ? Math.round((completed / items.length) * 100)
+    : 0;
+};
+
+const allItems = HORUS.flatMap(
+  (stage: any) =>
+    stage.subjects.flatMap(
+      (subject: any) =>
+        subject.topics.flatMap(
+          (topic: any) => topic.items
+        )
+    )
+);
+
+const totalItems = allItems.length;
+
+const totalSubjects = HORUS.reduce(
+  (n: number, stage: any) =>
+    n + stage.subjects.length,
+  0
+);
+
+const totalCompleted = allItems.filter(
+  (item: any) => getRecord(item.code).completed
+).length;
+
+const globalProgress = totalItems
+  ? Math.round((totalCompleted / totalItems) * 100)
+  : 0;
+
+const totalHours = allItems.reduce(
+  (hours: number, item: any) =>
+    hours + getRecord(item.code).study.hours,
+  0
+);
+
+const recordedLevels = allItems
+  .map((item: any) => getRecord(item.code).level)
+  .filter((level: number) => level > 0);
+
+const averageLevel = recordedLevels.length
+  ? recordedLevels.reduce(
+      (sum: number, level: number) => sum + level,
+      0
+    ) / recordedLevels.length
+  : 0;
+
+const levelCounts = masteryScale.map(({ level }) => ({
+  level,
+  count: recordedLevels.filter(
+    (recordedLevel: number) => recordedLevel === level
+  ).length,
+}));
+
+const masteryLabel = averageLevel > 0
+  ? levelNames[Math.round(averageLevel)]
+  : "sin datos";
+---
+
+<section id="horus" class="horus-section">
+  <div class="horus-shell">
+
+    <header class="horus-hero">
+
+      <div>
+        <p class="horus-kicker">PROJECT HORUS</p>
+
+        <h2>
+          AI Mastery &amp;
+          Research Track
+        </h2>
+
+        <p class="horus-lead">
+          Índice maestro de formación en Inteligencia Artificial,
+          desde los fundamentos técnicos hasta la investigación avanzada.<br>
+          HORUS nace como el proyecto de construir una IA de propósito general vinculada a Luis: una extensión de su criterio,
+          personalidad, conocimientos y habilidades, capaz de asistir en vida como compañero de trabajo, aprendizaje e investigación,
+          y preparada a largo plazo para preservar su pensamiento como una forma de continuidad intelectual.
+          Su objetivo final es evolucionar hacia un sistema autónomo, con memoria persistente, capacidad de decisión,
+          aprendizaje continuo, integración de otras inteligencias artificiales y recopilación masiva de conocimiento,
+          hasta convertirse en una entidad de conocimiento basada en su creador.
+        </p>
+      </div>
+
+      <aside class="horus-current">
+        <span>ESTADO</span>
+
+        <strong>
+          {globalProgress}%
+        </strong>
+
+        <p>
+          Seguimiento de estudio, práctica y profundidad técnica.
+        </p>
+      </aside>
+
+    </header>
+
+
+    <section class="horus-dashboard">
+
+      <article class="horus-progress-card">
+        <div>
+          <span>PROGRESO GLOBAL</span>
+
+          <strong>
+            {globalProgress}%
+          </strong>
+
+          <small>
+            {totalCompleted} de {totalItems} conceptos completados
+          </small>
+        </div>
+
+        <div class="bar">
+          <i
+            style={`width:${globalProgress}%`}
+          ></i>
+        </div>
+      </article>
+
+      <div class="horus-metrics">
+        <article>
+          <span>HORAS</span>
+          <strong>{totalHours.toFixed(1)}</strong>
+          <small>registradas</small>
+        </article>
+
+        <article>
+          <span>MAESTRÍA</span>
+          <strong>{averageLevel.toFixed(1)}/5</strong>
+          <small>{masteryLabel}</small>
+        </article>
+
+        <article>
+          <span>CONCEPTOS</span>
+          <strong>{totalItems}</strong>
+          <small>ítems</small>
+        </article>
+
+        <article>
+          <span>MATERIAS</span>
+          <strong>{totalSubjects}</strong>
+          <small>bloques</small>
+        </article>
+      </div>
+
+      <article class="horus-mastery-card">
+        <div class="mastery-heading">
+          <span>ESCALA DE MAESTRÍA</span>
+          <small>Lectura rápida del grado de dominio actual</small>
+        </div>
+
+        <div class="mastery-scale">
+          {masteryScale.map(({ level, name }) => {
+            const count = levelCounts.find(
+              (entry) => entry.level === level
+            )?.count ?? 0;
+
+            const width = recordedLevels.length
+              ? Math.round((count / recordedLevels.length) * 100)
+              : 0;
+
+            return (
+              <p>
+                <b>{level}</b>
+                <span>{name}</span>
+                <i>
+                  <em style={`width:${width}%`}></em>
+                </i>
+                <small>{count}</small>
+              </p>
+            );
+          })}
+        </div>
+      </article>
+
+    </section>
+
+
+    {HORUS.map((stage: any) => {
+
+      const stageProgress =
+        getStageProgress(stage);
+
+      return (
+        <details
+          id={`horus-${stage.code}`}
+          class="horus-stage"
+        >
+
+          <summary class="stage-header">
+
+            <div class="stage-badge">
+              {stage.code}
+            </div>
+
+            <div>
+
+              <p class="horus-label">
+                {stage.title}
+              </p>
+
+              <h3>
+                {stage.subtitle}
+              </h3>
+
+              <p>
+                {stage.description}
+              </p>
+
+            </div>
+
+            <div class="stage-progress">
+
+              <span>PROGRESO</span>
+
+              <strong>
+                {stageProgress}%
+              </strong>
+
+              <div>
+                <i
+                  style={`width:${stageProgress}%`}
+                ></i>
+              </div>
+
+            </div>
+
+            <span class="summary-toggle">+</span>
+
+          </summary>
+
+
+          {stage.subjects.map(
+            (subject: any) => {
+
+              const subjectProgress =
+                getSubjectProgress(subject);
+
+              return (
+
+                <details class="subject">
+
+                  <summary class="subject-header">
+
+                    <div>
+
+                      <span>
+                        {subject.code}
+                      </span>
+
+                      <h4>
+                        {subject.title}
+                      </h4>
+
+                      <p>
+                        {subject.description}
+                      </p>
+
+                    </div>
+
+                    <strong>
+                      {subjectProgress}%
+                    </strong>
+
+                    <span class="summary-toggle">+</span>
+
+                  </summary>
+
+                  {subject.resources?.length > 0 && (
+                    <div class="subject-resources">
+                      {subject.resources.map((resource: any) => (
+                        <a
+                          class:list={[
+                            "subject-resource",
+                            `subject-resource-${resource.type}`,
+                          ]}
+                          href={resource.url ?? "#"}
+                          target={resource.url ? "_blank" : undefined}
+                          rel={resource.url ? "noopener noreferrer" : undefined}
+                        >
+                          <small>{resource.type}</small>
+                          <span>{resource.title}</span>
+                          {resource.description && <em>{resource.description}</em>}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+
+
+                  {subject.topics.map(
+                    (topic: any) => {
+
+                      const topicProgress =
+                        getTopicProgress(topic);
+
+                      return (
+
+                        <details class="topic">
+
+                          <summary>
+
+                            <div>
+
+                              <span>
+                                {topic.code}
+                              </span>
+
+                              <strong>
+                                {topic.title}
+                              </strong>
+
+                            </div>
+
+                            <aside>
+
+                              <small>
+                                {topic.items.length}
+                              </small>
+
+                              <b>
+                                {topicProgress}%
+                              </b>
+
+                              <i>+</i>
+
+                            </aside>
+
+                          </summary>
+
+
+                          <div class="items">
+
+                            {topic.items.map(
+                              (curriculumItem: any) => {
+
+                                const record =
+                                  getRecord(
+                                    curriculumItem.code
+                                  );
+
+                                const evidence =
+                                  getEvidence(record);
+
+                                return (
+
+                                  <article
+                                    class:list={[
+                                      "item",
+                                      record.completed
+                                        ? "completed"
+                                        : "pending",
+                                    ]}
+                                  >
+
+                                    <div class="status">
+                                      <span>
+                                        {record.completed
+                                          ? "✓"
+                                          : "○"}
+                                      </span>
+                                    </div>
+
+
+                                    <div class="item-body">
+
+                                      <div class="item-title">
+
+                                        <code>
+                                          {curriculumItem.code}
+                                        </code>
+
+                                        <strong>
+                                          {curriculumItem.title}
+                                        </strong>
+
+                                      </div>
+
+
+                                      {(
+                                        record.completed ||
+                                        record.level > 0 ||
+                                        record.study.status !== "not-started" ||
+                                        record.study.hours > 0 ||
+                                        evidence.length > 0 ||
+                                        record.notes
+                                      ) && (
+
+                                        <div class="metadata">
+
+                                          {record.completed && (
+                                            <span>
+                                              ✓ Completado
+                                            </span>
+                                          )}
+
+                                          {record.level > 0 && (
+                                            <span>
+                                              Nivel {record.level}/5
+                                            </span>
+                                          )}
+
+                                          {record.study.status === "in-progress" && (
+                                            <span>
+                                              En progreso
+                                            </span>
+                                          )}
+
+                                          {record.study.status === "review" && (
+                                            <span>
+                                              En revisión
+                                            </span>
+                                          )}
+
+                                          {record.study.hours > 0 && (
+                                            <span>
+                                              {record.study.hours} h
+                                            </span>
+                                          )}
+
+                                          {evidence.length > 0 && (
+                                            <span>
+                                              {evidence.length} evidencias
+                                            </span>
+                                          )}
+
+                                          {record.study.startedAt && (
+                                            <span>
+                                              Inicio:
+                                              {" "}
+                                              {record.study.startedAt}
+                                            </span>
+                                          )}
+
+                                          {record.study.completedAt && (
+                                            <span>
+                                              Fin:
+                                              {" "}
+                                              {record.study.completedAt}
+                                            </span>
+                                          )}
+
+                                        </div>
+
+                                      )}
+
+
+                                      {evidence.length > 0 && (
+
+                                        <div class="evidence">
+
+                                          {evidence.map(
+                                            (ev: any) => (
+
+                                              <a
+                                                class:list={[
+                                                  "evidence-link",
+                                                  `evidence-${ev.type}`,
+                                                ]}
+                                                href={
+                                                  ev.url ?? "#"
+                                                }
+                                                target={
+                                                  ev.url
+                                                    ? "_blank"
+                                                    : undefined
+                                                }
+                                                rel={
+                                                  ev.url
+                                                    ? "noopener noreferrer"
+                                                    : undefined
+                                                }
+                                              >
+
+                                                <small>
+                                                  {ev.type}
+                                                </small>
+
+                                                <span>
+                                                  {ev.title}
+                                                </span>
+
+                                                {ev.score !== undefined && (
+                                                  <b>
+                                                    {ev.score}%
+                                                  </b>
+                                                )}
+
+                                              </a>
+
+                                            )
+                                          )}
+
+                                        </div>
+
+                                      )}
+
+
+                                      {record.notes && (
+
+                                        <div class="notes">
+
+                                          <small>
+                                            NOTAS
+                                          </small>
+
+                                          <p>
+                                            {record.notes}
+                                          </p>
+
+                                        </div>
+
+                                      )}
+
+                                    </div>
+
+                                  </article>
+
+                                );
+
+                              }
+                            )}
+
+                          </div>
+
+                        </details>
+
+                      );
+                    }
+                  )}
+
+                </details>
+
+              );
+            }
+          )}
+
+        </details>
+      );
+    })}
+
+  </div>
+</section>
+
+
+<style>
+
+.horus-section {
+  --horus-ink: #142033;
+  --horus-muted: #5a6878;
+  --horus-soft: #edf3f7;
+  --horus-line: rgba(186, 199, 214, .82);
+  --horus-teal: #08766f;
+  --horus-gold: #b87516;
+  --horus-blue: #245f85;
+  --horus-shadow: 0 14px 32px rgba(14, 31, 48, .075);
+  min-width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  background:
+    linear-gradient(135deg, rgba(8, 118, 111, .065), transparent 36%),
+    linear-gradient(225deg, rgba(184, 117, 22, .075), transparent 40%),
+    #f5f8fb;
+}
+
+.horus-shell {
+  width: min(1240px, calc(100% - 56px));
+  margin: 0 auto;
+  padding: 96px 0 132px;
+}
+
+.horus-kicker,
+.horus-label,
+.horus-current > span,
+.horus-progress-card > div:first-child > span,
+.horus-metrics span,
+.mastery-heading > span,
+.stage-progress > span,
+.subject-header span {
+  font-size: .67rem;
+  font-weight: 750;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--horus-muted);
+}
+
+.horus-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.horus-hero h2 {
+  max-width: 12ch;
+  margin: 8px 0 16px;
+  font-size: clamp(2.2rem, 4.8vw, 4.65rem);
+  line-height: .98;
+  letter-spacing: 0;
+  color: var(--horus-ink);
+}
+
+.horus-lead {
+  max-width: 860px;
+  margin: 0;
+  font-size: .98rem;
+  line-height: 1.72;
+  color: var(--horus-muted);
+}
+
+.horus-current,
+.horus-progress-card,
+.horus-metrics article,
+.horus-mastery-card,
+.horus-stage,
+.subject {
+  border: 1px solid rgba(199, 210, 224, .88);
+  background: rgba(255, 255, 255, .78);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--horus-shadow);
+}
+
+.horus-current {
+  padding: 20px;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.7)),
+    linear-gradient(135deg, rgba(8,118,111,.1), transparent);
+}
+
+.horus-current strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 1.55rem;
+  color: var(--horus-ink);
+}
+
+.horus-current p {
+  margin-top: 9px;
+  font-size: .86rem;
+  line-height: 1.6;
+  color: var(--horus-muted);
+}
+
+.horus-dashboard {
+  display: grid;
+  grid-template-columns: minmax(320px, 1.05fr) minmax(360px, .95fr);
+  gap: 14px;
+  margin-bottom: 54px;
+}
+
+.horus-progress-card {
+  display: grid;
+  min-height: 176px;
+  padding: 22px;
+  border-radius: 8px;
+  align-content: space-between;
+  color: var(--horus-ink);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.94), rgba(248,251,253,.78)),
+    linear-gradient(90deg, rgba(184,117,22,.1), transparent 56%);
+}
+
+.horus-progress-card strong {
+  display: block;
+  margin: 14px 0 8px;
+  font-size: clamp(2.45rem, 4.2vw, 3.9rem);
+  line-height: .95;
+  letter-spacing: 0;
+}
+
+.horus-progress-card small {
+  color: var(--horus-muted);
+}
+
+.horus-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 14px;
+}
+
+.horus-metrics article {
+  min-height: 88px;
+  padding: 17px;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.9), rgba(248,251,253,.78));
+}
+
+.horus-metrics strong {
+  display: block;
+  margin: 8px 0 2px;
+  font-size: clamp(1.45rem, 2.35vw, 2.1rem);
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--horus-ink);
+}
+
+.horus-metrics small {
+  font-size: .82rem;
+  color: var(--horus-muted);
+}
+
+.horus-mastery-card {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 240px minmax(0,1fr);
+  gap: 22px;
+  align-items: start;
+  padding: 20px 22px;
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(8,118,111,.07), transparent 48%),
+    rgba(255,255,255,.78);
+}
+
+.mastery-heading small {
+  display: block;
+  margin-top: 10px;
+  max-width: 22ch;
+  font-size: .84rem;
+  line-height: 1.45;
+  color: var(--horus-muted);
+}
+
+.mastery-scale {
+  display: grid;
+  gap: 8px;
+}
+
+.mastery-scale p {
+  display: grid;
+  grid-template-columns: 24px 142px minmax(90px,1fr) 32px;
+  gap: 10px;
+  align-items: center;
+  margin: 0;
+  font-size: .78rem;
+}
+
+.mastery-scale b {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border: 1px solid rgba(127,127,127,.18);
+  border-radius: 7px;
+  font-size: .68rem;
+  color: var(--horus-ink);
+}
+
+.mastery-scale i {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(127,127,127,.1);
+}
+
+.mastery-scale em {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--horus-gold), var(--horus-teal));
+}
+
+.mastery-scale span,
+.mastery-scale small {
+  color: var(--horus-muted);
+}
+
+.mastery-scale small {
+  text-align: right;
+}
+
+.bar,
+.stage-progress > div {
+  height: 5px;
+  margin-top: 13px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--horus-line);
+}
+
+.bar i,
+.stage-progress i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--horus-gold), var(--horus-teal));
+}
+
+.horus-stage {
+  margin-bottom: 14px;
+  padding: 24px;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.9), rgba(247,250,252,.78));
+}
+
+.stage-header {
+  display: grid;
+  grid-template-columns: 50px minmax(0,1fr) 148px 24px;
+  gap: 16px;
+  align-items: start;
+  margin-bottom: 22px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.horus-stage:not([open]) > .stage-header {
+  margin-bottom: 0;
+}
+
+.horus-stage:not([open]) {
+  padding-block: 18px;
+}
+
+.horus-stage > summary::-webkit-details-marker,
+.subject > summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary-toggle {
+  align-self: center;
+  justify-self: end;
+  font-size: 1.2rem;
+  font-weight: 500;
+  opacity: .45;
+  transition: transform .18s ease;
+}
+
+.horus-stage[open] > .stage-header .summary-toggle,
+.subject[open] > .subject-header .summary-toggle {
+  transform: rotate(45deg);
+}
+
+.stage-badge {
+  display: grid;
+  width: 50px;
+  height: 50px;
+  place-items: center;
+  border: 1px solid rgba(8,118,111,.25);
+  border-radius: 8px;
+  font-weight: 900;
+  color: var(--horus-teal);
+  background: rgba(8, 118, 111, .075);
+}
+
+.stage-header h3 {
+  margin: 6px 0;
+  font-size: clamp(1.25rem,2.2vw,1.85rem);
+  line-height: 1.16;
+  letter-spacing: 0;
+  color: var(--horus-ink);
+}
+
+.stage-header > div:nth-child(2) > p:last-child {
+  max-width: 800px;
+  margin: 0;
+  font-size: .9rem;
+  line-height: 1.58;
+  color: var(--horus-muted);
+}
+
+.stage-progress {
+  padding: 12px;
+  border: 1px solid var(--horus-line);
+  border-radius: 8px;
+  background: rgba(255,255,255,.72);
+}
+
+.stage-progress strong {
+  display: block;
+  margin: 5px 0 8px;
+  font-size: 1.25rem;
+  color: var(--horus-ink);
+}
+
+.subject {
+  margin-top: 12px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.subject-header {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 72px 24px;
+  gap: 16px;
+  padding: 18px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.subject-header h4 {
+  margin: 5px 0;
+  font-size: 1.08rem;
+  line-height: 1.25;
+  color: var(--horus-ink);
+}
+
+.subject-header p {
+  max-width: 800px;
+  margin: 0;
+  font-size: .86rem;
+  line-height: 1.55;
+  color: var(--horus-muted);
+}
+
+.subject-header > strong {
+  align-self: center;
+  text-align: right;
+  color: var(--horus-teal);
+}
+
+.subject-resources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 18px 16px;
+}
+
+.subject-resources a {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  max-width: 100%;
+  padding: 8px 10px;
+  color: #16324a;
+  text-decoration: none;
+  border: 1px solid rgba(36, 95, 133, .25);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(235, 248, 255, .94), rgba(255, 255, 255, .84));
+  box-shadow: 0 8px 18px rgba(28, 64, 92, .08);
+  font-size: .72rem;
+}
+
+.subject-resources a:hover {
+  border-color: rgba(34, 116, 165, .52);
+  transform: translateY(-1px);
+}
+
+.subject-resources small {
+  padding: 3px 7px;
+  color: var(--horus-blue);
+  text-transform: uppercase;
+  border-radius: 999px;
+  background: rgba(34, 116, 165, .1);
+  font-size: .56rem;
+  font-weight: 800;
+}
+
+.subject-resources span,
+.subject-resources em {
+  min-width: 0;
+}
+
+.subject-resources em {
+  font-style: normal;
+  color: var(--horus-muted);
+}
+
+.topic {
+  border-top: 1px solid rgba(127,127,127,.1);
+}
+
+.topic summary {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 112px;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 18px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.topic summary::-webkit-details-marker {
+  display: none;
+}
+
+.topic summary:hover {
+  background: rgba(127,127,127,.035);
+}
+
+.topic summary > div:first-child {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.topic summary > div:first-child > span {
+  min-width: 70px;
+  font-family: monospace;
+  font-size: .66rem;
+  color: var(--horus-muted);
+  opacity: .7;
+}
+
+.topic summary strong {
+  font-size: .9rem;
+  line-height: 1.35;
+  color: var(--horus-ink);
+}
+
+.topic summary aside {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.topic summary aside small,
+.topic summary aside b {
+  font-size: .68rem;
+  color: var(--horus-muted);
+  opacity: .72;
+}
+
+.topic summary aside i {
+  font-size: 1.1rem;
+  font-style: normal;
+  opacity: .4;
+}
+
+.topic[open] summary aside i {
+  transform: rotate(45deg);
+}
+
+.items {
+  padding: 7px 20px 20px;
+  background: rgba(237,243,247,.56);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 26px minmax(0,1fr);
+  gap: 8px;
+  align-items: start;
+  padding: 9px 7px;
+  border-radius: 8px;
+}
+
+.item:hover {
+  background: rgba(127,127,127,.04);
+}
+
+.item.completed .item-title strong,
+.item.completed .item-title code {
+  opacity: .72;
+}
+
+.status {
+  padding-top: 1px;
+  text-align: center;
+}
+
+.status span {
+  font-size: .95rem;
+  font-weight: 900;
+}
+
+.pending .status span {
+  opacity: .35;
+}
+
+.item-body {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(210px, max-content);
+  gap: 10px;
+  align-items: start;
+}
+
+.item-title {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.item-title code {
+  min-width: 95px;
+  font-family: monospace;
+  font-size: .66rem;
+  color: var(--horus-muted);
+  opacity: .76;
+}
+
+.item-title strong {
+  font-size: .86rem;
+  line-height: 1.42;
+  color: var(--horus-ink);
+}
+
+.metadata {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 0;
+}
+
+.metadata span {
+  padding: 3px 7px;
+  border: 1px solid rgba(127,127,127,.12);
+  border-radius: 999px;
+  font-size: .62rem;
+  color: var(--horus-muted);
+  opacity: .82;
+}
+
+.evidence {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 8px;
+}
+
+.evidence a {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  padding: 7px 9px;
+  color: #233044;
+  text-decoration: none;
+  border: 1px solid rgba(47, 104, 139, .22);
+  border-radius: 8px;
+  background: rgba(255,255,255,.82);
+  box-shadow: 0 5px 12px rgba(31, 44, 61, .06);
+  font-size: .68rem;
+  font-weight: 650;
+}
+
+.evidence a:hover {
+  border-color: rgba(47, 104, 139, .5);
+  transform: translateY(-1px);
+}
+
+.evidence small {
+  padding: 3px 6px;
+  color: var(--horus-blue);
+  text-transform: uppercase;
+  border-radius: 999px;
+  background: rgba(47, 104, 139, .1);
+  font-size: .52rem;
+  font-weight: 900;
+  opacity: 1;
+}
+
+.evidence-certification {
+  border-color: rgba(17, 128, 104, .32) !important;
+  background: linear-gradient(135deg, rgba(230, 251, 245, .94), rgba(255, 255, 255, .86)) !important;
+}
+
+.evidence-certification small {
+  color: var(--horus-teal);
+  background: rgba(17, 128, 104, .12);
+}
+
+.evidence-resource,
+.subject-resource-resource {
+  border-color: rgba(184, 116, 27, .3) !important;
+  background: linear-gradient(135deg, rgba(255, 247, 229, .94), rgba(255, 255, 255, .86)) !important;
+}
+
+.evidence-resource small,
+.subject-resource-resource small {
+  color: var(--horus-gold);
+  background: rgba(184, 116, 27, .13);
+}
+
+.item.completed .evidence a {
+  opacity: 1;
+}
+
+.notes {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  padding: 9px;
+  border-left: 2px solid currentColor;
+  background: rgba(127,127,127,.025);
+}
+
+.notes small {
+  font-size: .6rem;
+  letter-spacing: 0;
+  opacity: .45;
+}
+
+.notes p {
+  margin: 5px 0 0;
+  font-size: .78rem;
+  line-height: 1.5;
+  color: var(--horus-muted);
+}
+
+@media (max-width: 900px) {
+
+  .horus-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .horus-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .horus-progress-card {
+    min-height: 154px;
+  }
+
+  .horus-mastery-card {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .mastery-heading small {
+    max-width: none;
+  }
+
+  .stage-header {
+    grid-template-columns: 50px 1fr 24px;
+  }
+
+  .stage-progress {
+    grid-column: 2 / -1;
+  }
+
+  .item-body {
+    grid-template-columns: 1fr;
+  }
+
+  .metadata {
+    justify-content: flex-start;
+    margin-top: 4px;
+  }
+
+}
+
+@media (max-width: 650px) {
+
+  .horus-shell {
+    width: calc(100% - 28px);
+    padding: 64px 0 72px;
+  }
+
+  .horus-hero h2 {
+    max-width: 11ch;
+    font-size: clamp(2rem, 12vw, 2.75rem);
+  }
+
+  .horus-lead {
+    font-size: .92rem;
+    line-height: 1.62;
+  }
+
+  .horus-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .horus-metrics {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 10px;
+  }
+
+  .mastery-scale p {
+    grid-template-columns: 24px minmax(82px,1fr) minmax(58px,.8fr) 28px;
+    gap: 8px;
+  }
+
+  .mastery-scale span {
+    font-size: .67rem;
+  }
+
+  .horus-stage {
+    padding: 14px;
+  }
+
+  .stage-header {
+    grid-template-columns: 42px minmax(0,1fr) 22px;
+    gap: 12px;
+  }
+
+  .stage-badge {
+    width: 42px;
+    height: 42px;
+    font-size: .82rem;
+  }
+
+  .stage-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .stage-header > div:nth-child(2) > p:last-child {
+    font-size: .84rem;
+  }
+
+  .stage-progress {
+    grid-column: 1 / -1;
+  }
+
+  .subject-header {
+    grid-template-columns: minmax(0,1fr) 54px 22px;
+    gap: 10px;
+    padding: 15px;
+  }
+
+  .subject-header > strong {
+    text-align: right;
+  }
+
+  .topic summary {
+    grid-template-columns: 1fr;
+    padding: 13px 15px;
+  }
+
+  .topic summary aside {
+    justify-content: flex-start;
+  }
+
+  .topic summary > div:first-child {
+    display: grid;
+    gap: 5px;
+  }
+
+  .topic summary > div:first-child > span {
+    min-width: 0;
+  }
+
+  .items {
+    padding: 6px 12px 14px;
+  }
+
+  .item-title {
+    display: block;
+  }
+
+  .item-title code {
+    display: block;
+    min-width: auto;
+    margin-bottom: 3px;
+  }
+
+}
+</style>

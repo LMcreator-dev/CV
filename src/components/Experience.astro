@@ -1,0 +1,264 @@
+---
+import SectionHeading from "./ui/SectionHeading.astro";
+
+interface ExperienceRow {
+  company: string;
+  position: string;
+  period: string;
+  start: string;
+  end: string;
+  description: string;
+  highlights: string[];
+  subItems?: TimelineSubItem[];
+}
+
+interface EducationRow {
+  institution: string;
+  title: string;
+  period: string;
+  start: string;
+  end: string;
+  location?: string;
+  details: string[];
+}
+
+interface TimelineSubItem {
+  title: string;
+  period: string;
+  start: string;
+  end: string;
+  description: string;
+}
+
+interface TimelineSubSegment extends TimelineSubItem {
+  color: string;
+  glow: string;
+  lane: number;
+  startPct: number;
+  spanPct: number;
+}
+
+interface Props {
+  title: string;
+  experiences: ExperienceRow[];
+  education: EducationRow[];
+}
+
+type TimelineItem = {
+  kind: "experience" | "education";
+  period: string;
+  start: string;
+  end: string;
+  title: string;
+  organization: string;
+  description?: string;
+  location?: string;
+  details: string[];
+  subItems: TimelineSubItem[];
+  subSegments: TimelineSubSegment[];
+};
+
+type TimelineRow =
+  | {
+      type: "year";
+      year: string;
+    }
+  | {
+      type: "entry";
+      item: TimelineItem;
+    };
+
+const { title, experiences, education } = Astro.props;
+
+const toMonthIndex = (value: string) => {
+  const [year, month] = value.split("-").map(Number);
+
+  return year * 12 + month - 1;
+};
+
+const durationInMonths = (start: string, end: string) => Math.max(1, toMonthIndex(end) - toMonthIndex(start) + 1);
+const subSegmentPalette = [
+  { color: "#ff7a18", glow: "rgba(255, 122, 24, 0.32)" },
+  { color: "#11a7a2", glow: "rgba(17, 167, 162, 0.28)" },
+  { color: "#1f6feb", glow: "rgba(31, 111, 235, 0.26)" },
+  { color: "#7c3aed", glow: "rgba(124, 58, 237, 0.24)" },
+] as const;
+
+const buildSubSegments = (start: string, end: string, subItems: TimelineSubItem[]) => {
+  const totalMonths = durationInMonths(start, end);
+  const laneEnds: number[] = [];
+
+  return subItems.map((item, index) => {
+    const startOffset = Math.max(0, toMonthIndex(item.start) - toMonthIndex(start));
+    const span = durationInMonths(item.start, item.end);
+    const endOffset = startOffset + span - 1;
+    let lane = laneEnds.findIndex((laneEnd) => startOffset > laneEnd);
+    const palette = subSegmentPalette[index % subSegmentPalette.length];
+
+    if (lane === -1) {
+      lane = laneEnds.length;
+      laneEnds.push(endOffset);
+    } else {
+      laneEnds[lane] = endOffset;
+    }
+
+    return {
+      ...item,
+      color: palette.color,
+      glow: palette.glow,
+      lane,
+      startPct: (startOffset / totalMonths) * 100,
+      spanPct: (span / totalMonths) * 100,
+    };
+  });
+};
+
+const timelineItems: TimelineItem[] = [
+  ...experiences.map((item) => {
+    const subItems = [...(item.subItems ?? [])].sort((a, b) => toMonthIndex(a.start) - toMonthIndex(b.start));
+
+    return {
+      kind: "experience" as const,
+      period: item.period,
+      start: item.start,
+      end: item.end,
+      title: item.position,
+      organization: item.company,
+      description: item.description,
+      details: item.highlights,
+      subItems,
+      subSegments: buildSubSegments(item.start, item.end, subItems),
+    };
+  }),
+  ...education.map((item) => ({
+    kind: "education" as const,
+    period: item.period,
+    start: item.start,
+    end: item.end,
+    title: item.title,
+    organization: item.institution,
+    location: item.location,
+    details: item.details,
+    subItems: [],
+    subSegments: [],
+  })),
+].sort((a, b) => toMonthIndex(a.start) - toMonthIndex(b.start));
+
+const timelineRows: TimelineRow[] = [];
+let currentYear = "";
+
+for (const item of timelineItems) {
+  const itemYear = item.start.slice(0, 4);
+
+  if (itemYear !== currentYear) {
+    timelineRows.push({
+      type: "year",
+      year: itemYear,
+    });
+
+    currentYear = itemYear;
+  }
+
+  timelineRows.push({
+    type: "entry",
+    item,
+  });
+}
+
+const getEntryStyle = (item: TimelineItem) => `--duration-months: ${durationInMonths(item.start, item.end)};`;
+const getSubSegmentStyle = (segment: TimelineSubSegment) =>
+  `--sub-start: ${segment.startPct}%; --sub-span: ${segment.spanPct}%; --sub-lane: ${segment.lane}; --sub-color: ${segment.color}; --sub-glow: ${segment.glow};`;
+const getWorkstreamStyle = (segment: TimelineSubSegment) =>
+  `--segment-color: ${segment.color}; --segment-glow: ${segment.glow};`;
+---
+
+<section class="section" id="experience">
+  <div class="container">
+    <SectionHeading
+      title={title}
+      intro="Recorrido técnico entre industria, sistemas, automatización y operación."
+      eyebrow="Trayectoria"
+    />
+    <div class="career-legend" aria-label="Leyenda de trayectoria">
+      <span><i class="legend-dot legend-dot-study"></i>Estudios</span>
+      <span><i class="legend-dot legend-dot-work"></i>Experiencia</span>
+    </div>
+    <div class="career-timeline">
+      {timelineRows.map((row) =>
+        row.type === "year" ? (
+          <div class="career-year-row">
+            <span class="career-year">{row.year}</span>
+          </div>
+        ) : (
+          <article class={`career-entry career-entry-${row.item.kind}`} style={getEntryStyle(row.item)}>
+            {row.item.kind === "education" ? (
+              <>
+                <div class="card career-card career-card-education">
+                  <p class="timeline-period">{row.item.period}</p>
+                  <p class="career-type career-type-education">Estudios</p>
+                  <h3>{row.item.title}</h3>
+                  <p class="timeline-company">{row.item.organization}</p>
+                  {row.item.location && <p class="career-location">{row.item.location}</p>}
+                  <ul>
+                    {row.item.details.map((detail) => (
+                      <li>{detail}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="career-rail" aria-hidden="true">
+                  <div class="career-rail-track">
+                    <div class={`career-duration career-duration-${row.item.kind}`}></div>
+                  </div>
+                  <div class="career-marker career-marker-education"></div>
+                </div>
+                <div class="career-empty"></div>
+              </>
+            ) : (
+              <>
+                <div class="career-empty"></div>
+                <div class="career-rail" aria-hidden="true">
+                    <div class="career-rail-track">
+                      <div class={`career-duration career-duration-${row.item.kind}`}></div>
+                    {row.item.subSegments.map((segment) => (
+                      <div
+                        class="career-subduration"
+                        style={getSubSegmentStyle(segment)}
+                        data-label={`${segment.title} · ${segment.period}`}
+                        title={`${segment.title} · ${segment.period}`}
+                      ></div>
+                    ))}
+                  </div>
+                  <div class="career-marker career-marker-experience"></div>
+                </div>
+                <div class="card career-card career-card-experience">
+                  <p class="timeline-period">{row.item.period}</p>
+                  <p class="career-type career-type-experience">Experiencia</p>
+                  <h3>{row.item.title}</h3>
+                  <p class="timeline-company">{row.item.organization}</p>
+                  {row.item.description && <p>{row.item.description}</p>}
+                  {row.item.subItems.length > 0 ? (
+                    <div class="workstream-list" aria-label={`Trabajos dentro de ${row.item.organization}`}>
+                      {row.item.subSegments.map((segment) => (
+                        <article class="workstream-item" style={getWorkstreamStyle(segment)}>
+                          <p>{segment.period}</p>
+                          <h4>{segment.title}</h4>
+                          <span>{segment.description}</span>
+                        </article>
+                      ))}
+                    </div>
+                  ) : (
+                    <ul>
+                      {row.item.details.map((detail) => (
+                        <li>{detail}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </>
+            )}
+          </article>
+        ),
+      )}
+    </div>
+  </div>
+</section>

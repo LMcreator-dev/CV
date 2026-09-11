@@ -8,7 +8,11 @@ interface Cert {
   date: string;
   image: string;
   credentialUrl?: string;
-  group?: "IT y redes" | "Desarrollo" | "Formación reglada" | "Industria y seguridad";
+  group?:
+    | "Sistemas / DevOps / Observabilidad"
+    | "Redes y Ciberseguridad"
+    | "Automatización y Desarrollo"
+    | "Estudios añadidos";
 }
 
 interface Props {
@@ -18,18 +22,18 @@ interface Props {
 
 const { title, certifications } = Astro.props;
 const groupOrder = [
-  "IT y redes",
-  "Desarrollo",
-  "Formación reglada",
-  "Industria y seguridad",
+  "Sistemas / DevOps / Observabilidad",
+  "Redes y Ciberseguridad",
+  "Automatización y Desarrollo",
+  "Estudios añadidos",
 ] as const;
 
 const getGroup = (cert: Cert) => {
   if (cert.group) return cert.group;
-  if (["Cisco"].includes(cert.issuer)) return "IT y redes";
-  if (["Docker", "Microsoft"].includes(cert.issuer)) return "Desarrollo";
-  if (["Andel", "Luis de Lucena"].includes(cert.issuer)) return "Formación reglada";
-  return "Industria y seguridad";
+  if (["Docker", "Andel"].includes(cert.issuer)) return "Sistemas / DevOps / Observabilidad";
+  if (["Cisco"].includes(cert.issuer)) return "Redes y Ciberseguridad";
+  if (["DataCamp", "Microsoft", "Santander Open Academy"].includes(cert.issuer)) return "Automatización y Desarrollo";
+  return "Estudios añadidos";
 };
 
 const groupedCertifications = groupOrder
@@ -44,7 +48,7 @@ const groupedCertifications = groupOrder
   <div class="container">
     <SectionHeading
       title={title}
-      intro="Formación técnica, credenciales verificables y certificados profesionales."
+      intro="Credenciales agrupadas por foco profesional y formación complementaria."
       align="center"
       eyebrow="Aprendizaje"
     />

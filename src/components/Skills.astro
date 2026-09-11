@@ -6,11 +6,11 @@ interface Knowledge {
   name: string;
   level: 1 | 2 | 3 | 4;
   group:
-    | "Automatización y Desarrollo"
+    | "Sistemas, DevOps y Automatización"
     | "HORUS / IA"
     | "Técnica Industrial"
-    | "Observabilidad y Operación"
-    | "Infraestructura y Seguridad"
+    | "Monitoring y Observabilidad"
+    | "Infraestructura, Redes y Seguridad"
     | "Gestión y Comunicación"
     | "Capacidades Profesionales";
   description: string;
@@ -23,13 +23,13 @@ interface Props {
 
 const { title, knowledge } = Astro.props;
 const groupOrder = [
-  "Automatización y Desarrollo",
-  "HORUS / IA",
-  "Técnica Industrial",
-  "Observabilidad y Operación",
-  "Infraestructura y Seguridad",
+  "Sistemas, DevOps y Automatización",
+  "Monitoring y Observabilidad",
+  "Infraestructura, Redes y Seguridad",
   "Gestión y Comunicación",
   "Capacidades Profesionales",
+  "HORUS / IA",
+  "Técnica Industrial",
 ] as const;
 
 const groupedKnowledge = groupOrder
@@ -46,7 +46,7 @@ const groupedKnowledge = groupOrder
   <div class="container">
     <SectionHeading
       title={title}
-      intro="Competencias técnicas organizadas por área de trabajo y nivel de profundidad."
+      intro="Competencias orientadas a operación de sistemas, automatización, monitorización y soporte de infraestructura."
       align="center"
       eyebrow="Conocimientos"
     />

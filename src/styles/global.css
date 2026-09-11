@@ -308,20 +308,33 @@ a {
 
 .hero-highlight {
   border-radius: var(--radius-lg);
-  padding: 1.1rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.055));
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 24px 60px rgba(5, 12, 20, 0.28);
+  padding: 0.72rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.055)),
+    rgba(11, 25, 35, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 28px 70px rgba(5, 12, 20, 0.34);
+  backdrop-filter: blur(16px);
+}
+
+.hero-profile-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(5, 14, 22, 0.16)),
+    rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .hero-profile {
-  width: 148px;
-  aspect-ratio: 1 / 1;
-  margin: 0 0 1rem;
-  border-radius: 50%;
+  width: 100%;
+  aspect-ratio: 4 / 4.65;
+  margin: 0;
+  border-radius: 0;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 14px 34px rgba(8, 15, 24, 0.42);
+  border: 0;
+  box-shadow: none;
 }
 
 .hero-profile-link {
@@ -336,7 +349,7 @@ a {
   height: 100%;
   display: block;
   object-fit: cover;
-  object-position: center;
+  object-position: center top;
 }
 
 .hero-profile-fallback {
@@ -351,23 +364,41 @@ a {
   font-weight: 700;
 }
 
-.hero-highlight strong {
-  display: block;
-  font-family: "Sora", sans-serif;
-  font-size: 1.55rem;
-  line-height: 1.15;
+.hero-profile-caption {
+  position: absolute;
+  left: 0.85rem;
+  right: 0.85rem;
+  bottom: 0.85rem;
+  display: grid;
+  gap: 0.2rem;
+  border-radius: var(--radius-md);
+  padding: 0.78rem 0.85rem;
+  background: rgba(8, 18, 27, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 16px 36px rgba(3, 8, 14, 0.28);
+  backdrop-filter: blur(14px);
 }
 
-.hero-highlight p {
-  margin: 0.35rem 0 0;
-  color: rgba(234, 244, 255, 0.84);
+.hero-profile-caption span {
+  color: #d7b06a;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.hero-profile-caption strong {
+  color: #f8fbff;
+  font-family: "Sora", sans-serif;
+  font-size: clamp(1rem, 1.4vw, 1.16rem);
+  line-height: 1.18;
 }
 
 .hero-profile-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.42rem;
-  margin-top: 0.85rem;
+  margin-top: 0.72rem;
 }
 
 .hero-profile-tags span {
@@ -1419,17 +1450,24 @@ a {
   }
 
   .hero-highlight {
-    padding: 1rem;
+    padding: 0.62rem;
   }
 
   .hero-profile {
-    width: 128px;
-    margin-bottom: 0.8rem;
+    width: 100%;
+    margin: 0;
+    aspect-ratio: 16 / 12;
   }
 
-  .hero-highlight strong {
-    font-size: 1.45rem;
-    line-height: 1.05;
+  .hero-profile-caption {
+    left: 0.65rem;
+    right: 0.65rem;
+    bottom: 0.65rem;
+    padding: 0.68rem 0.72rem;
+  }
+
+  .hero-profile-caption strong {
+    font-size: 0.98rem;
   }
 
   .section-heading {

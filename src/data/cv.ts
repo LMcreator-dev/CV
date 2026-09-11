@@ -6,11 +6,11 @@ export interface Knowledge {
   name: string;
   level: 1 | 2 | 3 | 4;
   group:
-    | "Automatización y Desarrollo"
+    | "Sistemas, DevOps y Automatización"
     | "HORUS / IA"
     | "Técnica Industrial"
-    | "Observabilidad y Operación"
-    | "Infraestructura y Seguridad"
+    | "Monitoring y Observabilidad"
+    | "Infraestructura, Redes y Seguridad"
     | "Gestión y Comunicación"
     | "Capacidades Profesionales";
   description: string;
@@ -51,7 +51,11 @@ export interface Certification {
   date: string;
   image: string;
   credentialUrl?: string;
-  group?: "IT y redes" | "Desarrollo" | "Formación reglada" | "Industria y seguridad";
+  group?:
+    | "Sistemas / DevOps / Observabilidad"
+    | "Redes y Ciberseguridad"
+    | "Automatización y Desarrollo"
+    | "Estudios añadidos";
 }
 
 export interface Project {
@@ -86,12 +90,12 @@ const assetUrl = (path: string) => {
 
 export const profile: Profile = {
   name: "Luis Galindo",
-  role: "Informático | Automatización IT | Electricista | Soldador",
+  role: "Administrador de Sistemas | DevOps | Monitoring & Observability",
   headline:
-    "Especialista en automatización IT, monitorización, operación de plataformas críticas y aprendizaje aplicado en IA.",
+    "Perfil orientado a administración de sistemas, automatización operativa, monitorización, observabilidad y soporte de plataformas críticas.",
   motto: "Obsession beats talent",
   summary:
-    "Me defino como un perfil técnico muy lógico, directo y orientado a la productividad. Aprendo con rapidez, tanto en contextos tranquilos como bajo presión, y disfruto puliendo conocimientos ya adquiridos mientras incorporo otros nuevos. Mi forma de trabajar consiste en conectar distintas áreas técnicas para llegar a soluciones concretas; cuando entiendo un sistema o una necesidad, puedo construir respuestas que no siempre son evidentes ni fáciles de ejecutar.",
+    "Soy un perfil técnico enfocado a sistemas, DevOps, monitorización y observabilidad. He trabajado en entornos enterprise con Zabbix, Grafana, Operation Orchestration, SCCM, automatismos Windows/Linux, conectores API y soporte operativo. Mi forma de trabajar es lógica y directa: entiendo el comportamiento de los sistemas, reduzco tareas manuales, ordeno incidencias y construyo soluciones que mejoran la operación diaria.",
   email: "luisgg099@gmail.com",
   phone: "",
   linkedin: "https://www.linkedin.com/in/luis-galindo-487b7a217/",
@@ -104,31 +108,49 @@ export const knowledge: Knowledge[] = [
   {
     name: "Zabbix",
     level: 2,
-    group: "Observabilidad y Operación",
+    group: "Monitoring y Observabilidad",
     description: "Migraciones 5.x a 7.x, plantillas y estandarización de monitorización.",
   },
   {
     name: "Operation Orchestration",
     level: 4,
-    group: "Observabilidad y Operación",
+    group: "Sistemas, DevOps y Automatización",
     description: "Diseño de automatismos para remediaciones, navegaciones sintéticas y tareas operativas.",
   },
   {
     name: "Grafana",
     level: 2,
-    group: "Observabilidad y Operación",
+    group: "Monitoring y Observabilidad",
     description: "Dashboards operativos con KPIs para equipos de sistemas y soporte.",
   },
   {
     name: "SCCM",
     level: 2,
-    group: "Observabilidad y Operación",
+    group: "Sistemas, DevOps y Automatización",
     description: "Despliegue y operación de herramientas de gestión de endpoints.",
+  },
+  {
+    name: "Windows / Linux",
+    level: 3,
+    group: "Sistemas, DevOps y Automatización",
+    description: "Administración operativa, diagnóstico, reinicios controlados, estados de servicio y remediaciones.",
+  },
+  {
+    name: "Monitorización sintética",
+    level: 3,
+    group: "Monitoring y Observabilidad",
+    description: "Navegaciones sintéticas, validación de servicios y generación de informes de disponibilidad.",
+  },
+  {
+    name: "Alertas y remediación",
+    level: 3,
+    group: "Monitoring y Observabilidad",
+    description: "Automatización de respuestas ante eventos, alertas y tareas repetitivas de operación.",
   },
   {
     name: "Redes e IP",
     level: 2,
-    group: "Infraestructura y Seguridad",
+    group: "Infraestructura, Redes y Seguridad",
     description: "Cableado estructurado, switches, cámaras IP y troubleshooting de campo.",
   },
   {
@@ -158,26 +180,32 @@ export const knowledge: Knowledge[] = [
   {
     name: "Seguridad técnica",
     level: 3,
-    group: "Infraestructura y Seguridad",
+    group: "Infraestructura, Redes y Seguridad",
     description: "Integración de sistemas de detección, alarmas y buenas prácticas base.",
   },
   {
     name: "PowerShell",
     level: 4,
-    group: "Automatización y Desarrollo",
+    group: "Sistemas, DevOps y Automatización",
     description: "Automatización de tareas operativas, scripts y soporte a remediaciones.",
   },
   {
     name: "APIs",
     level: 2,
-    group: "Automatización y Desarrollo",
+    group: "Sistemas, DevOps y Automatización",
     description: "Integraciones, conectores y consumo de servicios para automatización.",
+  },
+  {
+    name: "Docker",
+    level: 2,
+    group: "Sistemas, DevOps y Automatización",
+    description: "Fundamentos de contenedores, imágenes, despliegue local y flujo base de operación.",
   },
   {
     name: "PHP",
     level: 3,
-    group: "Automatización y Desarrollo",
-    description: "Desarrollo web y lógica de backend en proyectos propios y formación.",
+    group: "Sistemas, DevOps y Automatización",
+    description: "Lógica backend y utilidades para integraciones, automatización y proyectos propios.",
   },
   {
     name: "JIRA",
@@ -194,19 +222,19 @@ export const knowledge: Knowledge[] = [
   {
     name: "Python",
     level: 2,
-    group: "Automatización y Desarrollo",
-    description: "Programación base, scripting y trabajo progresivo sobre fundamentos del lenguaje.",
+    group: "Sistemas, DevOps y Automatización",
+    description: "Scripting, automatización, consumo de APIs y trabajo progresivo sobre fundamentos del lenguaje.",
   },
   {
     name: "JavaScript",
     level: 2,
-    group: "Automatización y Desarrollo",
+    group: "Sistemas, DevOps y Automatización",
     description: "Desarrollo frontend y lógica de interacción en proyectos web.",
   },
   {
     name: "Groovy",
     level: 2,
-    group: "Automatización y Desarrollo",
+    group: "Sistemas, DevOps y Automatización",
     description: "Uso en automatizaciones y lógica de Operation Orchestration.",
   },
   {
@@ -311,11 +339,11 @@ export const experiences: Experience[] = [
     start: "2022-06",
     end: "2025-11",
     description:
-      "Consultoría IT en entornos enterprise para AENA, TMB, SEAT y SegurCaixa Adeslas.",
+      "Administración, automatización y operación IT en entornos enterprise para AENA, TMB, SEAT y SegurCaixa Adeslas.",
     highlights: [
-      "AENA: migración y configuración de Zabbix 5.0 a 7.0, optimizaciones y soporte operativo.",
-      "TMB: administración y desarrollo en Operation Orchestration con automatismos Windows/Linux.",
-      "SEAT España: automatismos OO, conectores API para Zabbix, dashboards en Grafana y mantenimiento de SOI.",
+      "AENA: migración, administración y configuración de Zabbix 5.0 a 7.0, optimizaciones y soporte operativo.",
+      "TMB: administración y desarrollo en Operation Orchestration con automatismos Windows/Linux, checks y remediaciones.",
+      "SEAT España: automatismos OO, conectores API para Zabbix, dashboards Grafana, alertas y mantenimiento de SOI.",
       "SegurCaixa Adeslas: maquetación, despliegue SCCM e instalación en clínicas dentales.",
     ],
     subItems: [
@@ -434,15 +462,15 @@ export const education: Education[] = [
     end: "2022-06",
     location: "Alcorcón, Madrid",
     details: [
-      "Administración de sistemas gestores de bases de datos",
       "Administración de sistemas operativos",
-      "Empresa e iniciativa emprendedora",
+      "Servicios de red e internet",
+      "Seguridad y alta disponibilidad",
+      "Administración de sistemas gestores de bases de datos",
       "Formación en Centros de Trabajo",
       "Implantación de aplicaciones web",
       "Inglés técnico para grado superior",
       "Proyecto de administración de sistemas informáticos en red",
-      "Seguridad y alta disponibilidad",
-      "Servicios de red e internet ",
+      "Empresa e iniciativa emprendedora",
     ],
   },
   {
@@ -508,7 +536,7 @@ export const certifications: Certification[] = [
     name: "Introduction to Python",
     issuer: "DataCamp",
     date: "Agosto 2026",
-    group: "Desarrollo",
+    group: "Automatización y Desarrollo",
     image: assetUrl("certifications/cert-fallback.svg"),
     credentialUrl: assetUrl("horus/evidence/certifications/datacamp-introduction-to-python-2026.pdf"),
   },
@@ -516,7 +544,7 @@ export const certifications: Certification[] = [
     name: "Python",
     issuer: "Santander Open Academy",
     date: "Agosto 2026",
-    group: "Desarrollo",
+    group: "Automatización y Desarrollo",
     image: assetUrl("certifications/cert-fallback.svg"),
     credentialUrl: assetUrl("horus/evidence/certifications/santander-open-academy-python-2026.pdf"),
   },
@@ -524,7 +552,7 @@ export const certifications: Certification[] = [
     name: "Networking Basics",
     issuer: "Cisco",
     date: "Mayo 2026",
-    group: "IT y redes",
+    group: "Redes y Ciberseguridad",
     image: "https://images.credly.com/images/5bdd6a39-3e03-4444-9510-ecff80c9ce79/twitter_thumb_201604_image.png",
     credentialUrl: "https://www.credly.com/badges/5111aef1-03bb-4014-9b26-4a71d9809e26/public_url",
   },
@@ -532,7 +560,7 @@ export const certifications: Certification[] = [
     name: "Introduction to Cybersecurity",
     issuer: "Cisco",
     date: "Abril 2026",
-    group: "IT y redes",
+    group: "Redes y Ciberseguridad",
     image: "https://images.credly.com/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/I2CS__1_.png",
     credentialUrl: "https://www.credly.com/badges/c775a0d0-1bcb-4516-a889-a23da7d49a04/public_url",
   },
@@ -540,7 +568,7 @@ export const certifications: Certification[] = [
     name: "Docker Foundations Professional Certificate",
     issuer: "Docker",
     date: "Abril 2026",
-    group: "Desarrollo",
+    group: "Sistemas / DevOps / Observabilidad",
     image: assetUrl("certifications/docker_logo.png"),
     credentialUrl: "https://www.linkedin.com/in/luis-galindo-487b7a217/details/certifications/",
   },
@@ -548,7 +576,7 @@ export const certifications: Certification[] = [
     name: "Python para principiantes",
     issuer: "Microsoft",
     date: "Enero 2024",
-    group: "Desarrollo",
+    group: "Automatización y Desarrollo",
     image: assetUrl("certifications/beginner-python.svg"),
     credentialUrl: "https://learn.microsoft.com/es-es/users/lmggmenendez/achievements/k5yxhhgb",
   },
@@ -556,35 +584,35 @@ export const certifications: Certification[] = [
     name: "Administración de sistemas informáticos en Red",
     issuer: "Andel",
     date: "Enero 2022",
-    group: "Formación reglada",
+    group: "Sistemas / DevOps / Observabilidad",
     image: assetUrl("certifications/asir_cv.png"),
   },
   {
     name: "Técnico en Instalaciones de Telecomunicaciones",
     issuer: "Luis de Lucena",
     date: "Enero 2018",
-    group: "Formación reglada",
+    group: "Estudios añadidos",
     image: assetUrl("certifications/itel_cv.png"),
   },
   {
     name: "Montaje y mantenimiento de instalaciones eléctricas de baja tensión",
     issuer: "Punto Omega",
     date: "Noviembre 2020",
-    group: "Industria y seguridad",
+    group: "Estudios añadidos",
     image: assetUrl("certifications/elect_cv.png"),
   },
   {
     name: "Diseño y mantenimiento de instalaciones fotovoltaicas",
     issuer: "Femxa",
     date: "Agosto 2019",
-    group: "Industria y seguridad",
+    group: "Estudios añadidos",
     image: assetUrl("certifications/fotovol_cv.png"),
   },
   {
     name: "PRL instalaciones eléctricas",
     issuer: "TERRASA",
     date: "Marzo 2019",
-    group: "Industria y seguridad",
+    group: "Estudios añadidos",
     image: assetUrl("certifications/prl_cv.png"),
   },
 ];

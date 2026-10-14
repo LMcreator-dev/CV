@@ -98,7 +98,7 @@ export const profile: Profile = {
     "Soy un perfil técnico enfocado a sistemas, DevOps, monitorización y observabilidad. He trabajado en entornos enterprise con Zabbix, Grafana, Operation Orchestration, SCCM, automatismos Windows/Linux, conectores API y soporte operativo. Mi forma de trabajar es lógica y directa: entiendo el comportamiento de los sistemas, reduzco tareas manuales, ordeno incidencias y construyo soluciones que mejoran la operación diaria.",
   email: "luisgg099@gmail.com",
   phone: "",
-  linkedin: "https://www.linkedin.com/in/luis-galindo-487b7a217/",
+  linkedin: "https://www.linkedin.com/in/luis-g-487b7a217/",
   location: "",
   profileImage: assetUrl("profile/fotocv.jpg")
 
@@ -570,7 +570,7 @@ export const certifications: Certification[] = [
     date: "Abril 2026",
     group: "Sistemas / DevOps / Observabilidad",
     image: assetUrl("certifications/docker_logo.png"),
-    credentialUrl: "https://www.linkedin.com/in/luis-galindo-487b7a217/details/certifications/",
+    credentialUrl: "https://www.linkedin.com/in/luis-g-487b7a217/details/certifications/",
   },
   {
     name: "Python para principiantes",

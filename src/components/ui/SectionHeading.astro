@@ -10,7 +10,7 @@ const { title, intro, align = "left", eyebrow = "Perfil Profesional" } = Astro.p
 ---
 
 <header class:list={["section-heading", align === "center" && "is-center"]}>
-  <p class="section-label">{eyebrow}</p>
+  {eyebrow && <p class="section-label">{eyebrow}</p>}
   <h2>{title}</h2>
   {intro && <p class="section-intro">{intro}</p>}
 </header>

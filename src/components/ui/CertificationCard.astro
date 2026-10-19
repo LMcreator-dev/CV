@@ -9,9 +9,10 @@ interface Props {
   inProgress?: boolean;
   description?: string;
   attendance?: boolean;
+  group?: string;
 }
 
-const { name, issuer, date, image, credentialUrl, devops = false, inProgress = false, description, attendance = false } = Astro.props;
+const { name, issuer, date, image, credentialUrl, devops = false, inProgress = false, description, attendance = false, group } = Astro.props;
 const hasCredentialUrl = Boolean(credentialUrl?.trim());
 const showFullImage = !hasCredentialUrl;
 ---
@@ -39,22 +40,29 @@ const showFullImage = !hasCredentialUrl;
   </div>
   <div class="cert-body">
     <div>
-      {devops && <span class="devops-label">Sistemas / DevOps</span>}
       <span class="cert-issuer">{issuer}</span>
       <h3>{name}</h3>
+      <div class="cert-status-row">
+        {devops && group === "Estudios" && <span class="devops-label">DevOps</span>}
+        {inProgress && <span class="status-in-progress">En curso</span>}
+      </div>
       {date && <p class="cert-date">{date}</p>}
       {attendance && <p class="cert-date">Seminario · Asistencia</p>}
-      {inProgress && <span class="devops-label">En curso</span>}
-      {description && <p class="cert-description">{description}</p>}
+      {description && (
+        <details class="cert-details">
+          <summary>Ver detalles</summary>
+          <p class="cert-description">{description}</p>
+        </details>
+      )}
     </div>
 
     {hasCredentialUrl ? (
-      <a href={credentialUrl} target="_blank" rel="noopener noreferrer" class="button button-link">
-        Ver credencial
+      <a href={credentialUrl} target="_blank" rel="noopener noreferrer" class="cert-document-link">
+        Ver credencial ↗
       </a>
     ) : !inProgress && !attendance && (
-      <a href={image} target="_blank" rel="noopener noreferrer" class="button button-link">
-        Ver documento
+      <a href={image} target="_blank" rel="noopener noreferrer" class="cert-document-link">
+        Ver documento ↗
       </a>
     )}
   </div>

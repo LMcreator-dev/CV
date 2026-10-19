@@ -193,18 +193,23 @@ const getWorkstreamStyle = (segment: TimelineSubSegment) =>
           <article class={`career-entry career-entry-${row.item.kind}`} style={getEntryStyle(row.item)}>
             {row.item.kind === "education" ? (
               <>
-                <div class="card career-card career-card-education">
-                  <p class="timeline-period">{row.item.period}</p>
-                  <p class="career-type career-type-education">Estudios</p>
-                  <h3>{row.item.title}</h3>
-                  <p class="timeline-company">{row.item.organization}</p>
+                <details class="card career-card career-card-education">
+                  <summary class="career-summary">
+                    <p class="timeline-period">{row.item.period}</p>
+                    <p class="career-type career-type-education">Estudios</p>
+                    <h3>{row.item.title}</h3>
+                    <p class="timeline-company">{row.item.organization}</p>
+                    <span class="career-toggle"><span class="career-toggle-closed">Ver detalles</span><span class="career-toggle-open">Ocultar detalles</span></span>
+                  </summary>
+                  <div class="career-details">
                   {row.item.location && <p class="career-location">{row.item.location}</p>}
                   <ul>
                     {row.item.details.map((detail) => (
                       <li>{detail}</li>
                     ))}
                   </ul>
-                </div>
+                  </div>
+                </details>
                 <div class="career-rail" aria-hidden="true">
                   <div class="career-rail-track">
                     <div class={`career-duration career-duration-${row.item.kind}`}></div>
@@ -230,11 +235,15 @@ const getWorkstreamStyle = (segment: TimelineSubSegment) =>
                   </div>
                   <div class="career-marker career-marker-experience"></div>
                 </div>
-                <div class="card career-card career-card-experience">
-                  <p class="timeline-period">{row.item.period}</p>
-                  <p class="career-type career-type-experience">Experiencia</p>
-                  <h3>{row.item.title}</h3>
-                  <p class="timeline-company">{row.item.organization}</p>
+                <details class="card career-card career-card-experience">
+                  <summary class="career-summary">
+                    <p class="timeline-period">{row.item.period}</p>
+                    <p class="career-type career-type-experience">Experiencia</p>
+                    <h3>{row.item.title}</h3>
+                    <p class="timeline-company">{row.item.organization}</p>
+                    <span class="career-toggle"><span class="career-toggle-closed">Ver detalles</span><span class="career-toggle-open">Ocultar detalles</span></span>
+                  </summary>
+                  <div class="career-details">
                   {row.item.description && <p>{row.item.description}</p>}
                   {row.item.subItems.length > 0 ? (
                     <div class="workstream-list" aria-label={`Trabajos dentro de ${row.item.organization}`}>
@@ -253,7 +262,8 @@ const getWorkstreamStyle = (segment: TimelineSubSegment) =>
                       ))}
                     </ul>
                   )}
-                </div>
+                  </div>
+                </details>
               </>
             )}
           </article>

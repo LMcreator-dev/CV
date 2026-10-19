@@ -574,7 +574,7 @@ a {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
   gap: 0.45rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 .card-skill {
@@ -588,7 +588,6 @@ a {
 .card-skill:hover {
   border-color: rgba(17, 167, 162, 0.34);
   box-shadow: 0 16px 28px rgba(16, 33, 53, 0.08);
-  transform: translateY(-1px);
 }
 
 .knowledge-heading {
@@ -598,6 +597,7 @@ a {
   gap: 0.5rem;
   cursor: pointer;
   list-style: none;
+  min-block-size: 3.2rem;
 }
 
 .knowledge-heading::-webkit-details-marker {
@@ -619,6 +619,7 @@ a {
 }
 
 .knowledge-heading:focus-visible,
+.career-summary:focus-visible,
 .cert-details summary:focus-visible {
   outline: 2px solid var(--color-accent-2);
   outline-offset: 4px;
@@ -786,7 +787,7 @@ a {
   grid-template-columns: minmax(0, 1fr) 3.25rem minmax(0, 1fr);
   column-gap: clamp(1.2rem, 3vw, 2.4rem);
   align-items: start;
-  min-height: max(5rem, calc(var(--duration-months, 1) * 0.38rem + 2.9rem));
+  min-height: 5rem;
 }
 
 .career-rail {
@@ -908,6 +909,58 @@ a {
 .career-card {
   position: relative;
   padding: 1.05rem 1.15rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.career-summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.career-summary::-webkit-details-marker {
+  display: none;
+}
+
+.career-summary .timeline-company {
+  margin-bottom: 0.5rem;
+}
+
+.career-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #075e58;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.career-toggle::after {
+  content: "+";
+  font-size: 1.1rem;
+}
+
+.career-toggle-open,
+.career-card[open] .career-toggle-closed {
+  display: none;
+}
+
+.career-card[open] .career-toggle-open {
+  display: inline;
+}
+
+.career-card[open] .career-toggle::after {
+  content: "−";
+}
+
+.career-details {
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(199, 210, 224, 0.65);
+}
+
+.career-details .career-location {
+  margin-top: 0;
 }
 
 .career-card::before {
@@ -1059,14 +1112,14 @@ a {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 285px), 1fr));
   gap: 0.55rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 .cert-card {
   display: grid;
   grid-template-columns: 46px minmax(0, 1fr);
   gap: 0.65rem;
-  align-items: start;
+  align-items: stretch;
   padding: 0.75rem;
   border-radius: var(--radius-md);
   box-shadow: none;
@@ -1075,6 +1128,7 @@ a {
 
 .cert-badge {
   display: grid;
+  align-self: start;
   width: 46px;
   aspect-ratio: 1;
   place-items: center;
@@ -1109,7 +1163,8 @@ a {
 }
 
 .cert-body {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 0.4rem;
   min-width: 0;
 }
@@ -1119,6 +1174,8 @@ a {
   font-size: 0.88rem;
   line-height: 1.28;
   font-family: "Sora", sans-serif;
+  min-block-size: 3.84em;
+  overflow-wrap: anywhere;
 }
 
 .cert-issuer,
@@ -1185,10 +1242,14 @@ a {
 
 .cert-document-link {
   text-underline-offset: 3px;
+  margin-top: auto;
 }
 
 .cert-issuer {
   text-transform: uppercase;
+  display: block;
+  min-block-size: 2.9em;
+  overflow-wrap: anywhere;
 }
 
 .cert-description {
@@ -1230,6 +1291,8 @@ a {
 
 .project-card {
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .project-card > a {
@@ -1245,6 +1308,19 @@ a {
 
 .project-body {
   padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.project-body > .button,
+.project-body > .project-status {
+  margin-top: auto;
+}
+
+.project-body > .tag-list {
+  margin-bottom: 1rem;
 }
 
 .project-body h3 {
@@ -1487,10 +1563,12 @@ a {
 
   .career-entry .career-rail {
     grid-column: 1;
+    grid-row: 1;
   }
 
   .career-entry .career-card {
     grid-column: 2;
+    grid-row: 1;
   }
 
   .career-rail-track {

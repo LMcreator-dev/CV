@@ -1076,6 +1076,53 @@ a {
   gap: 1rem;
 }
 
+.knowledge-group > .group-summary,
+.cert-group > .group-summary {
+  min-block-size: 2.5rem;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.group-summary::-webkit-details-marker {
+  display: none;
+}
+
+.group-summary h3 {
+  flex: 1;
+}
+
+.group-summary::after {
+  content: "+";
+  color: #075e58;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+details[open] > .group-summary::after {
+  content: "−";
+}
+
+details[open] > .group-summary {
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.group-summary:focus-visible {
+  outline: 2px solid var(--color-accent-2);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.group-count {
+  color: var(--color-ink-soft);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+}
+
 .cert-group {
   padding: 0.85rem;
   border: 1px solid rgba(217, 224, 235, 0.8);

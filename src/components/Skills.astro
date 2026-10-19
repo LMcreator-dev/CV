@@ -51,25 +51,26 @@ const groupedKnowledge = groupOrder
   <div class="container">
     <SectionHeading
       title={title}
-      intro="Tecnologías y nivel de dominio. Pulsa en un conocimiento para ver su aplicación."
+      intro="Abre cada área para consultar las tecnologías y su nivel de dominio."
       align="center"
       eyebrow="Conocimientos"
     />
     <div class="knowledge-groups">
       {groupedKnowledge.map((entry) => (
-        <section class:list={["knowledge-group", { "devops-highlight": entry.devops }]}>
-          <header class="knowledge-group-heading">
+        <details class:list={["knowledge-group", { "devops-highlight": entry.devops }]}>
+          <summary class="knowledge-group-heading group-summary">
             <h3>{entry.group}</h3>
+            <span class="group-count">{entry.items.length}</span>
             {entry.devops && (
               <span class="devops-label">DevOps</span>
             )}
-          </header>
+          </summary>
           <div class="skills-grid">
             {entry.items.map((item) => (
               <SkillCard {...item} />
             ))}
           </div>
-        </section>
+        </details>
       ))}
     </div>
   </div>

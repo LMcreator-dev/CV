@@ -323,7 +323,7 @@ export const experiences: Experience[] = [
     position: "Soldador MIG/MAG y OXIGAS",
     period: "Junio 2026 - Actualidad",
     start: "2026-06",
-    end: "2026-08",
+    end: "2026-09",
     description:
       "Contrato de prácticas presencial, dentro de entorno industrial.",
     highlights: [

@@ -51,11 +51,8 @@ export interface Certification {
   date: string;
   image: string;
   credentialUrl?: string;
-  group?:
-    | "Sistemas / DevOps / Observabilidad"
-    | "Redes y Ciberseguridad"
-    | "Automatización y Desarrollo"
-    | "Estudios añadidos";
+  group: "Estudios" | "Sistemas / DevOps / Observabilidad";
+  devops?: boolean;
 }
 
 export interface Project {
@@ -169,7 +166,7 @@ export const knowledge: Knowledge[] = [
     name: "Interpretación de planos",
     level: 2,
     group: "Técnica Industrial",
-    description: "Lectura, entendimiento y elaboración de planos técnicos para fabricación.",
+    description: "Lectura, entendimiento y elaboración de planos técnicos.",
   },
   {
     name: "Instalaciones eléctricas",
@@ -536,7 +533,7 @@ export const certifications: Certification[] = [
     name: "Introduction to Python",
     issuer: "DataCamp",
     date: "Agosto 2026",
-    group: "Automatización y Desarrollo",
+    group: "Sistemas / DevOps / Observabilidad",
     image: assetUrl("certifications/cert-fallback.svg"),
     credentialUrl: assetUrl("horus/evidence/certifications/datacamp-introduction-to-python-2026.pdf"),
   },
@@ -544,7 +541,7 @@ export const certifications: Certification[] = [
     name: "Python",
     issuer: "Santander Open Academy",
     date: "Agosto 2026",
-    group: "Automatización y Desarrollo",
+    group: "Sistemas / DevOps / Observabilidad",
     image: assetUrl("certifications/cert-fallback.svg"),
     credentialUrl: assetUrl("horus/evidence/certifications/santander-open-academy-python-2026.pdf"),
   },
@@ -552,7 +549,7 @@ export const certifications: Certification[] = [
     name: "Networking Basics",
     issuer: "Cisco",
     date: "Mayo 2026",
-    group: "Redes y Ciberseguridad",
+    group: "Sistemas / DevOps / Observabilidad",
     image: "https://images.credly.com/images/5bdd6a39-3e03-4444-9510-ecff80c9ce79/twitter_thumb_201604_image.png",
     credentialUrl: "https://www.credly.com/badges/5111aef1-03bb-4014-9b26-4a71d9809e26/public_url",
   },
@@ -560,7 +557,7 @@ export const certifications: Certification[] = [
     name: "Introduction to Cybersecurity",
     issuer: "Cisco",
     date: "Abril 2026",
-    group: "Redes y Ciberseguridad",
+    group: "Sistemas / DevOps / Observabilidad",
     image: "https://images.credly.com/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/I2CS__1_.png",
     credentialUrl: "https://www.credly.com/badges/c775a0d0-1bcb-4516-a889-a23da7d49a04/public_url",
   },
@@ -576,7 +573,7 @@ export const certifications: Certification[] = [
     name: "Python para principiantes",
     issuer: "Microsoft",
     date: "Enero 2024",
-    group: "Automatización y Desarrollo",
+    group: "Sistemas / DevOps / Observabilidad",
     image: assetUrl("certifications/beginner-python.svg"),
     credentialUrl: "https://learn.microsoft.com/es-es/users/lmggmenendez/achievements/k5yxhhgb",
   },
@@ -584,35 +581,36 @@ export const certifications: Certification[] = [
     name: "Administración de sistemas informáticos en Red",
     issuer: "Andel",
     date: "Enero 2022",
-    group: "Sistemas / DevOps / Observabilidad",
+    group: "Estudios",
+    devops: true,
     image: assetUrl("certifications/asir_cv.png"),
   },
   {
     name: "Técnico en Instalaciones de Telecomunicaciones",
     issuer: "Luis de Lucena",
     date: "Enero 2018",
-    group: "Estudios añadidos",
+    group: "Estudios",
     image: assetUrl("certifications/itel_cv.png"),
   },
   {
     name: "Montaje y mantenimiento de instalaciones eléctricas de baja tensión",
     issuer: "Punto Omega",
     date: "Noviembre 2020",
-    group: "Estudios añadidos",
+    group: "Estudios",
     image: assetUrl("certifications/elect_cv.png"),
   },
   {
     name: "Diseño y mantenimiento de instalaciones fotovoltaicas",
     issuer: "Femxa",
     date: "Agosto 2019",
-    group: "Estudios añadidos",
+    group: "Estudios",
     image: assetUrl("certifications/fotovol_cv.png"),
   },
   {
     name: "PRL instalaciones eléctricas",
     issuer: "TERRASA",
     date: "Marzo 2019",
-    group: "Estudios añadidos",
+    group: "Estudios",
     image: assetUrl("certifications/prl_cv.png"),
   },
 ];

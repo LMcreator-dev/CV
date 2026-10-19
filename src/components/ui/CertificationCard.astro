@@ -5,14 +5,15 @@ interface Props {
   date: string;
   image: string;
   credentialUrl?: string;
+  devops?: boolean;
 }
 
-const { name, issuer, date, image, credentialUrl } = Astro.props;
+const { name, issuer, date, image, credentialUrl, devops = false } = Astro.props;
 const hasCredentialUrl = Boolean(credentialUrl?.trim());
 const showFullImage = !hasCredentialUrl;
 ---
 
-<article class:list={["card cert-card", { "cert-card--full-image": showFullImage }]}>
+<article class:list={["card cert-card", { "cert-card--full-image": showFullImage, "devops-highlight": devops }]}>
   <div class="cert-badge">
     <a
       class="cert-image-link"
@@ -35,6 +36,7 @@ const showFullImage = !hasCredentialUrl;
   </div>
   <div class="cert-body">
     <div>
+      {devops && <span class="devops-label">Sistemas / DevOps</span>}
       <span class="cert-issuer">{issuer}</span>
       <h3>{name}</h3>
       <p class="cert-date">{date}</p>

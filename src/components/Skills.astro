@@ -35,6 +35,11 @@ const groupOrder = [
 const groupedKnowledge = groupOrder
   .map((group) => ({
     group,
+    devops: [
+      "Sistemas, DevOps y Automatización",
+      "Monitoring y Observabilidad",
+      "Infraestructura, Redes y Seguridad",
+    ].includes(group),
     items: knowledge
       .filter((item) => item.group === group)
       .sort((a, b) => a.name.localeCompare(b.name, "es")),
@@ -52,9 +57,12 @@ const groupedKnowledge = groupOrder
     />
     <div class="knowledge-groups">
       {groupedKnowledge.map((entry) => (
-        <section class="knowledge-group">
+        <section class:list={["knowledge-group", { "devops-highlight": entry.devops }]}>
           <header class="knowledge-group-heading">
             <h3>{entry.group}</h3>
+            {entry.devops && (
+              <span class="devops-label">DevOps</span>
+            )}
           </header>
           <div class="skills-grid">
             {entry.items.map((item) => (

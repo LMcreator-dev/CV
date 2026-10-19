@@ -1031,6 +1031,32 @@ a {
   text-transform: uppercase;
 }
 
+.devops-highlight {
+  border: 1px solid rgba(7, 135, 127, 0.5);
+  border-left: 4px solid var(--color-accent-2);
+  background: linear-gradient(135deg, #edf9f7, #ffffff);
+}
+
+.devops-label {
+  display: block;
+  width: fit-content;
+  margin-bottom: 0.4rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid rgba(7, 135, 127, 0.3);
+  border-radius: 999px;
+  background: #d8f1ed;
+  color: #075e58;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.knowledge-group-heading .devops-label {
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+
 .projects-grid {
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
 }

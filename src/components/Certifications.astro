@@ -1,45 +1,23 @@
 ---
 import SectionHeading from "./ui/SectionHeading.astro";
 import CertificationCard from "./ui/CertificationCard.astro";
-
-interface Cert {
-  name: string;
-  issuer: string;
-  date: string;
-  image: string;
-  credentialUrl?: string;
-  group?:
-    | "Sistemas / DevOps / Observabilidad"
-    | "Redes y Ciberseguridad"
-    | "Automatización y Desarrollo"
-    | "Estudios añadidos";
-}
+import type { Certification } from "../data/cv";
 
 interface Props {
   title: string;
-  certifications: Cert[];
+  certifications: Certification[];
 }
 
 const { title, certifications } = Astro.props;
 const groupOrder = [
+  "Estudios",
   "Sistemas / DevOps / Observabilidad",
-  "Redes y Ciberseguridad",
-  "Automatización y Desarrollo",
-  "Estudios añadidos",
 ] as const;
-
-const getGroup = (cert: Cert) => {
-  if (cert.group) return cert.group;
-  if (["Docker", "Andel"].includes(cert.issuer)) return "Sistemas / DevOps / Observabilidad";
-  if (["Cisco"].includes(cert.issuer)) return "Redes y Ciberseguridad";
-  if (["DataCamp", "Microsoft", "Santander Open Academy"].includes(cert.issuer)) return "Automatización y Desarrollo";
-  return "Estudios añadidos";
-};
 
 const groupedCertifications = groupOrder
   .map((group) => ({
     group,
-    items: certifications.filter((cert) => getGroup(cert) === group),
+    items: certifications.filter((cert) => cert.group === group),
   }))
   .filter((entry) => entry.items.length > 0);
 ---
@@ -48,13 +26,13 @@ const groupedCertifications = groupOrder
   <div class="container">
     <SectionHeading
       title={title}
-      intro="Credenciales agrupadas por foco profesional y formación complementaria."
+      intro="Estudios primero y certificaciones de sistemas, DevOps, redes, ciberseguridad y Python en un mismo bloque."
       align="center"
       eyebrow="Aprendizaje"
     />
     <div class="cert-groups">
       {groupedCertifications.map((entry) => (
-        <section class="cert-group">
+        <section class:list={["cert-group", { "devops-highlight": entry.group !== "Estudios" }]}>
           <header class="cert-group-heading">
             <h3>{entry.group}</h3>
             <span>{entry.items.length} credenciales</span>
@@ -62,7 +40,7 @@ const groupedCertifications = groupOrder
 
           <div class="cert-grid">
             {entry.items.map((cert) => (
-              <CertificationCard {...cert} />
+              <CertificationCard {...cert} devops={cert.devops || entry.group !== "Estudios"} />
             ))}
           </div>
         </section>

@@ -331,7 +331,7 @@ export const experiences: Experience[] = [
   {
     company: "DIVISEGUR",
     position: "Soldador MIG/MAG y OXIGAS",
-    period: "Junio 2026 - Actualidad",
+    period: "Junio 2026 - Septiembre 2026",
     start: "2026-06",
     end: "2026-09",
     description:
@@ -474,6 +474,7 @@ export const education: Education[] = [
       "Formación en curso en DevOps y Cloud.",
       "Tecnologías del programa: Docker, GitHub, Jenkins, Terraform, Kubernetes y Vagrant.",
       "Ansible, Puppet, Prometheus.io, Chef.io, Jupyter y SonarQube.",
+      "Preparación en curso vinculada al programa: AZ-900, AWS Cloud Practitioner, AI-900 y DP-900. Obtención pendiente de realizar y aprobar los exámenes.",
     ],
   },
   {
@@ -571,6 +572,38 @@ export const certifications: Certification[] = [
     inProgress: true,
     description:
       "Tecnologías del programa: Docker, GitHub, Jenkins, Terraform, Kubernetes, Vagrant, Ansible, Puppet, Prometheus.io, Chef.io, Jupyter y SonarQube.",
+    image: assetUrl("certifications/cert-fallback.svg"),
+  },
+  {
+    name: "AZ-900",
+    issuer: "Microsoft",
+    group: "Sistemas / DevOps / Observabilidad",
+    inProgress: true,
+    description: "Preparación en curso vinculada al programa de UNIR. Obtención pendiente de realizar y aprobar el examen.",
+    image: assetUrl("certifications/cert-fallback.svg"),
+  },
+  {
+    name: "AWS Cloud Practitioner",
+    issuer: "AWS",
+    group: "Sistemas / DevOps / Observabilidad",
+    inProgress: true,
+    description: "Preparación en curso vinculada al programa de UNIR. Obtención pendiente de realizar y aprobar el examen.",
+    image: assetUrl("certifications/cert-fallback.svg"),
+  },
+  {
+    name: "AI-900",
+    issuer: "Microsoft",
+    group: "Sistemas / DevOps / Observabilidad",
+    inProgress: true,
+    description: "Preparación en curso vinculada al programa de UNIR. Obtención pendiente de realizar y aprobar el examen.",
+    image: assetUrl("certifications/cert-fallback.svg"),
+  },
+  {
+    name: "DP-900",
+    issuer: "Microsoft",
+    group: "Sistemas / DevOps / Observabilidad",
+    inProgress: true,
+    description: "Preparación en curso vinculada al programa de UNIR. Obtención pendiente de realizar y aprobar el examen.",
     image: assetUrl("certifications/cert-fallback.svg"),
   },
   {

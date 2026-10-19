@@ -28,6 +28,7 @@ html {
 
 body {
   margin: 0;
+  padding-top: var(--nav-height);
   color: var(--color-ink);
   font-family: "Source Sans 3", sans-serif;
   line-height: 1.6;
@@ -53,7 +54,7 @@ a {
   display: flex;
   height: calc(100svh - var(--nav-height) - var(--footer-height));
   height: calc(100dvh - var(--nav-height) - var(--footer-height));
-  margin-top: var(--nav-height);
+  margin-top: 0;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;
@@ -1655,7 +1656,7 @@ details[open] > .group-summary {
   .portfolio-track {
     display: block;
     height: auto;
-    margin-top: var(--nav-height);
+    margin-top: 0;
     overflow: visible;
     scroll-snap-type: none;
   }

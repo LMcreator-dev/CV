@@ -1,4 +1,6 @@
 ---
+import type { Profile } from "../data/cv";
+
 interface Props {
   title: string;
   role: string;
@@ -8,6 +10,7 @@ interface Props {
   ctaSecondary?: string;
   location: string;
   profileImage?: string;
+  languages: Profile["languages"];
 }
 
 const {
@@ -19,6 +22,7 @@ const {
   ctaSecondary = "Ir a contacto",
   location,
   profileImage,
+  languages,
 } = Astro.props;
 
 const profileInitials = title
@@ -36,6 +40,21 @@ const profileInitials = title
       <h1>{title}</h1>
       <p class="hero-role">{role}</p>
       <p class="hero-subtitle">{subtitle}</p>
+      <div class="hero-languages" role="group" aria-label="Idiomas">
+        <p class="hero-languages-title">Idiomas</p>
+        <ul class="hero-language-list">
+          {languages.map((language) => (
+            <li class="hero-language">
+              <span class="hero-language-code" aria-hidden="true">{language.code}</span>
+              <div>
+                <strong>{language.name}</strong>
+                <span class="hero-language-level">{language.level}</span>
+                {language.note && <small>{language.note}</small>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
       <div class="hero-actions">
         <a class="button button-primary" href="#experience">{ctaPrimary}</a>
         <a class="button button-secondary" href="#contact">{ctaSecondary}</a>

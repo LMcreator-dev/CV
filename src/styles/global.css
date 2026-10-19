@@ -306,6 +306,73 @@ a {
   gap: 0.7rem;
 }
 
+.hero-languages {
+  margin: 0 0 1.6rem;
+}
+
+.hero-languages-title {
+  margin: 0 0 0.6rem;
+  color: #d7b06a;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hero-language-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-language {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(139, 212, 201, 0.28);
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, rgba(17, 167, 162, 0.12), rgba(255, 255, 255, 0.04));
+}
+
+.hero-language-code {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: rgba(139, 212, 201, 0.12);
+  color: #b5ebe0;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.hero-language strong,
+.hero-language-level,
+.hero-language small {
+  display: block;
+}
+
+.hero-language strong {
+  font-size: 0.92rem;
+}
+
+.hero-language-level {
+  color: #d3e4e9;
+  font-size: 0.8rem;
+}
+
+.hero-language small {
+  margin-top: 0.15rem;
+  color: #e7c983;
+  font-size: 0.72rem;
+}
+
 .hero-highlight {
   border-radius: var(--radius-lg);
   padding: 0.72rem;
@@ -1029,6 +1096,13 @@ a {
 
 .cert-issuer {
   text-transform: uppercase;
+}
+
+.cert-description {
+  margin: 0.65rem 0 0;
+  color: var(--color-ink-soft);
+  font-size: 0.85rem;
+  line-height: 1.5;
 }
 
 .devops-highlight {

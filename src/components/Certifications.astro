@@ -12,6 +12,7 @@ const { title, certifications } = Astro.props;
 const groupOrder = [
   "Estudios",
   "Sistemas / DevOps / Observabilidad",
+  "Seminarios",
 ] as const;
 
 const groupedCertifications = groupOrder
@@ -32,15 +33,15 @@ const groupedCertifications = groupOrder
     />
     <div class="cert-groups">
       {groupedCertifications.map((entry) => (
-        <section class:list={["cert-group", { "devops-highlight": entry.group !== "Estudios" }]}>
+        <section class:list={["cert-group", { "devops-highlight": entry.group === "Sistemas / DevOps / Observabilidad" }]}>
           <header class="cert-group-heading">
             <h3>{entry.group}</h3>
-            <span>{entry.items.length} credenciales</span>
+            <span>{entry.items.length} {entry.group === "Estudios" ? "estudios" : entry.group === "Seminarios" ? "asistencias" : "credenciales"}</span>
           </header>
 
           <div class="cert-grid">
             {entry.items.map((cert) => (
-              <CertificationCard {...cert} devops={cert.devops || entry.group !== "Estudios"} />
+              <CertificationCard {...cert} devops={cert.devops || entry.group === "Sistemas / DevOps / Observabilidad"} />
             ))}
           </div>
         </section>

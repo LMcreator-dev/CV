@@ -48,11 +48,14 @@ export interface TimelineSubItem {
 export interface Certification {
   name: string;
   issuer: string;
-  date: string;
+  date?: string;
   image: string;
   credentialUrl?: string;
-  group: "Estudios" | "Sistemas / DevOps / Observabilidad";
+  group: "Estudios" | "Sistemas / DevOps / Observabilidad" | "Seminarios";
+  attendance?: boolean;
   devops?: boolean;
+  inProgress?: boolean;
+  description?: string;
 }
 
 export interface Project {
@@ -75,6 +78,12 @@ export interface Profile {
   linkedin: string;
   location: string;
   profileImage?: string;
+  languages: {
+    name: string;
+    code: string;
+    level: string;
+    note?: string;
+  }[];
 }
 
 const assetUrl = (path: string) => {
@@ -97,7 +106,11 @@ export const profile: Profile = {
   phone: "",
   linkedin: "https://www.linkedin.com/in/luis-g-487b7a217/",
   location: "",
-  profileImage: assetUrl("profile/fotocv.jpg")
+  profileImage: assetUrl("profile/fotocv.jpg"),
+  languages: [
+    { name: "Español", code: "ES", level: "Hablado y escrito" },
+    { name: "Inglés", code: "EN", level: "B1 aproximado", note: "Sin certificar" },
+  ],
 
 };
 
@@ -214,7 +227,7 @@ export const knowledge: Knowledge[] = [
     name: "Inglés",
     level: 2,
     group: "Gestión y Comunicación",
-    description: "Hablado y escrito.",
+    description: "Hablado y escrito. Nivel B1 aproximado, sin certificar.",
   },
   {
     name: "Python",
@@ -452,6 +465,18 @@ export const experiences: Experience[] = [
 
 export const education: Education[] = [
   {
+    institution: "UNIR - Universidad Internacional de La Rioja",
+    title: "Programa Avanzado en DevOps & Cloud",
+    period: "Septiembre 2026 - Mayo 2027 (previsto) · En curso",
+    start: "2026-09",
+    end: "2027-05",
+    details: [
+      "Formación en curso en DevOps y Cloud.",
+      "Tecnologías del programa: Docker, GitHub, Jenkins, Terraform, Kubernetes y Vagrant.",
+      "Ansible, Puppet, Prometheus.io, Chef.io, Jupyter y SonarQube.",
+    ],
+  },
+  {
     institution: "ANDEL",
     title: "Grado Superior en Informática - ASIR",
     period: "Septiembre 2020 - Junio 2022",
@@ -529,6 +554,25 @@ export const education: Education[] = [
 ];
 
 export const certifications: Certification[] = [
+  {
+    name: "Algoritmos, polarización y manipulación del espacio público",
+    issuer: "UNIR - Universidad Internacional de La Rioja",
+    group: "Seminarios",
+    attendance: true,
+    description: "Asistencia al seminario asociado a UNIR - Universidad Internacional de La Rioja.",
+    image: assetUrl("certifications/cert-fallback.svg"),
+  },
+  {
+    name: "Programa Avanzado en DevOps & Cloud",
+    issuer: "UNIR - Universidad Internacional de La Rioja",
+    date: "Septiembre 2026 - Mayo 2027 (previsto)",
+    group: "Estudios",
+    devops: true,
+    inProgress: true,
+    description:
+      "Tecnologías del programa: Docker, GitHub, Jenkins, Terraform, Kubernetes, Vagrant, Ansible, Puppet, Prometheus.io, Chef.io, Jupyter y SonarQube.",
+    image: assetUrl("certifications/cert-fallback.svg"),
+  },
   {
     name: "Introduction to Python",
     issuer: "DataCamp",
